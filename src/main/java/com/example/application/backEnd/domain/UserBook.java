@@ -20,7 +20,6 @@ public class UserBook {
     @Column(name = "id")
     Long id;
 
-
     @Column(name = "id_user")
     Integer idUser;
 
