@@ -5,7 +5,7 @@
     <!-- Project from https://start.vaadin.com/project/4a0c7a1d-c0fa-4bee-aee3-6aa22fe9d0f2 -->
     <groupId>com.example.application</groupId>
     <artifactId>digitalbook</artifactId>
-    <name>DigitalBook</name>
+    <name>DigitalBookBackEnd</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
