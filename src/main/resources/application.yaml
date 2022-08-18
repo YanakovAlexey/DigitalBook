@@ -1,0 +1,18 @@
+server:
+  port: 7004
+  servlet:
+    encoding:
+      charset: UTF-8
+      force-response: true
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    password: 123456
+    url: jdbc:postgresql://localhost:5432/DigitalBooks
+    username: postgres
+
+module-name: DigitalBooks
+api-version: 1.0
