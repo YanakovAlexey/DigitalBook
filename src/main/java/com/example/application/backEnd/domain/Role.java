@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
-@Table(name = "discipline")
+@Table(name = "role")
 @Entity
 @Setter
 @Getter
