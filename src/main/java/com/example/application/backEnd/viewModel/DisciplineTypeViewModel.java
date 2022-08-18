@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DisciplineTypeViewType {
+public class DisciplineTypeViewModel {
 
     Long id;
     String title;
