@@ -28,4 +28,22 @@ public class BookBuilderImpl implements BookBuilder {
                 .dataInfo(book.getDataInfo())
                 .build();
     }
+
+    @Override
+    public void update(Book book, BookViewModel request){
+        book.setTitle(request.getTitle());
+        book.setDescription(request.getDescription());
+        book.setAuthor(request.getAuthor());
+        book.setLink(request.getLink());
+        book.setPricePay(request.getPricePay());
+        book.setNumClass(request.getNumClass());
+        book.setIdUsers(request.getIdUsers());
+        book.setIdDiscipline(request.getIdDiscipline());
+        book.setExtension(request.getExtension());
+        book.setBookImg(request.getBookImg());
+        book.setPriceSubscription(request.getPriceSubscription());
+        book.setType(request.getType());
+        book.setPages(request.getPages());
+        book.setDataInfo(request.getDataInfo());
+    }
 }

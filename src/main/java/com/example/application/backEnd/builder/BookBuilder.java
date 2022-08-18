@@ -5,4 +5,5 @@ import com.example.application.backEnd.viewModel.BookViewModel;
 
 public interface BookBuilder {
     BookViewModel createBook(Book book);
+    void update(Book book, BookViewModel request);
 }
