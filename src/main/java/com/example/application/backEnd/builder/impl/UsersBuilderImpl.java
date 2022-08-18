@@ -2,12 +2,12 @@ package com.example.application.backEnd.builder.impl;
 
 import com.example.application.backEnd.builder.UsersBuilder;
 import com.example.application.backEnd.domain.Users;
-import com.example.application.backEnd.viewModel.UsersViewModel;
+import com.example.application.backEnd.viewModel.UserViewModel;
 
 public class UsersBuilderImpl implements UsersBuilder {
     @Override
-    public UsersViewModel createUsers(Users users) {
-        return UsersViewModel.builder()
+    public UserViewModel createUsers(Users users) {
+        return UserViewModel.builder()
                 .id(users.getId())
                 .name(users.getName())
                 .surname(users.getSurname())
@@ -28,7 +28,9 @@ public class UsersBuilderImpl implements UsersBuilder {
                 .ogrn(users.getOgrn())
                 .build();
     }
-    public void updateUsers(Users users, UsersViewModel request){
+
+
+    public void updateUsers(Users users, UserViewModel request){
         users.setName(request.getName());
         users.setSurname(request.getSurname());
         users.setPatronymic(request.getPatronymic());

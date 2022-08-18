@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersViewModel {
+public class UserViewModel {
     
     Long id;
     String name;
