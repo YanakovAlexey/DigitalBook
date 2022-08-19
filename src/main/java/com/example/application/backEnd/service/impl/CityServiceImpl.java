@@ -61,8 +61,6 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public void deleteById(Long id) {
-
-
         
         Optional<City> cityOpt = cityRepository.findById(id);
         if (cityOpt.isEmpty()) {
