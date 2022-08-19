@@ -20,7 +20,7 @@ public class Basket {
     Long id;
 
     @Column(name = "id_user")
-    Long id_user;
+    Integer id_user;
 
     @Column(name = "id_book")
     Long id_book;
