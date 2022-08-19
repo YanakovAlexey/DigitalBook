@@ -14,6 +14,7 @@ import java.util.Date;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Access {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
