@@ -6,7 +6,7 @@ import com.example.application.backEnd.viewModel.CityViewModel;
 
 public class CityBuilderImpl implements CityBuilder {
     @Override
-    public CityViewModel createBook(City city) {
+    public CityViewModel createCity(City city) {
         return CityViewModel.builder()
                 .id(city.getId())
                 .title(city.getTitle())
@@ -14,7 +14,17 @@ public class CityBuilderImpl implements CityBuilder {
     }
 
     @Override
-    public void updateBook(City city, CityViewModel request) {
+    public void updateCity(City city, CityViewModel request) {
         city.setTitle(request.getTitle());
     }
+
+    @Override
+    public City build(City request) {
+        City city = new City();
+        city.setTitle(request.getTitle());
+        return city;
+    }
+
+
 }
+
