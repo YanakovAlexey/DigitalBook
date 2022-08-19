@@ -8,5 +8,5 @@ public interface CityBuilder {
 
     void updateCity(City city, CityViewModel request);
 
-    City build (City request );
+    CityViewModel build (City request );
 }

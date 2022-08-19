@@ -19,7 +19,7 @@ public class CityBuilderImpl implements CityBuilder {
     }
 
     @Override
-    public City build(City request) {
+    public CityViewModel build(City request) {
         City city = new City();
         city.setTitle(request.getTitle());
         return city;

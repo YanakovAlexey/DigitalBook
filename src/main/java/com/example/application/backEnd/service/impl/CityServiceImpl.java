@@ -31,11 +31,11 @@ public class CityServiceImpl implements CityService {
     public List<CityViewModel> getAll() {
 
         List<City> cityList = cityRepository.findAll();
-        List<CityViewModel> cityDtoList = new ArrayList<>();
+        List<CityViewModel> cityViewModels = new ArrayList<>();
         for (City item : cityList) {
-            cityDtoList.add(cityBuilder.build(item));
+            cityViewModels.add(cityBuilder.build(item));
         }
-        return cityDtoList;
+        return cityViewModels;
     }
 
     @Override
