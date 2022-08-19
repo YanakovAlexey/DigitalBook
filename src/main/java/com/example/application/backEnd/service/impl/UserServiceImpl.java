@@ -1,6 +1,7 @@
 package com.example.application.backEnd.service.impl;
 
 import com.example.application.backEnd.builder.UsersBuilder;
+import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.UsersService;
@@ -45,18 +46,32 @@ public class UserServiceImpl implements UsersService {
         userRepository.deleteById(id);
     }
 
-    public void createUser(Users users) {
-        usersBuilder.createUsers(users);
+    public Users create(Users users) {
+        usersBuilder.create(users);
         userRepository.save(users);
+        return users;
     }
 
-    public void updateUser(Long id, UserViewModel request) {
+    public void update(Long id, Users users, UserViewModel request) {
+        Optional<Users> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (userOpt.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        usersBuilder.update(users, request);
+    }
+
+    public UserViewModel getById(Long id) {
         Optional<Users> usersOpt = userRepository.findById(id);
         if (usersOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        Users updateUsers = usersOpt.get();
-        usersBuilder.updateUsers(updateUsers, request);
-        userRepository.save(updateUsers);
+        if (usersOpt.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return usersBuilder.build(usersOpt.get());
     }
+
 }

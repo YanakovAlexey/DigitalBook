@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class BookServiceImpl implements BookService {
-    final BookRepository bookRepository;
 
+    final BookRepository bookRepository;
     final BookBuilder bookBuilder;
 
     @Autowired
@@ -44,22 +44,22 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookViewModel getById(Long id) {
         Optional<Book> bookOpt = bookRepository.findById(id);
-        if(bookOpt.isEmpty()){
+        if (bookOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        if(bookOpt.isPresent()){
+        if (bookOpt.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return bookBuilder.build(bookOpt.get()) ;
+        return bookBuilder.build(bookOpt.get());
     }
 
     @Override
-    public void update(Long id, Book book,  BookViewModel request) {
+    public void update(Long id, Book book, BookViewModel request) {
         Optional<Book> bookOpt = bookRepository.findById(id);
-        if(bookOpt.isEmpty()){
+        if (bookOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        if(bookOpt.isPresent()){
+        if (bookOpt.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         bookBuilder.update(book, request);
@@ -68,10 +68,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteById(Long id) {
         Optional<Book> bookOpt = bookRepository.findById(id);
-        if(bookOpt.isEmpty()){
+        if (bookOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        if (bookOpt.isPresent()){
+        if (bookOpt.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         bookRepository.delete(bookOpt.get());

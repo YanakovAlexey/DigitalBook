@@ -2,8 +2,8 @@ package com.example.application.backEnd.service.impl;
 
 
 import com.example.application.backEnd.builder.RoleBuilder;
+import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.domain.Role;
-import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.RoleRepository;
 import com.example.application.backEnd.service.RoleService;
 import com.example.application.backEnd.viewModel.RoleViewModel;
@@ -40,6 +40,18 @@ public class RoleServiceImpl implements RoleService {
         return roleViewModels;
     }
 
+    @Override
+    public RoleViewModel getById(Long id) {
+        Optional<Role> roleOpt = roleRepository.findById(id);
+        if (roleOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (roleOpt.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return roleBuilder.build(roleOpt.get());
+    }
+
     public void deleteById(Long id) {
         Optional<Role> roleOpt = roleRepository.findById(id);
         if (roleOpt.isEmpty()) {
@@ -49,18 +61,21 @@ public class RoleServiceImpl implements RoleService {
         roleRepository.deleteById(id);
     }
 
-    public void createRole(Role role) {
+    public Role create(Role role) {
         roleBuilder.createRole(role);
         roleRepository.save(role);
+        return role;
     }
 
-    public void updateRole(Long id, UserViewModel request) {
+    public void update(Long id, Role role, RoleViewModel request) {
         Optional<Role> roleOpt = roleRepository.findById(id);
         if (roleOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        Role updateUsers = roleOpt.get();
-        roleBuilder.updateRole(updateUsers, request);
-        roleRepository.save(updateUsers);
+        if (roleOpt.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        roleBuilder.update(role, request);
     }
+
 }

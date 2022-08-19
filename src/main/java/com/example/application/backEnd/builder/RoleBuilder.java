@@ -11,5 +11,7 @@ public interface RoleBuilder {
 
     RoleViewModel build(Role item);
 
-    void updateRole(Role updateUsers, UserViewModel request);
+    void updateRole(Role updateUsers, RoleViewModel request);
+
+    void update(Role role, RoleViewModel request);
 }

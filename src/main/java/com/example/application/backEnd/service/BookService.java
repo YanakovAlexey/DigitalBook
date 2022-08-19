@@ -9,9 +9,13 @@ import java.util.Optional;
 public interface BookService {
 
     Book create(Book request);
+
     List<BookViewModel> getAll();
+
     BookViewModel getById(Long id);
-    void update(Long id,Book book,   BookViewModel request);
+
+    void update(Long id, Book book, BookViewModel request);
+
     void deleteById(Long id);
 
 }
