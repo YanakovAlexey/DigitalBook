@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "school")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

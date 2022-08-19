@@ -49,4 +49,28 @@ public class UsersBuilderImpl implements UsersBuilder {
         users.setAddress(request.getAddress());
         users.setOgrn(request.getOgrn());
     }
+
+    @Override
+    public UserViewModel build(Users item) {
+        return UserViewModel.builder()
+                .id(item.getId())
+                .name(item.getName())
+                .surname(item.getSurname())
+                .patronymic(item.getPatronymic())
+                .inn(item.getInn())
+                .email(item.getEmail())
+                .phone(item.getPhone())
+                .password(item.getPassword())
+                .cityId(item.getCityId())
+                .schoolId(item.getSchoolId())
+                .classNumber(item.getClassNumber())
+                .letterClass(item.getLetterClass())
+                .rollId(item.getRollId())
+                .strActive(item.getStrActive())
+                .active(item.getActive())
+                .authorizationKey(item.getAuthorizationKey())
+                .address(item.getAddress())
+                .ogrn(item.getOgrn())
+                .build();
+    }
 }

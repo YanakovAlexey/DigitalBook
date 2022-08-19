@@ -50,13 +50,13 @@ public class UserServiceImpl implements UsersService {
         userRepository.save(users);
     }
 
-    public void updateUser(Long id, ) {
+    public void updateUser(Long id, UserViewModel request) {
         Optional<Users> usersOpt = userRepository.findById(id);
         if (usersOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         Users updateUsers = usersOpt.get();
-        usersBuilder.updateUsers(updateUsers);
+        usersBuilder.updateUsers(updateUsers, request);
         userRepository.save(updateUsers);
     }
 }
