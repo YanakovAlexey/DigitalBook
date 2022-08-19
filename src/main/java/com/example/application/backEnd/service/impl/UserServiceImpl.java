@@ -29,11 +29,11 @@ public class UserServiceImpl implements UsersService {
 
     public List<UserViewModel> getAll() {
         List<Users> userList = userRepository.findAll();
-        List<UserViewModel> userDtoList = new ArrayList<>();
+        List<UserViewModel> userViewModels = new ArrayList<>();
         for (Users item : userList) {
-            userDtoList.add(usersBuilder.build(item));
+            userViewModels.add(usersBuilder.build(item));
         }
-        return userDtoList;
+        return userViewModels;
     }
 
     public void deleteById(Long id) {

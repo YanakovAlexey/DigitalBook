@@ -1,4 +1,8 @@
 package com.example.application.backEnd.service;
 
-public interface AccessService {
+import com.example.application.backEnd.domain.Access;
+
+public interface AccessService  {
+    void update(Access access);
+
 }
