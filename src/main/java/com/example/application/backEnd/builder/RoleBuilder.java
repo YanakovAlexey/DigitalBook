@@ -7,11 +7,10 @@ import com.example.application.backEnd.viewModel.UserViewModel;
 
 public interface RoleBuilder {
 
-    RoleViewModel createRole(Role role);
+    RoleViewModel create(Role role);
 
     RoleViewModel build(Role item);
 
-    void updateRole(Role updateUsers, RoleViewModel request);
 
     void update(Role role, RoleViewModel request);
 }

@@ -35,16 +35,16 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public void create(BasketViewModel request) {
-        Optional<Users> userOpt = userRepository.findById(request.getId_user());
-        if (userOpt.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        Optional<Book> bookOpt = bookRepository.findById(request.getId_book());
-        if (bookOpt.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        Basket bookBasket = BasketBuilder.build(productOpt.get(), userOpt.get());
-        BasketRepository.save(groceryBasket);
+//        Optional<Users> userOpt = userRepository.findById(request.getId_user());
+//        if (userOpt.isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+//        Optional<Book> bookOpt = bookRepository.findById(request.getId_book());
+//        if (bookOpt.isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+//        Basket bookBasket = BasketBuilder.build(productOpt.get(), userOpt.get());
+//        BasketRepository.save(groceryBasket);
     }
 
     @Override

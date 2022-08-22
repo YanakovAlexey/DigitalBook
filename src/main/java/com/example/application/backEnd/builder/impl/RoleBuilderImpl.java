@@ -8,14 +8,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoleBuilderImpl implements RoleBuilder {
     @Override
-    public RoleViewModel createRole(Role role) {
+    public RoleViewModel create(Role role) {
         return RoleViewModel.builder()
                 .id(role.getId())
                 .title(role.getTitle())
                 .build();
     }
 
-    public void updateRole(Role role, RoleViewModel request){
+    @Override
+    public RoleViewModel build(Role item) {
+        return null;
+    }
+
+    public void update(Role role, RoleViewModel request){
         role.setTitle(request.getTitle());
     }
 }

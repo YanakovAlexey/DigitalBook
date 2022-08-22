@@ -6,7 +6,7 @@ import com.example.application.backEnd.viewModel.SchoolViewModel;
 
 public class SchoolBuilderImpl implements SchoolBuilder {
     @Override
-    public SchoolViewModel createSchool(School school) {
+    public SchoolViewModel create(School school) {
         return SchoolViewModel.builder()
                 .id(school.getId())
                 .id_city(school.getId_city())
@@ -14,7 +14,12 @@ public class SchoolBuilderImpl implements SchoolBuilder {
                 .build();
     }
 
-    public void updateSchool(School school, SchoolViewModel request){
+    @Override
+    public SchoolViewModel build(School item) {
+        return null;
+    }
+
+    public void update(School school, SchoolViewModel request){
         school.setTitle(request.getTitle());
     }
 }
