@@ -7,5 +7,5 @@ import com.example.application.backEnd.viewModel.BookTypeViewModel;
 public interface BookTypeBuilder {
     BookTypeViewModel create(Book book);
 
-    void update (BookType book, BookTypeViewModel request);
+    void update(BookType book, BookTypeViewModel request);
 }

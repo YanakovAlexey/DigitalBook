@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
         bookBuilder.update(book, request);
     }
 
-    
+
     @Override
     public void deleteById(Long id) {
         Optional<Book> bookOpt = bookRepository.findById(id);
