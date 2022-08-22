@@ -13,7 +13,7 @@ public interface CityService {
 
     CityViewModel getById(Long id);
 
-    void update(Long id, City city, BookViewModel request);
+    void update(Long id, City city, CityViewModel request);
 
     void deleteById(Long id);
 }
