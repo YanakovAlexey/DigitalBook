@@ -45,6 +45,8 @@
 
 .app-nav .nav-item-icon {
   font-size: var(--lumo-icon-size-s);
+  margin: auto;
+  width: 100%;
 }
 
 .app-nav-footer {
