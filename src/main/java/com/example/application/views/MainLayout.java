@@ -4,18 +4,23 @@ package com.example.application.views;
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
-import com.example.application.views.helloworld.DigitalBooksView;
+import com.example.application.views.helloworld.RegistrationView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -35,20 +40,20 @@ public class MainLayout extends AppLayout {
 
 
     private Component createHeaderContent() {
-        TextField name;
+
         viewTitle = new H1();
+
         viewTitle.addClassNames("view-title");
 
 
         Header header = new Header(viewTitle);
         header.addClassNames("view-header");
-        Icon searchIcon = new Icon(VaadinIcon.SEARCH);
-        Icon bookIcon = new Icon(VaadinIcon.OPEN_BOOK);
-        ButtonBasic cartButton = new ButtonBasic(VaadinIcon.CART);
-        Button userButton = new Button(String.valueOf(VaadinIcon.USER));
-        name = new TextField();
-        header.add(name, searchIcon, bookIcon, cartButton, userButton);
-
+        SearchIconDialogBasic searchIcon = new SearchIconDialogBasic(new Icon(SEARCH));
+        BookDialogBasic bookIcon = new BookDialogBasic(new Icon(OPEN_BOOK));
+        CartDialogBasic cartDialogBasic = new CartDialogBasic(new Icon(CART));
+        UserDialogBasic userDialogBasic = new UserDialogBasic(new Icon(USER));
+        SearchDialogBasic searchDialogBasic = new SearchDialogBasic();
+        header.add(searchDialogBasic, searchIcon, bookIcon, cartDialogBasic, userDialogBasic);
 
 
         return header;
@@ -64,27 +69,207 @@ public class MainLayout extends AppLayout {
 //        return section;
 //    }
 
-    public class ButtonBasic extends Div {
-    private int counter = 0;
+    //    public class CartButtonBasic extends Div {
+//
+//        public CartButtonBasic(Icon cart) {
+//            Button button = new Button(cart);
+//
+//            button.addClickListener(clickEvent -> {
+//            });
+//
+//            HorizontalLayout horizontalLayout = new HorizontalLayout(button);
+//            horizontalLayout.setAlignItems(FlexComponent.Alignment.BASELINE);
+//            add(horizontalLayout);
+//        }
+//
+//    }
+    public class SearchIconDialogBasic extends Div {
 
-    public ButtonBasic(VaadinIcon cart) {
-        Button button = new Button(String.valueOf(cart));
-        Paragraph info = new Paragraph(infoText());
-        addClickListener(clickEvent -> {
-            counter += 1;
-            info.setText(infoText());
-        });
+        public SearchIconDialogBasic(Icon icon) {
+            add(icon);
 
-        HorizontalLayout horizontalLayout = new HorizontalLayout(button, info);
-        horizontalLayout.setAlignItems(FlexComponent.Alignment.BASELINE);
-        add(horizontalLayout);
+            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "180px").set("display", "flex")
+                    .set("align-items", "center").set("justify-content", "center");
+
+        }
     }
 
-    private String infoText() {
-        return String.format("Clicked %d times", counter);
+    public class SearchDialogBasic extends Div {
+
+        public SearchDialogBasic() {
+            TextField search = new TextField();
+
+            add(search);
+
+            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "30px").set("display", "flex")
+                    .set("align-items", "center").set("justify-content", "center");
+
+        }
     }
 
-}
+    @Route("dialog-basic")
+    public class UserDialogBasic extends Div {
+
+        public UserDialogBasic(Icon icon) {
+            Dialog dialog = new Dialog();
+
+            dialog.setHeaderTitle("Authorization");
+            VerticalLayout dialogLayout = createDialogLayout();
+            dialog.add(dialogLayout);
+
+            Button saveButton = createSaveButton(dialog);
+            Button cancelButton = new Button("Cancel", e -> dialog.close());
+            dialog.getFooter().add(cancelButton);
+            dialog.getFooter().add(saveButton);
+
+            Button button = new Button(icon, e -> dialog.open());
+
+            add(dialog, button);
+
+
+            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "900px").set("display", "flex")
+                    .set("align-items", "center").set("justify-content", "center");
+        }
+
+        private static VerticalLayout createDialogLayout() {
+
+            TextField firstNameField = new TextField("First name");
+            TextField lastNameField = new TextField("Last name");
+
+            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
+                    lastNameField);
+            dialogLayout.setPadding(false);
+            dialogLayout.setSpacing(false);
+            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
+            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
+
+            return dialogLayout;
+        }
+
+        private static Button createSaveButton(Dialog dialog) {
+            Button saveButton = new Button("Add", e -> dialog.close());
+            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+            return saveButton;
+        }
+    }
+
+    @Route("dialog-basic")
+    public class CartDialogBasic extends Div {
+
+        public CartDialogBasic(Icon icon) {
+            Dialog dialog = new Dialog();
+
+            dialog.setHeaderTitle("Authorization");
+            VerticalLayout dialogLayout = createDialogLayout();
+            dialog.add(dialogLayout);
+
+            Button saveButton = createSaveButton(dialog);
+            Button cancelButton = new Button("Cancel", e -> dialog.close());
+            dialog.getFooter().add(cancelButton);
+            dialog.getFooter().add(saveButton);
+
+            Button button = new Button(icon, e -> dialog.open());
+
+            add(dialog, button);
+
+
+            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "750px").set("display", "flex")
+                    .set("align-items", "center").set("justify-content", "center");
+        }
+
+        private static VerticalLayout createDialogLayout() {
+
+            TextField firstNameField = new TextField("First name");
+            TextField lastNameField = new TextField("Last name");
+
+            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
+                    lastNameField);
+            dialogLayout.setPadding(false);
+            dialogLayout.setSpacing(false);
+            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
+            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
+
+            return dialogLayout;
+        }
+
+        private static Button createSaveButton(Dialog dialog) {
+            Button saveButton = new Button("Add", e -> dialog.close());
+            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+            return saveButton;
+        }
+    }
+
+    @Route("dialog-basic")
+    public class BookDialogBasic extends Div {
+
+        public BookDialogBasic(Icon icon) {
+            Dialog dialog = new Dialog();
+
+            dialog.setHeaderTitle("Authorization");
+            VerticalLayout dialogLayout = createDialogLayout();
+            dialog.add(dialogLayout);
+
+            Button saveButton = createSaveButton(dialog);
+            Button cancelButton = new Button("Cancel", e -> dialog.close());
+            dialog.getFooter().add(cancelButton);
+            dialog.getFooter().add(saveButton);
+
+            Button button = new Button(icon, e -> dialog.open());
+
+            add(dialog, button);
+
+
+            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "650px").set("display", "flex")
+                    .set("align-items", "center").set("justify-content", "center");
+        }
+
+        private static VerticalLayout createDialogLayout() {
+
+            TextField firstNameField = new TextField("First name");
+            TextField lastNameField = new TextField("Last name");
+
+            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
+                    lastNameField);
+            dialogLayout.setPadding(false);
+            dialogLayout.setSpacing(false);
+            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
+            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
+
+            return dialogLayout;
+        }
+
+        private static Button createSaveButton(Dialog dialog) {
+            Button saveButton = new Button("Add", e -> dialog.close());
+            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+            return saveButton;
+        }
+    }
+
+
+    @Route("login-basic")
+    public class LoginBasic extends Div {
+
+        public LoginBasic() {
+            getStyle()
+                    .set("background-color", "var(--lumo-contrast-5pct)")
+                    .set("display", "flex")
+                    .set("justify-content", "center")
+                    .set("padding", "var(--lumo-space-l)");
+
+            LoginForm loginForm = new LoginForm();
+            add(loginForm);
+            // Prevent the example from stealing focus when browsing the documentation
+            loginForm.getElement().setAttribute("no-autofocus", "");
+        }
+    }
 
     private AppNav createNavigation() {
         // AppNav is not yet an official component.
@@ -92,7 +277,7 @@ public class MainLayout extends AppLayout {
         AppNav nav = new AppNav();
         nav.addClassNames("app-nav");
 
-        nav.addItem(new AppNavItem("Hello World", DigitalBooksView.class, "la la-globe"));
+        nav.addItem(new AppNavItem("Hello World", RegistrationView.class, "la la-globe"));
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
 
         return nav;
@@ -104,6 +289,7 @@ public class MainLayout extends AppLayout {
 
         return layout;
     }
+
 
     @Override
     protected void afterNavigation() {
