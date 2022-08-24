@@ -11,7 +11,7 @@ public class BasketBuilderImpl implements BasketBuilder {
         return BasketViewModel.builder()
                 .id(basket.getId())
                 .id_user(basket.getId_user())
-                .id_book(Math.toIntExact(basket.getId_book()))
+                .id_book(basket.getId_book())
                 .priceType(basket.getPriceType())
                 .price(basket.getPrice())
                 .period(basket.getPeriod())
@@ -23,7 +23,7 @@ public class BasketBuilderImpl implements BasketBuilder {
     public BasketViewModel build(Basket request) {
         BasketViewModel basket = new BasketViewModel();
         basket.setId_user(request.getId_user());
-        basket.setId_book(Math.toIntExact(request.getId_book()));
+        basket.setId_book(request.getId_book());
         basket.setPriceType(request.getPriceType());
         basket.setPrice(request.getPrice());
         basket.setPeriod(request.getPeriod());
@@ -33,7 +33,7 @@ public class BasketBuilderImpl implements BasketBuilder {
     @Override
     public void update(Basket basket, BasketViewModel request) {
         basket.setId_user(request.getId_user());
-//        basket.setId_book(request.getId_book());
+        basket.setId_book(request.getId_book());
 
 
     }

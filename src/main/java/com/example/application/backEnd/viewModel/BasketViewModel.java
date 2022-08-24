@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BasketViewModel {
     Long id;
-    Integer id_user;
-    Integer id_book;
+    Long id_user;
+    Long id_book;
     Integer priceType;
     Integer price;
     Integer period;
