@@ -6,7 +6,7 @@ import com.example.application.backEnd.viewModel.UserViewModel;
 
 public class UsersBuilderImpl implements UsersBuilder {
     @Override
-    public UserViewModel createUsers(Users users) {
+    public UserViewModel create(Users users) {
         return UserViewModel.builder()
                 .id(users.getId())
                 .name(users.getName())
@@ -30,7 +30,7 @@ public class UsersBuilderImpl implements UsersBuilder {
     }
 
 
-    public void updateUsers(Users users, UserViewModel request){
+    public void update(Users users, UserViewModel request){
         users.setName(request.getName());
         users.setSurname(request.getSurname());
         users.setPatronymic(request.getPatronymic());

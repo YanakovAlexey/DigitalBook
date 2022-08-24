@@ -4,15 +4,17 @@ package com.example.application.views;
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
-import com.example.application.views.helloworld.HelloWorldView;
+import com.example.application.views.helloworld.DigitalBooksView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.messages.MessageInput;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 
 /**
@@ -26,19 +28,26 @@ public class MainLayout extends AppLayout {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         addToDrawer(createDrawerContent());
+
+
     }
 
-    private Component createHeaderContent() {
-        DrawerToggle toggle = new DrawerToggle();
-        toggle.addClassNames("view-toggle");
-        toggle.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
-        toggle.getElement().setAttribute("aria-label", "Menu toggle");
 
+    private Component createHeaderContent() {
+        TextField name;
         viewTitle = new H1();
         viewTitle.addClassNames("view-title");
 
-        Header header = new Header(toggle, viewTitle);
+        Header header = new Header(viewTitle);
         header.addClassNames("view-header");
+        Icon searchIcon = new Icon(VaadinIcon.SEARCH);
+        Icon userIcon = new Icon(VaadinIcon.USER);
+        Icon bookIcon = new Icon(VaadinIcon.OPEN_BOOK);
+        Icon cartIcon = new Icon(VaadinIcon.CART);
+        name = new TextField();
+        header.add(name, searchIcon, bookIcon, cartIcon, userIcon);
+
+
         return header;
     }
 
@@ -58,7 +67,7 @@ public class MainLayout extends AppLayout {
         AppNav nav = new AppNav();
         nav.addClassNames("app-nav");
 
-        nav.addItem(new AppNavItem("Hello World", HelloWorldView.class, "la la-globe"));
+        nav.addItem(new AppNavItem("Hello World", DigitalBooksView.class, "la la-globe"));
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
 
         return nav;

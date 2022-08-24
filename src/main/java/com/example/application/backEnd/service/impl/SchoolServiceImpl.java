@@ -36,7 +36,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     public void create(School school) {
-        schoolBuilder.createSchool(school);
+        schoolBuilder.create(school);
         schoolRepository.save(school);
     }
 

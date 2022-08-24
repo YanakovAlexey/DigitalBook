@@ -62,7 +62,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public Role create(Role role) {
-        roleBuilder.createRole(role);
+        roleBuilder.create(role);
         roleRepository.save(role);
         return role;
     }

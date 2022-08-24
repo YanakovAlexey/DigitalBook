@@ -5,13 +5,10 @@ import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.CityViewModel;
 
 public interface CityBuilder {
-    CityViewModel createBook(City city);
+    CityViewModel create(City city);
 
-    void updateBook(City city, CityViewModel request);
-
-    void createCity(City request);
+    void update(City city, CityViewModel request);
 
     CityViewModel build(City item);
 
-    void update(City book, BookViewModel request);
 }
