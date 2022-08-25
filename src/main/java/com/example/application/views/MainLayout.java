@@ -18,11 +18,17 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.apache.catalina.User;
+import org.aspectj.weaver.Shadow;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
@@ -48,27 +54,30 @@ public class MainLayout extends AppLayout {
         viewTitle = new H1();
 
         viewTitle.addClassNames("view-title");
+        Tab tab1 = new Tab("Жанр");
+        Tab tab2 = new Tab("Автор");
+        Tab tab3 = new Tab("Издательство");
+        Tab tab4 = new Tab("Поддержка");
+        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
 
 
         Header header = new Header(viewTitle);
         header.addClassNames("view-header");
-        SearchIconDialogBasic searchIcon = new SearchIconDialogBasic(new Icon(SEARCH));
+//        SearchIconDialogBasic searchIcon = new SearchIconDialogBasic(new Icon(SEARCH));
         BookDialogBasic bookIcon = new BookDialogBasic(new Icon(OPEN_BOOK));
         CartDialogBasic cartDialogBasic = new CartDialogBasic(new Icon(CART));
         UserDialogBasic userDialogBasic = new UserDialogBasic(new Icon(USER));
-        SearchDialogBasic searchDialogBasic = new SearchDialogBasic();
-        header.add(searchDialogBasic, searchIcon, bookIcon, cartDialogBasic, userDialogBasic);
+//        SearchDialogBasic searchDialogBasic = new SearchDialogBasic();
+
+        InputFieldAriaLabel inputFieldAriaLabel = new InputFieldAriaLabel();
+
+
+        header.add(inputFieldAriaLabel, bookIcon, cartDialogBasic, userDialogBasic, tabs);
 
 
         return header;
     }
 
-    @Route("avatar-basic")
-    public class AvatarBasic extends Div {
-
-
-
-    }
 //    private Component createDrawerContent() {
 //        H2 appName = new H2("DigitalBookBackEnd");
 //        appName.addClassNames("app-name");
@@ -93,31 +102,52 @@ public class MainLayout extends AppLayout {
 //        }
 //
 //    }
-    public class SearchIconDialogBasic extends Div {
 
-        public SearchIconDialogBasic(Icon icon) {
-            add(icon);
+
+//    public class SearchIconDialogBasic extends Div {
+//
+//        public SearchIconDialogBasic(Icon icon) {
+//            add(icon);
+//
+//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+//                    .set("bottom", "0").set("left", "180px").set("display", "flex")
+//                    .set("align-items", "center").set("justify-content", "center");
+//
+//        }
+//    }
+
+    @Route("input-field-aria-label")
+    public class InputFieldAriaLabel extends Div {
+
+        public InputFieldAriaLabel() {
+            TextField textField = new TextField();
+            textField.getElement().setAttribute("aria-label", "search");
+            textField.setPlaceholder("Search");
+            textField.setClearButtonVisible(true);
+            textField.setPrefixComponent(VaadinIcon.SEARCH.create());
+            textField.setWidth("500px");
+            add(textField);
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "180px").set("display", "flex")
+                    .set("bottom", "0").set("left", "65px").set("display", "flex")
                     .set("align-items", "center").set("justify-content", "center");
-
         }
+
     }
 
-    public class SearchDialogBasic extends Div {
-
-        public SearchDialogBasic() {
-            TextField search = new TextField();
-
-            add(search);
-
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "30px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
-
-        }
-    }
+//    public class SearchDialogBasic extends Div {
+//
+//        public SearchDialogBasic() {
+//            TextField search = new TextField();
+//
+//            add(search);
+//
+//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+//                    .set("bottom", "0").set("left", "30px").set("display", "flex")
+//                    .set("align-items", "center").set("justify-content", "center");
+//
+//        }
+//    }
 
     @Route("dialog-basic")
     public class UserDialogBasic extends Div {
@@ -127,6 +157,7 @@ public class MainLayout extends AppLayout {
 
             Dialog dialog = new Dialog();
 
+
             dialog.setHeaderTitle("Authorization");
             VerticalLayout dialogLayout = createDialogLayout();
             dialog.add(dialogLayout);
@@ -135,6 +166,7 @@ public class MainLayout extends AppLayout {
             Button cancelButton = new Button("Cancel", e -> dialog.close());
             dialog.getFooter().add(cancelButton);
             dialog.getFooter().add(saveButton);
+
 
             Button button = new Button(icon, e -> dialog.open());
 
@@ -299,6 +331,25 @@ public class MainLayout extends AppLayout {
     private Footer createFooter() {
         Footer layout = new Footer();
         layout.addClassNames("app-nav-footer");
+//        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, VaadinIcon.CHECK);
+//        Label label = UIUtils.createLabel(LumoUtility.FontSize.XSMALL, LumoUtility.TextColor.BODY, "Online");
+//
+//        FlexLayout footer = new FlexLayout(icon, label);
+//
+//// Set the alignment
+//        footer.setAlignItems(FlexComponent.Alignment.CENTER);
+//
+//// Add spacing and padding
+//        footer.addClassNames(
+//                LumoStyles.Spacing.Right.S,
+//                LumoStyles.Padding.Wide.M
+//        );
+//
+//// Set background color and shadow
+//        UIUtils.setBackgroundColor(LumoStyles.Color.BASE_COLOR, footer);
+//        UIUtils.setShadow(Shadow.MAX_SHADOW_KIND, footer);
+//
+//        setAppFooterOuter(footer);
 
         return layout;
     }
@@ -315,3 +366,4 @@ public class MainLayout extends AppLayout {
         return title == null ? "" : title.value();
     }
 }
+

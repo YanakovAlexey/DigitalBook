@@ -29,7 +29,8 @@ public class RegistrationView extends HorizontalLayout {
                 .set("padding", "var(--lumo-space-l)");
 
         LoginForm loginForm = new LoginForm();
-        add(loginForm);
+        Avatar avatarName = new Avatar();
+        add(loginForm, avatarName);
         loginForm.getElement().setAttribute("no-autofocus", "");
     }
 }
