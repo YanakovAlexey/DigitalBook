@@ -1,13 +1,15 @@
 package com.example.application.backEnd.service;
 
+import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BasketViewModel;
+import com.example.application.backEnd.viewModel.BookViewModel;
 
 import java.util.List;
 
 public interface BasketService {
     void create(BasketViewModel request);
 
-    List<BasketViewModel> getAll();
+    List<BookViewModel> getAll();
 
     BasketViewModel getById(Long id);
 

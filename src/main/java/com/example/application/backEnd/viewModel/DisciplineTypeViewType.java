@@ -1,5 +1,6 @@
 package com.example.application.backEnd.viewModel;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,13 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BasketViewModel {
+public class DisciplineTypeViewType {
+
     Long id;
-    Long id_user;
-    Long id_book;
-    Integer priceType;
-    Integer price;
-    Integer period;
-
-
+    String title;
 }
