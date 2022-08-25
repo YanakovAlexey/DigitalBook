@@ -4,18 +4,14 @@ package com.example.application.views;
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
+import com.example.application.views.header.ButtonView;
+import com.example.application.views.header.IconView;
+import com.example.application.views.header.TextFileView;
 import com.example.application.views.helloworld.RegistrationView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -39,7 +35,7 @@ public class MainLayout extends AppLayout {
     }
 
 
-    private Component createHeaderContent() {
+    public Component createHeaderContent() {
 
         viewTitle = new H1();
 
@@ -48,11 +44,11 @@ public class MainLayout extends AppLayout {
 
         Header header = new Header(viewTitle);
         header.addClassNames("view-header");
-        SearchIconDialogBasic searchIcon = new SearchIconDialogBasic(new Icon(SEARCH));
-        BookDialogBasic bookIcon = new BookDialogBasic(new Icon(OPEN_BOOK));
-        CartDialogBasic cartDialogBasic = new CartDialogBasic(new Icon(CART));
-        UserDialogBasic userDialogBasic = new UserDialogBasic(new Icon(USER));
-        SearchDialogBasic searchDialogBasic = new SearchDialogBasic();
+        IconView.SearchIconDialogBasic searchIcon = new IconView.SearchIconDialogBasic(new Icon(SEARCH));
+        ButtonView.BookDialogBasic bookIcon = new ButtonView.BookDialogBasic(new Icon(OPEN_BOOK));
+        ButtonView.CartDialogBasic cartDialogBasic = new ButtonView.CartDialogBasic(new Icon(CART));
+        ButtonView.UserDialogBasic userDialogBasic = new ButtonView.UserDialogBasic(new Icon(USER));
+        TextFileView.SearchDialogBasic searchDialogBasic = new TextFileView.SearchDialogBasic();
         header.add(searchDialogBasic, searchIcon, bookIcon, cartDialogBasic, userDialogBasic);
 
 
@@ -72,7 +68,7 @@ public class MainLayout extends AppLayout {
     //    public class CartButtonBasic extends Div {
 //
 //        public CartButtonBasic(Icon cart) {
-//            Button button = new Button(cart);
+//            ButtonView button = new ButtonView(cart);
 //
 //            button.addClickListener(clickEvent -> {
 //            });
@@ -83,193 +79,7 @@ public class MainLayout extends AppLayout {
 //        }
 //
 //    }
-    public class SearchIconDialogBasic extends Div {
 
-        public SearchIconDialogBasic(Icon icon) {
-            add(icon);
-
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "180px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
-
-        }
-    }
-
-    public class SearchDialogBasic extends Div {
-
-        public SearchDialogBasic() {
-            TextField search = new TextField();
-
-            add(search);
-
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "30px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
-
-        }
-    }
-
-    @Route("dialog-basic")
-    public class UserDialogBasic extends Div {
-
-        public UserDialogBasic(Icon icon) {
-            Dialog dialog = new Dialog();
-
-            dialog.setHeaderTitle("Authorization");
-            VerticalLayout dialogLayout = createDialogLayout();
-            dialog.add(dialogLayout);
-
-            Button saveButton = createSaveButton(dialog);
-            Button cancelButton = new Button("Cancel", e -> dialog.close());
-            dialog.getFooter().add(cancelButton);
-            dialog.getFooter().add(saveButton);
-
-            Button button = new Button(icon, e -> dialog.open());
-
-            add(dialog, button);
-
-
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "900px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
-        }
-
-        private static VerticalLayout createDialogLayout() {
-
-            TextField firstNameField = new TextField("First name");
-            TextField lastNameField = new TextField("Last name");
-
-            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
-                    lastNameField);
-            dialogLayout.setPadding(false);
-            dialogLayout.setSpacing(false);
-            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
-
-            return dialogLayout;
-        }
-
-        private static Button createSaveButton(Dialog dialog) {
-            Button saveButton = new Button("Add", e -> dialog.close());
-            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            return saveButton;
-        }
-    }
-
-    @Route("dialog-basic")
-    public class CartDialogBasic extends Div {
-
-        public CartDialogBasic(Icon icon) {
-            Dialog dialog = new Dialog();
-
-            dialog.setHeaderTitle("Authorization");
-            VerticalLayout dialogLayout = createDialogLayout();
-            dialog.add(dialogLayout);
-
-            Button saveButton = createSaveButton(dialog);
-            Button cancelButton = new Button("Cancel", e -> dialog.close());
-            dialog.getFooter().add(cancelButton);
-            dialog.getFooter().add(saveButton);
-
-            Button button = new Button(icon, e -> dialog.open());
-
-            add(dialog, button);
-
-
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "750px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
-        }
-
-        private static VerticalLayout createDialogLayout() {
-
-            TextField firstNameField = new TextField("First name");
-            TextField lastNameField = new TextField("Last name");
-
-            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
-                    lastNameField);
-            dialogLayout.setPadding(false);
-            dialogLayout.setSpacing(false);
-            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
-
-            return dialogLayout;
-        }
-
-        private static Button createSaveButton(Dialog dialog) {
-            Button saveButton = new Button("Add", e -> dialog.close());
-            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            return saveButton;
-        }
-    }
-
-    @Route("dialog-basic")
-    public class BookDialogBasic extends Div {
-
-        public BookDialogBasic(Icon icon) {
-            Dialog dialog = new Dialog();
-
-            dialog.setHeaderTitle("Authorization");
-            VerticalLayout dialogLayout = createDialogLayout();
-            dialog.add(dialogLayout);
-
-            Button saveButton = createSaveButton(dialog);
-            Button cancelButton = new Button("Cancel", e -> dialog.close());
-            dialog.getFooter().add(cancelButton);
-            dialog.getFooter().add(saveButton);
-
-            Button button = new Button(icon, e -> dialog.open());
-
-            add(dialog, button);
-
-
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "650px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
-        }
-
-        private static VerticalLayout createDialogLayout() {
-
-            TextField firstNameField = new TextField("First name");
-            TextField lastNameField = new TextField("Last name");
-
-            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
-                    lastNameField);
-            dialogLayout.setPadding(false);
-            dialogLayout.setSpacing(false);
-            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
-
-            return dialogLayout;
-        }
-
-        private static Button createSaveButton(Dialog dialog) {
-            Button saveButton = new Button("Add", e -> dialog.close());
-            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            return saveButton;
-        }
-    }
-
-
-    @Route("login-basic")
-    public class LoginBasic extends Div {
-
-        public LoginBasic() {
-            getStyle()
-                    .set("background-color", "var(--lumo-contrast-5pct)")
-                    .set("display", "flex")
-                    .set("justify-content", "center")
-                    .set("padding", "var(--lumo-space-l)");
-
-            LoginForm loginForm = new LoginForm();
-            add(loginForm);
-            // Prevent the example from stealing focus when browsing the documentation
-            loginForm.getElement().setAttribute("no-autofocus", "");
-        }
-    }
 
     private AppNav createNavigation() {
         // AppNav is not yet an official component.
@@ -281,13 +91,6 @@ public class MainLayout extends AppLayout {
         nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
 
         return nav;
-    }
-
-    private Footer createFooter() {
-        Footer layout = new Footer();
-        layout.addClassNames("app-nav-footer");
-
-        return layout;
     }
 
 

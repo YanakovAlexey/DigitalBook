@@ -15,7 +15,7 @@ import com.vaadin.flow.router.RouteAlias;
 public class RegistrationView extends HorizontalLayout {
 
 //    private TextField name;
-//    private Button sayHello;
+//    private ButtonView sayHello;
 
         public RegistrationView() {
 
@@ -33,7 +33,7 @@ public class RegistrationView extends HorizontalLayout {
 
 //    public DigitalBooksView() {
 //        name = new TextField("Your name");
-//        sayHello = new Button("Say hello");
+//        sayHello = new ButtonView("Say hello");
 //        sayHello.addClickListener(e -> {
 //            Notification.show("Hello " + name.getValue());
 //        });
