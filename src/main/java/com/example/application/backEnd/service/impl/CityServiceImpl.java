@@ -4,7 +4,6 @@ import com.example.application.backEnd.builder.CityBuilder;
 import com.example.application.backEnd.domain.City;
 import com.example.application.backEnd.reporitory.CityRepository;
 import com.example.application.backEnd.service.CityService;
-import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.CityViewModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,7 +19,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City create(City request) {
-        cityBuilder.createCity(request);
+        cityBuilder.create(request);
         cityRepository.save(request);
         return request;
     }
@@ -48,7 +47,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void update(Long id, City book, BookViewModel request) {
+    public void update(Long id, City book, CityViewModel request) {
         Optional<City> cityOpt = cityRepository.findById(id);
         if (cityOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

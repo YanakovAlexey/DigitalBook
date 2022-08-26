@@ -6,7 +6,7 @@ import com.example.application.backEnd.viewModel.RoleViewModel;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RoleBuilderImpl implements RoleBuilder {
+public class  RoleBuilderImpl implements RoleBuilder {
     @Override
     public RoleViewModel create(Role role) {
         return RoleViewModel.builder()
