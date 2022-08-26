@@ -21,17 +21,17 @@ public class RegistrationView extends HorizontalLayout {
 
     public RegistrationView() {
 
-
-        getStyle()
-                .set("background-color", "var(--lumo-contrast-5pct)")
-                .set("display", "flex")
-                .set("justify-content", "center")
-                .set("padding", "var(--lumo-space-l)");
-
-        LoginForm loginForm = new LoginForm();
-        Avatar avatarName = new Avatar();
-        add(loginForm, avatarName);
-        loginForm.getElement().setAttribute("no-autofocus", "");
+//
+//        getStyle()
+//                .set("background-color", "var(--lumo-contrast-5pct)")
+//                .set("display", "flex")
+//                .set("justify-content", "center")
+//                .set("padding", "var(--lumo-space-l)");
+//
+//        LoginForm loginForm = new LoginForm();
+//        Avatar avatarName = new Avatar();
+//        add(loginForm, avatarName);
+//        loginForm.getElement().setAttribute("no-autofocus", "");
     }
 }
 //    public DigitalBooksView() {
