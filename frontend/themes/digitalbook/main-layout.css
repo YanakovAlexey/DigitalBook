@@ -9,7 +9,6 @@
   background-color: var(--lumo-base-color);
   border-bottom: 0px solid var(--lumo-contrast-10pct);
   box-sizing: border-box;
-
   height: 100px;
   width: 100%;
 }
