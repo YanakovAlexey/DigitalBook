@@ -1,15 +1,12 @@
 package com.example.application.views;
 
 
-import com.example.application.backEnd.domain.Users;
-import com.example.application.backEnd.service.impl.UserServiceImpl;
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.helloworld.RegistrationView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -17,19 +14,13 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility;
-import org.apache.catalina.User;
-import org.aspectj.weaver.Shadow;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
@@ -44,7 +35,7 @@ public class MainLayout extends AppLayout {
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
-//        add(createFooter());
+//        addToDrawer(createDrawerContent());
 
 
     }
@@ -79,6 +70,44 @@ public class MainLayout extends AppLayout {
         return header;
     }
 
+//    private Component createDrawerContent() {
+//        H2 appName = new H2("DigitalBookBackEnd");
+//        appName.addClassNames("app-name");
+//
+//        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
+//                createNavigation(), createFooter());
+//        section.addClassNames("drawer-section");
+//        return section;
+//    }
+
+    //    public class CartButtonBasic extends Div {
+//
+//        public CartButtonBasic(Icon cart) {
+//            Button button = new Button(cart);
+//
+//            button.addClickListener(clickEvent -> {
+//            });
+//
+//            HorizontalLayout horizontalLayout = new HorizontalLayout(button);
+//            horizontalLayout.setAlignItems(FlexComponent.Alignment.BASELINE);
+//            add(horizontalLayout);
+//        }
+//
+//    }
+
+
+//    public class SearchIconDialogBasic extends Div {
+//
+//        public SearchIconDialogBasic(Icon icon) {
+//            add(icon);
+//
+//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+//                    .set("bottom", "0").set("left", "180px").set("display", "flex")
+//                    .set("align-items", "center").set("justify-content", "center");
+//
+//        }
+//    }
+
     @Route("input-field-aria-label")
     public class InputFieldAriaLabel extends Div {
 
@@ -98,25 +127,72 @@ public class MainLayout extends AppLayout {
 
     }
 
+//    public class SearchDialogBasic extends Div {
+//
+//        public SearchDialogBasic() {
+//            TextField search = new TextField();
+//
+//            add(search);
+//
+//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
+//                    .set("bottom", "0").set("left", "30px").set("display", "flex")
+//                    .set("align-items", "center").set("justify-content", "center");
+//
+//        }
+//    }
 
     @Route("dialog-basic")
     public class UserDialogBasic extends Div {
 
+
         public UserDialogBasic(Icon icon) {
 
-            LoginOverlay loginOverlay = new LoginOverlay();
-            add(loginOverlay);
 
-            Button login = new Button(icon);
-            login.addClickListener(event -> loginOverlay.setOpened(true));
-            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-            add(login);
+            Dialog dialog = new Dialog();
+
+
+            dialog.setHeaderTitle("Authorization");
+            VerticalLayout dialogLayout = createDialogLayout();
+            dialog.add(dialogLayout);
+
+            Button saveButton = createSaveButton(dialog);
+            Button cancelButton = new Button("Cancel", e -> dialog.close());
+            dialog.getFooter().add(cancelButton);
+            dialog.getFooter().add(saveButton);
+
+
+            Button button = new Button(icon, e -> dialog.open());
+
+
+            add(dialog, button);
+
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
                     .set("bottom", "0").set("left", "900px").set("display", "flex")
                     .set("align-items", "center").set("justify-content", "center");
         }
 
+        private static VerticalLayout createDialogLayout() {
+
+            TextField firstNameField = new TextField("First name");
+            TextField lastNameField = new TextField("Last name");
+
+            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
+                    lastNameField);
+            dialogLayout.setPadding(false);
+            dialogLayout.setSpacing(false);
+            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
+            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
+
+            return dialogLayout;
+        }
+
+        private static Button createSaveButton(Dialog dialog) {
+            Button saveButton = new Button("Add", e -> dialog.close());
+            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+            return saveButton;
+        }
     }
 
     @Route("dialog-basic")
@@ -245,8 +321,8 @@ public class MainLayout extends AppLayout {
         return nav;
     }
 
-    private Footer createFooter() {
-        Footer layout = new Footer();
+    private FooterView createFooter() {
+        FooterView layout = new FooterView();
         layout.addClassNames("app-nav-footer");
 
 //        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, VaadinIcon.CHECK);
