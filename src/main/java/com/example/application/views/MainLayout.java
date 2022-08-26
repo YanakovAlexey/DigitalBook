@@ -17,6 +17,7 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -43,7 +44,7 @@ public class MainLayout extends AppLayout {
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
-//        addToDrawer(createDrawerContent());
+//        add(createFooter());
 
 
     }
@@ -78,44 +79,6 @@ public class MainLayout extends AppLayout {
         return header;
     }
 
-//    private Component createDrawerContent() {
-//        H2 appName = new H2("DigitalBookBackEnd");
-//        appName.addClassNames("app-name");
-//
-//        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
-//                createNavigation(), createFooter());
-//        section.addClassNames("drawer-section");
-//        return section;
-//    }
-
-    //    public class CartButtonBasic extends Div {
-//
-//        public CartButtonBasic(Icon cart) {
-//            Button button = new Button(cart);
-//
-//            button.addClickListener(clickEvent -> {
-//            });
-//
-//            HorizontalLayout horizontalLayout = new HorizontalLayout(button);
-//            horizontalLayout.setAlignItems(FlexComponent.Alignment.BASELINE);
-//            add(horizontalLayout);
-//        }
-//
-//    }
-
-
-//    public class SearchIconDialogBasic extends Div {
-//
-//        public SearchIconDialogBasic(Icon icon) {
-//            add(icon);
-//
-//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-//                    .set("bottom", "0").set("left", "180px").set("display", "flex")
-//                    .set("align-items", "center").set("justify-content", "center");
-//
-//        }
-//    }
-
     @Route("input-field-aria-label")
     public class InputFieldAriaLabel extends Div {
 
@@ -129,77 +92,31 @@ public class MainLayout extends AppLayout {
             add(textField);
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "65px").set("display", "flex")
+                    .set("bottom", "0").set("left", "10px").set("display", "flex")
                     .set("align-items", "center").set("justify-content", "center");
         }
 
     }
 
-//    public class SearchDialogBasic extends Div {
-//
-//        public SearchDialogBasic() {
-//            TextField search = new TextField();
-//
-//            add(search);
-//
-//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-//                    .set("bottom", "0").set("left", "30px").set("display", "flex")
-//                    .set("align-items", "center").set("justify-content", "center");
-//
-//        }
-//    }
 
     @Route("dialog-basic")
     public class UserDialogBasic extends Div {
 
-
         public UserDialogBasic(Icon icon) {
 
-            Dialog dialog = new Dialog();
+            LoginOverlay loginOverlay = new LoginOverlay();
+            add(loginOverlay);
 
-
-            dialog.setHeaderTitle("Authorization");
-            VerticalLayout dialogLayout = createDialogLayout();
-            dialog.add(dialogLayout);
-
-            Button saveButton = createSaveButton(dialog);
-            Button cancelButton = new Button("Cancel", e -> dialog.close());
-            dialog.getFooter().add(cancelButton);
-            dialog.getFooter().add(saveButton);
-
-
-            Button button = new Button(icon, e -> dialog.open());
-
-
-            add(dialog, button);
-
+            Button login = new Button(icon);
+            login.addClickListener(event -> loginOverlay.setOpened(true));
+            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+            add(login);
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
                     .set("bottom", "0").set("left", "900px").set("display", "flex")
                     .set("align-items", "center").set("justify-content", "center");
         }
 
-        private static VerticalLayout createDialogLayout() {
-
-            TextField firstNameField = new TextField("First name");
-            TextField lastNameField = new TextField("Last name");
-
-            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
-                    lastNameField);
-            dialogLayout.setPadding(false);
-            dialogLayout.setSpacing(false);
-            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
-
-            return dialogLayout;
-        }
-
-        private static Button createSaveButton(Dialog dialog) {
-            Button saveButton = new Button("Add", e -> dialog.close());
-            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            return saveButton;
-        }
     }
 
     @Route("dialog-basic")
@@ -331,6 +248,7 @@ public class MainLayout extends AppLayout {
     private Footer createFooter() {
         Footer layout = new Footer();
         layout.addClassNames("app-nav-footer");
+
 //        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, VaadinIcon.CHECK);
 //        Label label = UIUtils.createLabel(LumoUtility.FontSize.XSMALL, LumoUtility.TextColor.BODY, "Online");
 //
