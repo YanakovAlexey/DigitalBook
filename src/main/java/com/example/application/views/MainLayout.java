@@ -1,15 +1,17 @@
 package com.example.application.views;
 
-
+import com.example.application.backEnd.domain.Book;
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
+import com.example.application.views.content.BookShapeContent;
 import com.example.application.views.helloworld.RegistrationView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -29,13 +31,13 @@ import static com.vaadin.flow.component.icon.VaadinIcon.*;
  */
 @Route("button-basic")
 public class MainLayout extends AppLayout {
-
     private H1 viewTitle;
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
 //        addToDrawer(createDrawerContent());
+
 
 
     }
@@ -48,7 +50,7 @@ public class MainLayout extends AppLayout {
         viewTitle.addClassNames("view-title");
         Tab tab1 = new Tab("Жанр");
         Tab tab2 = new Tab("Автор");
-        Tab tab3 = new Tab("Издательство");
+        Tab tab3 = new Tab("Издательстaво");
         Tab tab4 = new Tab("Поддержка");
         Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
 
@@ -62,10 +64,7 @@ public class MainLayout extends AppLayout {
 //        SearchDialogBasic searchDialogBasic = new SearchDialogBasic();
 
         InputFieldAriaLabel inputFieldAriaLabel = new InputFieldAriaLabel();
-
-
         header.add(inputFieldAriaLabel, bookIcon, cartDialogBasic, userDialogBasic, tabs);
-
 
         return header;
     }
@@ -359,5 +358,7 @@ public class MainLayout extends AppLayout {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
+
 }
+
 
