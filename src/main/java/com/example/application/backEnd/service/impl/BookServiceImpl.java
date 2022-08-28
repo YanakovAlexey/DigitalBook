@@ -7,12 +7,14 @@ import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BookServiceImpl implements BookService {
 
     final BookRepository bookRepository;
@@ -32,13 +34,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookViewModel> getAll() {
+    public List<Book> getAll() {
+
         List<Book> book = bookRepository.findAll();
-        List<BookViewModel> bookList = new ArrayList<>();
-        for (Book item : book) {
-            bookList.add(bookBuilder.build(item));
-        }
-        return bookList;
+//        List<BookViewModel> bookList = new ArrayList<>();
+//        for (Book item : book) {
+//            bookList.add(bookBuilder.build(item));
+//        }
+        return book;
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface BookService {
 
     Book create(Book request);
 
-    List<BookViewModel> getAll();
+    List<Book> getAll();
 
     BookViewModel getById(Long id);
 

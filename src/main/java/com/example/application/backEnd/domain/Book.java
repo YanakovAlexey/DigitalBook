@@ -1,8 +1,6 @@
 package com.example.application.backEnd.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -12,6 +10,7 @@ import java.util.Date;
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class Book {
 
     @Id

@@ -64,6 +64,7 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public BasketViewModel getById(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
         return null;
     }
 
