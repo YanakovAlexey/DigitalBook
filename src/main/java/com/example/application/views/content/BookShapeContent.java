@@ -19,13 +19,12 @@ public class BookShapeContent extends Div {
   public BookShapeContent(BookService bookService) {
     this.bookService = bookService;
     add(createMainContent());
-
   }
 
   private Component createMainContent() {
     Grid<Book> grid = new Grid<>(Book.class, false);
+    grid.addColumn(Book::getBookImg);
     grid.addColumn(Book::getDescription).setHeader("Описание книги");
-//    add(new Image("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg", "Cat"));
 
 //    List<Book> books = bookService.getAll();
 

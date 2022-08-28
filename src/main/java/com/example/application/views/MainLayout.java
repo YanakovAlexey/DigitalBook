@@ -23,6 +23,9 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.atmosphere.cpr.AtmosphereRequestImpl;
+
+import java.util.List;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
@@ -36,12 +39,13 @@ public class MainLayout extends AppLayout {
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
+        addToDrawer(BookShapeContent.class.);
+
 //        addToDrawer(createDrawerContent());
 
 
 
     }
-
 
     private Component createHeaderContent() {
 
@@ -50,7 +54,7 @@ public class MainLayout extends AppLayout {
         viewTitle.addClassNames("view-title");
         Tab tab1 = new Tab("Жанр");
         Tab tab2 = new Tab("Автор");
-        Tab tab3 = new Tab("Издательстaво");
+        Tab tab3 = new Tab("Издательство");
         Tab tab4 = new Tab("Поддержка");
         Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
 
@@ -358,6 +362,20 @@ public class MainLayout extends AppLayout {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
+
+//    private Component createMainContent() {
+//
+//        Main main = new Main();
+//        main.addClassNames("view-main");
+//        Grid<Book> grid = new Grid<>(Book.class, false);
+//        grid.addColumn(Book::getDescription).setHeader("Описание книги");
+//
+////         List<Book> books = bookService.getAll();
+//
+//        grid.setItems();
+//        main.add(grid);
+//        return main;
+//    }
 
 }
 
