@@ -17,6 +17,9 @@ public class BookShapeContent extends Div {
   final BookService bookService;
   @Autowired
   public BookShapeContent(BookService bookService) {
+
+
+    
     this.bookService = bookService;
     add(createMainContent());
 
