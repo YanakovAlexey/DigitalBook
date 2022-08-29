@@ -8,6 +8,7 @@ import com.vaadin.flow.component.charts.model.Select;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.gridpro.GridPro;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -34,16 +35,18 @@ public class BookShapeContent extends Div {
   private void constructUI() {
     Book book = new Book();
     book.setBookImg("https://pngimg.com/uploads/anime_girl/anime_girl_PNG103.png");
-    grid.addColumn(Book::getBookImg).setHeader("Обложка");
-    addClassNames("image-list-view", "max-w-screen-lg", "mx-auto", "pb-l", "px-l");
+    addClassNames("image-list-view", "max-w-screen-lg", "mx-auto", "pb-l", "px-m");
 
     HorizontalLayout container = new HorizontalLayout();
     container.addClassNames("items-center", "justify-between");
-    container.add(grid);
+    Icon icon = new Icon(book.getBookImg());
+    add(icon);
+
+
 
     VerticalLayout headerContainer = new VerticalLayout();
-    H2 header = new H2("Books");
-    header.add(grid);
+    H2 header = new H2("books");
+    add(grid, icon);
 
     header.addClassNames("mb-0", "mt-xl", "text-3xl");
     Paragraph description = new Paragraph("Royalty free photos and pictures, courtesy of Unsplash");
@@ -53,6 +56,9 @@ public class BookShapeContent extends Div {
 
     imageContainer = new OrderedList();
     imageContainer.addClassNames("gap-m", "grid", "list-none", "m-0", "p-0");
+    imageContainer.add(icon);
+    imageContainer.add("Книга про людей");
+
 
     container.add(header);
     add(container, imageContainer);

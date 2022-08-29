@@ -43,7 +43,7 @@ public class MainLayout extends AppLayout {
         addToNavbar(true, createHeaderContent());
 
 //        addToDrawer(createDrawerContent());
-        addToDrawer(createMainContent());
+
 //        add(createFooter());
 
 
