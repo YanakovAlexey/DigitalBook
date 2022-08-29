@@ -1,9 +1,11 @@
 package com.example.application.views.content;
 
 import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.charts.model.Select;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.gridpro.GridPro;
@@ -16,55 +18,41 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.awt.*;
 import java.util.List;
 import java.util.stream.Stream;
 
 @Route("shapes")
 public class BookShapeContent extends Div {
 
-    Grid<Book> grid = new Grid<>(Book.class, false);
-
-    private Grid.Column<Book> bookColumn;
-
-    private OrderedList imageContainer;
   @Autowired
-  public BookShapeContent(BookService bookService) {
-      constructUI();
+  public BookShapeContent() {
+    add(constructUI());
   }
 
-  private void constructUI() {
+  private Component constructUI() {
+    Avatar avatarBasic = new Avatar();
+
+    Avatar avatarName = new Avatar("https://pngicon.ru/file/uploads/dota-2.png");
+
+    Avatar avatarImage = new Avatar("https://pngicon.ru/file/uploads/dota-2.png");
+
+    VerticalLayout layout = new VerticalLayout();
+
     Book book = new Book();
-    book.setBookImg("https://pngimg.com/uploads/anime_girl/anime_girl_PNG103.png");
-    addClassNames("image-list-view", "max-w-screen-lg", "mx-auto", "pb-l", "px-m");
+    book.setTitle("Герой");
+    book.setDescription("Книга про одинокого героя");
+    Grid<Book> grid = new Grid<>(Book.class, false);
+    grid.addColumn(Book::getTitle).setHeader("Название");
+    grid.addColumn(Book::getDescription).setHeader("Описание");
 
-    HorizontalLayout container = new HorizontalLayout();
-    container.addClassNames("items-center", "justify-between");
-    Icon icon = new Icon(book.getBookImg());
-    add(icon);
+    avatarImage.setImage("https://pngicon.ru/file/uploads/dota-2.png");
+    avatarImage.setHeight("140px");
+    avatarImage.setWidth("140px");
 
-
-
-    VerticalLayout headerContainer = new VerticalLayout();
-    H2 header = new H2("books");
-    add(grid, icon);
-
-    header.addClassNames("mb-0", "mt-xl", "text-3xl");
-    Paragraph description = new Paragraph("Royalty free photos and pictures, courtesy of Unsplash");
-    description.addClassNames("mb-xl", "mt-0", "text-secondary");
-    headerContainer.add(header, description);
-
-
-    imageContainer = new OrderedList();
-    imageContainer.addClassNames("gap-m", "grid", "list-none", "m-0", "p-0");
-    imageContainer.add(icon);
-    imageContainer.add("Книга про людей");
-
-
-    container.add(header);
-    add(container, imageContainer);
-
+//    List<Book> people = DataService.getPeople();
+    grid.setItems(book);
+    layout.add(grid, avatarImage);
+    return layout;
   }
-
-//  private Component createMainContent() {
-//  }
 }
