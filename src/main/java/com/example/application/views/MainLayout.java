@@ -24,6 +24,9 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.atmosphere.interceptor.AtmosphereResourceStateRecovery;
+
+import java.util.List;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
@@ -33,10 +36,12 @@ import static com.vaadin.flow.component.icon.VaadinIcon.*;
 @Route("button-basic")
 public class MainLayout extends AppLayout {
     private H1 viewTitle;
+    private H2 viewContent;
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
+        addToDrawer(createMainContent());
 //        add(createFooter());
 
 
@@ -273,6 +278,23 @@ public class MainLayout extends AppLayout {
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
+    }
+
+    private Component createMainContent() {
+        viewContent = new H2();
+
+        Book book = new Book();
+        Grid<Book> grid = new Grid<>(Book.class, false);
+        grid.addColumn(Book::getBookImg);
+        grid.addColumn(Book::getDescription).setHeader("Описание книги");
+        // addToDrawer(new Image("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg", "Cat"));
+//        List<Book> books;
+        book.setBookImg("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg");
+        book.setDescription("Книга про людей, Илья Янаков");
+
+        grid.setItems(book);
+        viewContent.add(grid);
+        return grid;
     }
 
 }
