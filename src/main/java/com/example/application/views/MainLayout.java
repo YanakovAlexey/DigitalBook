@@ -16,6 +16,7 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
@@ -153,50 +154,19 @@ public class MainLayout extends AppLayout {
         public UserDialogBasic(Icon icon) {
 
 
-            Dialog dialog = new Dialog();
+            LoginOverlay loginOverlay = new LoginOverlay();
+
+            Button login = new Button(icon);
+            login.addClickListener(event -> loginOverlay.setOpened(true));
+            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 
-            dialog.setHeaderTitle("Authorization");
-            VerticalLayout dialogLayout = createDialogLayout();
-            dialog.add(dialogLayout);
-
-            Button saveButton = createSaveButton(dialog);
-            Button cancelButton = new Button("Cancel", e -> dialog.close());
-            dialog.getFooter().add(cancelButton);
-            dialog.getFooter().add(saveButton);
-
-
-            Button button = new Button(icon, e -> dialog.open());
-
-
-            add(dialog, button);
+            add(login);
 
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
                     .set("bottom", "0").set("left", "900px").set("display", "flex")
                     .set("align-items", "center").set("justify-content", "center");
-        }
-
-        private static VerticalLayout createDialogLayout() {
-
-            TextField firstNameField = new TextField("First name");
-            TextField lastNameField = new TextField("Last name");
-
-            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
-                    lastNameField);
-            dialogLayout.setPadding(false);
-            dialogLayout.setSpacing(false);
-            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
-
-            return dialogLayout;
-        }
-
-        private static Button createSaveButton(Dialog dialog) {
-            Button saveButton = new Button("Add", e -> dialog.close());
-            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            return saveButton;
         }
     }
 
@@ -204,20 +174,14 @@ public class MainLayout extends AppLayout {
     public class CartDialogBasic extends Div {
 
         public CartDialogBasic(Icon icon) {
-            Dialog dialog = new Dialog();
+            LoginOverlay loginOverlay = new LoginOverlay();
 
-            dialog.setHeaderTitle("Authorization");
-            VerticalLayout dialogLayout = createDialogLayout();
-            dialog.add(dialogLayout);
+            Button login = new Button(icon);
+            login.addClickListener(event -> loginOverlay.setOpened(true));
+            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-            Button saveButton = createSaveButton(dialog);
-            Button cancelButton = new Button("Cancel", e -> dialog.close());
-            dialog.getFooter().add(cancelButton);
-            dialog.getFooter().add(saveButton);
 
-            Button button = new Button(icon, e -> dialog.open());
-
-            add(dialog, button);
+            add(login);
 
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
@@ -225,74 +189,26 @@ public class MainLayout extends AppLayout {
                     .set("align-items", "center").set("justify-content", "center");
         }
 
-        private static VerticalLayout createDialogLayout() {
 
-            TextField firstNameField = new TextField("First name");
-            TextField lastNameField = new TextField("Last name");
-
-            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
-                    lastNameField);
-            dialogLayout.setPadding(false);
-            dialogLayout.setSpacing(false);
-            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
-
-            return dialogLayout;
-        }
-
-        private static Button createSaveButton(Dialog dialog) {
-            Button saveButton = new Button("Add", e -> dialog.close());
-            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            return saveButton;
-        }
     }
 
     @Route("dialog-basic")
     public class BookDialogBasic extends Div {
 
         public BookDialogBasic(Icon icon) {
-            Dialog dialog = new Dialog();
+            LoginOverlay loginOverlay = new LoginOverlay();
 
-            dialog.setHeaderTitle("Authorization");
-            VerticalLayout dialogLayout = createDialogLayout();
-            dialog.add(dialogLayout);
+            Button login = new Button(icon);
+            login.addClickListener(event -> loginOverlay.setOpened(true));
+            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-            Button saveButton = createSaveButton(dialog);
-            Button cancelButton = new Button("Cancel", e -> dialog.close());
-            dialog.getFooter().add(cancelButton);
-            dialog.getFooter().add(saveButton);
 
-            Button button = new Button(icon, e -> dialog.open());
-
-            add(dialog, button);
+            add(login);
 
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
                     .set("bottom", "0").set("left", "650px").set("display", "flex")
                     .set("align-items", "center").set("justify-content", "center");
-        }
-
-        private static VerticalLayout createDialogLayout() {
-
-            TextField firstNameField = new TextField("First name");
-            TextField lastNameField = new TextField("Last name");
-
-            VerticalLayout dialogLayout = new VerticalLayout(firstNameField,
-                    lastNameField);
-            dialogLayout.setPadding(false);
-            dialogLayout.setSpacing(false);
-            dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-            dialogLayout.getStyle().set("width", "18rem").set("max-width", "100%");
-
-            return dialogLayout;
-        }
-
-        private static Button createSaveButton(Dialog dialog) {
-            Button saveButton = new Button("Add", e -> dialog.close());
-            saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            return saveButton;
         }
     }
 
@@ -300,18 +216,18 @@ public class MainLayout extends AppLayout {
     @Route("login-basic")
     public class LoginBasic extends Div {
 
-        public LoginBasic() {
-            getStyle()
-                    .set("background-color", "var(--lumo-contrast-5pct)")
-                    .set("display", "flex")
-                    .set("justify-content", "center")
-                    .set("padding", "var(--lumo-space-l)");
-
-            LoginForm loginForm = new LoginForm();
-            add(loginForm);
-            // Prevent the example from stealing focus when browsing the documentation
-            loginForm.getElement().setAttribute("no-autofocus", "");
-        }
+//        public LoginBasic() {
+//            getStyle()
+//                    .set("background-color", "var(--lumo-contrast-5pct)")
+//                    .set("display", "flex")
+//                    .set("justify-content", "center")
+//                    .set("padding", "var(--lumo-space-l)");
+//
+//            LoginForm loginForm = new LoginForm();
+//            add(loginForm);
+//            // Prevent the example from stealing focus when browsing the documentation
+//            loginForm.getElement().setAttribute("no-autofocus", "");
+//        }
     }
 
     private AppNav createNavigation() {
