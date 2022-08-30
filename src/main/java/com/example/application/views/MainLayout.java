@@ -18,12 +18,14 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.aspectj.weaver.Shadow;
 import org.atmosphere.cpr.AtmosphereRequestImpl;
 import org.atmosphere.interceptor.AtmosphereResourceStateRecovery;
 
@@ -45,7 +47,7 @@ public class MainLayout extends AppLayout {
 
 //        addToDrawer(createDrawerContent());
 
-//        add(createFooter());
+        addToNavbar(true, createFooter());
 
 
     }
@@ -65,13 +67,13 @@ public class MainLayout extends AppLayout {
         Header header = new Header(viewTitle);
         header.addClassNames("view-header");
 //        SearchIconDialogBasic searchIcon = new SearchIconDialogBasic(new Icon(SEARCH));
-        BookDialogBasic bookIcon = new BookDialogBasic(new Icon(OPEN_BOOK));
+        BookDialogBasic bookDialogBasic = new BookDialogBasic(new Icon(OPEN_BOOK));
         CartDialogBasic cartDialogBasic = new CartDialogBasic(new Icon(CART));
         UserDialogBasic userDialogBasic = new UserDialogBasic(new Icon(USER));
 //        SearchDialogBasic searchDialogBasic = new SearchDialogBasic();
 
         InputFieldAriaLabel inputFieldAriaLabel = new InputFieldAriaLabel();
-        header.add(inputFieldAriaLabel, bookIcon, cartDialogBasic, userDialogBasic, tabs);
+        header.add(inputFieldAriaLabel, bookDialogBasic, cartDialogBasic, userDialogBasic, tabs);
 
         return header;
     }
@@ -150,7 +152,6 @@ public class MainLayout extends AppLayout {
     @Route("dialog-basic")
     public class UserDialogBasic extends Div {
 
-
         public UserDialogBasic(Icon icon) {
 
 
@@ -183,13 +184,10 @@ public class MainLayout extends AppLayout {
 
             add(login);
 
-
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
                     .set("bottom", "0").set("left", "750px").set("display", "flex")
                     .set("align-items", "center").set("justify-content", "center");
         }
-
-
     }
 
     @Route("dialog-basic")
@@ -246,25 +244,25 @@ public class MainLayout extends AppLayout {
         FooterView layout = new FooterView();
         layout.addClassNames("app-nav-footer");
 
-//        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, VaadinIcon.CHECK);
-//        Label label = UIUtils.createLabel(LumoUtility.FontSize.XSMALL, LumoUtility.TextColor.BODY, "Online");
-//
-//        FlexLayout footer = new FlexLayout(icon, label);
-//
-//// Set the alignment
-//        footer.setAlignItems(FlexComponent.Alignment.CENTER);
-//
-//// Add spacing and padding
-//        footer.addClassNames(
-//                LumoStyles.Spacing.Right.S,
-//                LumoStyles.Padding.Wide.M
-//        );
-//
-//// Set background color and shadow
-//        UIUtils.setBackgroundColor(LumoStyles.Color.BASE_COLOR, footer);
-//        UIUtils.setShadow(Shadow.MAX_SHADOW_KIND, footer);
-//
-//        setAppFooterOuter(footer);
+        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, VaadinIcon.CHECK);
+        Label label = UIUtils.createLabel(LumoUtility.FontSize.XSMALL, LumoUtility.TextColor.BODY, "Online");
+
+        FlexLayout footer = new FlexLayout(icon, label);
+
+// Set the alignment
+        footer.setAlignItems(FlexComponent.Alignment.CENTER);
+
+// Add spacing and padding
+        footer.addClassNames(
+                LumoStyles.Spacing.Right.S,
+                LumoStyles.Padding.Wide.M
+        );
+
+// Set background color and shadow
+        UIUtils.setBackgroundColor(LumoStyles.Color.BASE_COLOR, footer);
+        UIUtils.setShadow(Shadow.MAX_SHADOW_KIND, footer);
+
+        addToNavbar(footer);
 
         return layout;
     }
