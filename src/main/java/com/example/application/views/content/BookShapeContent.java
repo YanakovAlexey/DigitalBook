@@ -31,9 +31,6 @@ public class BookShapeContent extends Div {
   }
 
   private Component constructUI() {
-    Avatar avatarBasic = new Avatar();
-
-    Avatar avatarName = new Avatar("https://pngicon.ru/file/uploads/dota-2.png");
 
     Avatar avatarImage = new Avatar("https://pngicon.ru/file/uploads/dota-2.png");
 
