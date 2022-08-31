@@ -10,6 +10,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
@@ -23,13 +24,19 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.i18n.I18NProvider;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.aspectj.weaver.Shadow;
 import org.atmosphere.cpr.AtmosphereRequestImpl;
 import org.atmosphere.interceptor.AtmosphereResourceStateRecovery;
+import org.gephi.ui.utils.UIUtils;
+import org.slf4j.LoggerFactory;
 
-import java.util.List;
+
+import java.text.MessageFormat;
+import java.util.*;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
@@ -47,7 +54,7 @@ public class MainLayout extends AppLayout {
 
 //        addToDrawer(createDrawerContent());
 
-        addToNavbar(true, createFooter());
+//        addToNavbar(true, createFooter());
 
 
     }
@@ -66,11 +73,11 @@ public class MainLayout extends AppLayout {
 
         Header header = new Header(viewTitle);
         header.addClassNames("view-header");
-//        SearchIconDialogBasic searchIcon = new SearchIconDialogBasic(new Icon(SEARCH));
+
         BookDialogBasic bookDialogBasic = new BookDialogBasic(new Icon(OPEN_BOOK));
         CartDialogBasic cartDialogBasic = new CartDialogBasic(new Icon(CART));
         UserDialogBasic userDialogBasic = new UserDialogBasic(new Icon(USER));
-//        SearchDialogBasic searchDialogBasic = new SearchDialogBasic();
+        TranslationProvider translationProvider = new TranslationProvider();
 
         InputFieldAriaLabel inputFieldAriaLabel = new InputFieldAriaLabel();
         header.add(inputFieldAriaLabel, bookDialogBasic, cartDialogBasic, userDialogBasic, tabs);
@@ -101,19 +108,6 @@ public class MainLayout extends AppLayout {
 //            add(horizontalLayout);
 //        }
 //
-//    }
-
-
-//    public class SearchIconDialogBasic extends Div {
-//
-//        public SearchIconDialogBasic(Icon icon) {
-//            add(icon);
-//
-//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-//                    .set("bottom", "0").set("left", "180px").set("display", "flex")
-//                    .set("align-items", "center").set("justify-content", "center");
-//
-//        }
 //    }
 
     @Route("input-field-aria-label")
@@ -154,7 +148,6 @@ public class MainLayout extends AppLayout {
 
         public UserDialogBasic(Icon icon) {
 
-
             LoginOverlay loginOverlay = new LoginOverlay();
 
             Button login = new Button(icon);
@@ -163,7 +156,6 @@ public class MainLayout extends AppLayout {
 
 
             add(login);
-
 
             getStyle().set("position", "fixed").set("top", "0").set("right", "0")
                     .set("bottom", "0").set("left", "900px").set("display", "flex")
@@ -211,23 +203,6 @@ public class MainLayout extends AppLayout {
     }
 
 
-    @Route("login-basic")
-    public class LoginBasic extends Div {
-
-//        public LoginBasic() {
-//            getStyle()
-//                    .set("background-color", "var(--lumo-contrast-5pct)")
-//                    .set("display", "flex")
-//                    .set("justify-content", "center")
-//                    .set("padding", "var(--lumo-space-l)");
-//
-//            LoginForm loginForm = new LoginForm();
-//            add(loginForm);
-//            // Prevent the example from stealing focus when browsing the documentation
-//            loginForm.getElement().setAttribute("no-autofocus", "");
-//        }
-    }
-
     private AppNav createNavigation() {
         // AppNav is not yet an official component.
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
@@ -244,25 +219,24 @@ public class MainLayout extends AppLayout {
         FooterView layout = new FooterView();
         layout.addClassNames("app-nav-footer");
 
-        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, VaadinIcon.CHECK);
-        Label label = UIUtils.createLabel(LumoUtility.FontSize.XSMALL, LumoUtility.TextColor.BODY, "Online");
+//        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, CHECK);
+//        Label label = UIUtils.createLabel(LumoUtility.FontSize.XSMALL, LumoUtility.TextColor.BODY, "Online");
+//
+//        FlexLayout footer = new FlexLayout(icon, label);
+//
+//// Set the alignment
+//        footer.setAlignItems(FlexComponent.Alignment.CENTER);
 
-        FlexLayout footer = new FlexLayout(icon, label);
-
-// Set the alignment
-        footer.setAlignItems(FlexComponent.Alignment.CENTER);
-
-// Add spacing and padding
-        footer.addClassNames(
-                LumoStyles.Spacing.Right.S,
-                LumoStyles.Padding.Wide.M
-        );
-
-// Set background color and shadow
-        UIUtils.setBackgroundColor(LumoStyles.Color.BASE_COLOR, footer);
-        UIUtils.setShadow(Shadow.MAX_SHADOW_KIND, footer);
-
-        addToNavbar(footer);
+//// Add spacing and padding
+//        footer.addClassNames(
+//                LumoStyles.Spacing.Right.S,
+//                LumoStyles.Padding.Wide.M
+//        );
+//
+//// Set background color and shadow
+//        UIUtils.s(LumoStyles.Color.BASE_COLOR, footer);
+//        UIUtils.setShadow(Shadow.MAX_SHADOW_KIND, footer);
+//        layout.add(footer);
 
         return layout;
     }
@@ -292,6 +266,46 @@ public class MainLayout extends AppLayout {
 //        main.add(grid);
 //        return main;
 //    }
+
+    public class TranslationProvider implements I18NProvider {
+
+        public static final String BUNDLE_PREFIX = "translate";
+
+        public final Locale LOCALE_FI = new Locale("fi", "FI");
+        public final Locale LOCALE_EN = new Locale("en", "GB");
+
+        private List<Locale> locales = Collections
+                .unmodifiableList(Arrays.asList(LOCALE_FI, LOCALE_EN));
+
+        @Override
+        public List<Locale> getProvidedLocales() {
+            return locales;
+        }
+
+        @Override
+        public String getTranslation(String key, Locale locale, Object... params) {
+            if (key == null) {
+                LoggerFactory.getLogger(TranslationProvider.class.getName())
+                        .warn("Got lang request for key with null value!");
+                return "";
+            }
+
+            final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_PREFIX, locale);
+
+            String value;
+            try {
+                value = bundle.getString(key);
+            } catch (final MissingResourceException e) {
+                LoggerFactory.getLogger(TranslationProvider.class.getName())
+                        .warn("Missing resource", e);
+                return "!" + locale.getLanguage() + ": " + key;
+            }
+            if (params.length > 0) {
+                value = MessageFormat.format(value, params);
+            }
+            return value;
+        }
+    }
 
     private Component createMainContent() {
         viewContent = new H2();

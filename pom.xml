@@ -83,6 +83,12 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/org.gephi/ui-utils -->
+        <dependency>
+            <groupId>org.gephi</groupId>
+            <artifactId>ui-utils</artifactId>
+            <version>0.9.7</version>
+        </dependency>
 
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
