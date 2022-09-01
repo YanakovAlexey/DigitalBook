@@ -7,6 +7,9 @@ import com.example.application.views.about.AboutView;
 import com.example.application.views.content.BookShapeContent;
 import com.example.application.views.helloworld.RegistrationView;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Direction;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -20,6 +23,7 @@ import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -52,6 +56,7 @@ public class MainLayout extends AppLayout {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
 
+
 //        addToDrawer(createDrawerContent());
 
 //        addToNavbar(true, createFooter());
@@ -78,9 +83,9 @@ public class MainLayout extends AppLayout {
         CartDialogBasic cartDialogBasic = new CartDialogBasic(new Icon(CART));
         UserDialogBasic userDialogBasic = new UserDialogBasic(new Icon(USER));
         TranslationProvider translationProvider = new TranslationProvider();
-
+        MainButton mainButton = new MainButton();
         InputFieldAriaLabel inputFieldAriaLabel = new InputFieldAriaLabel();
-        header.add(inputFieldAriaLabel, bookDialogBasic, cartDialogBasic, userDialogBasic, tabs);
+        header.add(mainButton, inputFieldAriaLabel, bookDialogBasic, cartDialogBasic, userDialogBasic, tabs);
 
         return header;
     }
@@ -109,6 +114,12 @@ public class MainLayout extends AppLayout {
 //        }
 //
 //    }
+    public class MainButton extends Div {
+        public MainButton() {
+            add(new Button(new H1("DigitalBooks.app")));
+            addClickShortcut(Key.ENTER);
+        }
+    }
 
     @Route("input-field-aria-label")
     public class InputFieldAriaLabel extends Div {
@@ -120,11 +131,12 @@ public class MainLayout extends AppLayout {
             textField.setClearButtonVisible(true);
             textField.setPrefixComponent(VaadinIcon.SEARCH.create());
             textField.setWidth("500px");
+
             add(textField);
 
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "10px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
+            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "500px").set("margin", "15px");
+
         }
 
     }
@@ -154,12 +166,12 @@ public class MainLayout extends AppLayout {
             login.addClickListener(event -> loginOverlay.setOpened(true));
             login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-
             add(login);
 
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "900px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
+            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "85%").set("margin", "15px");
+
+
         }
     }
 
@@ -169,16 +181,17 @@ public class MainLayout extends AppLayout {
         public CartDialogBasic(Icon icon) {
             LoginOverlay loginOverlay = new LoginOverlay();
 
-            Button login = new Button(icon);
-            login.addClickListener(event -> loginOverlay.setOpened(true));
-            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+            Button secondaryButton = new Button(icon);
+            secondaryButton.addClickListener(event -> loginOverlay.setOpened(true));
+            secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
+            HorizontalLayout horizontalLayout = new HorizontalLayout(secondaryButton);
 
-            add(login);
+            add(horizontalLayout);
 
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "750px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
+            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "80%").set("margin", "15px");
+
         }
     }
 
@@ -195,10 +208,9 @@ public class MainLayout extends AppLayout {
 
             add(login);
 
+            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
+                    .set("bottom", "0").set("left", "75%").set("margin", "15px");
 
-            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "650px").set("display", "flex")
-                    .set("align-items", "center").set("justify-content", "center");
         }
     }
 
