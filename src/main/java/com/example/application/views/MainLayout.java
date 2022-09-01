@@ -117,7 +117,7 @@ public class MainLayout extends AppLayout {
     public class MainButton extends Div {
         public MainButton() {
             add(new Button(new H1("DigitalBooks.app")));
-            addClickShortcut(Key.ENTER);
+
         }
     }
 
@@ -133,6 +133,7 @@ public class MainLayout extends AppLayout {
             textField.setWidth("500px");
 
             add(textField);
+            addClickShortcut(Key.ENTER);
 
             getStyle().set("position", "absolute").set("top", "0").set("right", "0")
                     .set("bottom", "0").set("left", "500px").set("margin", "15px");
