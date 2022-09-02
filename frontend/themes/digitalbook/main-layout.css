@@ -14,7 +14,7 @@
   width: 100%;
 
 }
-
+@media
 .view-toggle {
   color: var(--lumo-secondary-text-color);
 }
