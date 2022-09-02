@@ -155,6 +155,8 @@ public class MainLayout extends AppLayout {
 
 
             LoginOverlay loginOverlay = new LoginOverlay();
+            loginOverlay.setTitle("DigitalBooks.app");
+            loginOverlay.setDescription("Библиотека электронных книг");
 
             Button login = new Button(icon);
             login.addClickListener(event -> loginOverlay.setOpened(true));
