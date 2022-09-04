@@ -6,10 +6,7 @@ import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.content.BookShapeContent;
 import com.example.application.views.helloworld.RegistrationView;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Direction;
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -55,6 +52,7 @@ public class MainLayout extends AppLayout {
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
+        addToNavbar(true, createFooter());
 
 
 //        addToDrawer(createDrawerContent());
@@ -82,13 +80,13 @@ public class MainLayout extends AppLayout {
         BookDialogBasic bookDialogBasic = new BookDialogBasic(new Icon(OPEN_BOOK));
         CartDialogBasic cartDialogBasic = new CartDialogBasic(new Icon(CART));
         UserDialogBasic userDialogBasic = new UserDialogBasic(new Icon(USER));
-        TranslationProvider translationProvider = new TranslationProvider();
         MainButton mainButton = new MainButton();
         InputFieldAriaLabel inputFieldAriaLabel = new InputFieldAriaLabel();
         header.add(mainButton, inputFieldAriaLabel, bookDialogBasic, cartDialogBasic, userDialogBasic, tabs);
 
         return header;
     }
+
 
 //    private Component createDrawerContent() {
 //        H2 appName = new H2("DigitalBookBackEnd");
@@ -116,8 +114,11 @@ public class MainLayout extends AppLayout {
 //    }
     public class MainButton extends Div {
         public MainButton() {
-            add(new Button(new H1("DigitalBooks.app")));
+            Button refresh = new Button (new H1("DigitalBooks.app"));
+            add(refresh);
 
+            getStyle().set("position", "static").set("top", "0").set("right", "0")
+                    .set("bottom", "200px").set("left", "0").set("margin", "15px");
         }
     }
 
@@ -199,7 +200,7 @@ public class MainLayout extends AppLayout {
     @Route("dialog-basic")
     public class BookDialogBasic extends Div {
 
-        public BookDialogBasic(Icon icon) {
+            public BookDialogBasic(Icon icon) {
             LoginOverlay loginOverlay = new LoginOverlay();
 
             Button login = new Button(icon);
@@ -280,45 +281,7 @@ public class MainLayout extends AppLayout {
 //        return main;
 //    }
 
-    public class TranslationProvider implements I18NProvider {
 
-        public static final String BUNDLE_PREFIX = "translate";
-
-        public final Locale LOCALE_FI = new Locale("fi", "FI");
-        public final Locale LOCALE_EN = new Locale("en", "GB");
-
-        private List<Locale> locales = Collections
-                .unmodifiableList(Arrays.asList(LOCALE_FI, LOCALE_EN));
-
-        @Override
-        public List<Locale> getProvidedLocales() {
-            return locales;
-        }
-
-        @Override
-        public String getTranslation(String key, Locale locale, Object... params) {
-            if (key == null) {
-                LoggerFactory.getLogger(TranslationProvider.class.getName())
-                        .warn("Got lang request for key with null value!");
-                return "";
-            }
-
-            final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_PREFIX, locale);
-
-            String value;
-            try {
-                value = bundle.getString(key);
-            } catch (final MissingResourceException e) {
-                LoggerFactory.getLogger(TranslationProvider.class.getName())
-                        .warn("Missing resource", e);
-                return "!" + locale.getLanguage() + ": " + key;
-            }
-            if (params.length > 0) {
-                value = MessageFormat.format(value, params);
-            }
-            return value;
-        }
-    }
 
     private Component createMainContent() {
         viewContent = new H2();
