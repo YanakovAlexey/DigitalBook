@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TokenViewModel {
+public class    TokenViewModel {
     String token;
     LocalDateTime expiredAt;
 
