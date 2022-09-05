@@ -1,5 +1,6 @@
 package com.example.application.views;
 
+import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -14,8 +15,6 @@ import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
 public class HeaderView extends Header {
 
-
-    private H2 viewContent;
 
     public HeaderView() {
         super(new MainLayout.MainButton());
@@ -39,7 +38,7 @@ public class HeaderView extends Header {
         userButton.addClickListener(event -> {
             userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
-        MainLayout.InputFieldAriaLabel inputFieldAriaLabel = new MainLayout.InputFieldAriaLabel();
-        this.add(inputFieldAriaLabel, bookButton, cartButton, userButton, tabs);
+        SearchView searchView = new SearchView();
+        this.add(searchView, bookButton, cartButton, userButton, tabs);
     }
 }

@@ -35,18 +35,10 @@ public class MainLayout extends AppLayout {
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, new HeaderView());
-//        addToNavbar(true, createFooter());
         addToNavbar(createNavigation());
 
-
-
 //        addToDrawer(createDrawerContent());
-
-//        addToNavbar(true, createFooter());
-
-
     }
-
 
 
 //    private Component createDrawerContent() {
@@ -59,20 +51,6 @@ public class MainLayout extends AppLayout {
 //        return section;
 //    }
 
-    //    public class CartButtonBasic extends Div {
-//
-//        public CartButtonBasic(Icon cart) {
-//            Button button = new Button(cart);
-//
-//            button.addClickListener(clickEvent -> {
-//            });
-//
-//            HorizontalLayout horizontalLayout = new HorizontalLayout(button);
-//            horizontalLayout.setAlignItems(FlexComponent.Alignment.BASELINE);
-//            add(horizontalLayout);
-//        }
-//
-//    }
     public static class MainButton extends Div {
         public MainButton() {
             Button refresh = new Button(new H1("DigitalBooks.app"));
@@ -84,39 +62,6 @@ public class MainLayout extends AppLayout {
     }
 
 
-    public static class InputFieldAriaLabel extends Div {
-
-        public InputFieldAriaLabel() {
-            TextField textField = new TextField();
-            textField.getElement().setAttribute("aria-label", "search");
-            textField.setPlaceholder("Search");
-            textField.setClearButtonVisible(true);
-            textField.setPrefixComponent(VaadinIcon.SEARCH.create());
-            textField.setWidth("500px");
-
-            add(textField);
-            addClickShortcut(Key.ENTER);
-
-            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "500px").set("margin", "15px");
-
-        }
-
-    }
-
-//    public class SearchDialogBasic extends Div {
-//
-//        public SearchDialogBasic() {
-//            TextField search = new TextField();
-//
-//            add(search);
-//
-//            getStyle().set("position", "fixed").set("top", "0").set("right", "0")
-//                    .set("bottom", "0").set("left", "30px").set("display", "flex")
-//                    .set("align-items", "center").set("justify-content", "center");
-//
-//        }
-//    }
 
     @Route("dialog-basic")
     public class UserDialogBasic extends Div {
@@ -193,25 +138,6 @@ public class MainLayout extends AppLayout {
     private FooterView createFooter() {
         FooterView layout = new FooterView();
         layout.addClassNames("app-nav-footer");
-
-//        Icon icon = UIUtils.createIcon(LumoUtility.IconSize.SMALL, LumoUtility.TextColor.SUCCESS, CHECK);
-//        Label label = UIUtils.createLabel(LumoUtility.FontSize.XSMALL, LumoUtility.TextColor.BODY, "Online");
-//
-//        FlexLayout footer = new FlexLayout(icon, label);
-//
-//// Set the alignment
-//        footer.setAlignItems(FlexComponent.Alignment.CENTER);
-
-//// Add spacing and padding
-//        footer.addClassNames(
-//                LumoStyles.Spacing.Right.S,
-//                LumoStyles.Padding.Wide.M
-//        );
-//
-//// Set background color and shadow
-//        UIUtils.s(LumoStyles.Color.BASE_COLOR, footer);
-//        UIUtils.setShadow(Shadow.MAX_SHADOW_KIND, footer);
-//        layout.add(footer);
 
         return layout;
     }
