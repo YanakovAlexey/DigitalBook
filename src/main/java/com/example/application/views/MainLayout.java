@@ -49,7 +49,7 @@ public class MainLayout extends AppLayout {
 
 
     }
-
+  
     private Component createHeaderContent() {
 
         viewTitle = new H1();
@@ -217,8 +217,7 @@ public class MainLayout extends AppLayout {
 
     @Route("login-basic")
     public class LoginBasic extends Div {
-
-//        public LoginBasic() {
+        //public LoginBasic() {
 //            getStyle()
 //                    .set("background-color", "var(--lumo-contrast-5pct)")
 //                    .set("display", "flex")
