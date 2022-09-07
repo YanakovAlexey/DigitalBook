@@ -89,6 +89,7 @@ public class MainLayout extends AppLayout {
         public CartDialogBasic(Icon icon) {
             LoginOverlay loginOverlay = new LoginOverlay();
 
+
             Button secondaryButton = new Button(icon);
             secondaryButton.addClickListener(event -> loginOverlay.setOpened(true));
             secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
