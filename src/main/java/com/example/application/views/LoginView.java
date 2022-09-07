@@ -44,22 +44,22 @@ public class LoginView extends VerticalLayout {
         RouteConfiguration session = RouteConfiguration.forSessionScope();
 
         // Set route should override global route, but throw if session contains same route.
-        if ("admin".equals(login.getValue())) {
-            session.setAnnotatedRoute(AdminView.class);
-        } else if ("user".equals(login.getValue())) {
-            session.setAnnotatedRoute(UserView.class);
-        }
+//        if ("admin".equals(login.getValue())) {
+//            session.setAnnotatedRoute(AdminView.class);
+//        } else if ("user".equals(login.getValue())) {
+//            session.setAnnotatedRoute(UserView.class);
+//        }
 
         // Add the version view to the route for path "version" with the MainLayout as its parent.
         // Note that the parent routes shouldn't be as a list as we can collect parents using
         // RouterUtil.getParentLayoutsForNonRouteTarget(MainLayout.class), though this
         // depends on how dynamic do we want to support. We should anyway be able to request
         // registry for the parts that we need for navigation.
-        session.setParentAnnotatedRoute("version", VersionView.class);
-
-        // Add a view using manually populated parent chain
-        session.setRoute("time", TimeView.class, LooseCenterLayout.class,
-                MainLayout.class);
+//        session.setParentAnnotatedRoute("version", VersionView.class);
+//
+//        // Add a view using manually populated parent chain
+//        session.setRoute("time", TimeView.class, LooseCenterLayout.class,
+//                MainLayout.class);
 
         // Reload to target url that was navigated to as it may now be registered.
         UI.getCurrent().getPage().reload();
