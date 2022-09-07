@@ -168,23 +168,7 @@ public class MainLayout extends AppLayout {
 //        return main;
 //    }
 
-
-    private Component createMainContent() {
-        viewContent = new H2();
-
-        Book book = new Book();
-        Grid<Book> grid = new Grid<>(Book.class, false);
-        grid.addColumn(Book::getBookImg);
-        grid.addColumn(Book::getDescription).setHeader("Описание книги");
-        // addToDrawer(new Image("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg", "Cat"));
-//        List<Book> books;
-        book.setBookImg("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg");
-        book.setDescription("Книга про людей, Илья Янаков");
-
-        grid.setItems(book);
-        viewContent.add(grid);
-        return grid;
     }
-}
+
 
 
