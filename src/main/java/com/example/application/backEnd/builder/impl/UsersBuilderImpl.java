@@ -3,7 +3,13 @@ package com.example.application.backEnd.builder.impl;
 import com.example.application.backEnd.builder.UsersBuilder;
 import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.viewModel.UserViewModel;
+import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
+import java.util.Date;
+
+@Service
 public class UsersBuilderImpl implements UsersBuilder {
     @Override
     public UserViewModel create(Users users) {
@@ -72,5 +78,14 @@ public class UsersBuilderImpl implements UsersBuilder {
                 .address(item.getAddress())
                 .ogrn(item.getOgrn())
                 .build();
+    }
+
+    @Override
+    public Users regBuild(RegistrationViewModel request) {
+        Users user = new Users();
+        user.setPassword(DigestUtils.md5DigestAsHex(request.getPassword().getBytes()));
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        return user;
     }
 }

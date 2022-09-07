@@ -18,6 +18,9 @@ public class Users {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "username")
+    String username;
+
     @Column(name = "name")
     String name;
 
@@ -68,5 +71,7 @@ public class Users {
 
     @Column(name = "ogrn")
     String ogrn;
+
+
 
 }
