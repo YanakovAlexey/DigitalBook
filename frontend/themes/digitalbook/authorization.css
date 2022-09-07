@@ -1,0 +1,23 @@
+.authorization-container{
+
+width: min-content;
+padding: 5px 25px 25px;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+background: #FFFFFF;
+
+}
+
+.authorization-view{
+
+width: 100vw;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background: gray;
+
+
+}

@@ -1,2 +1,4 @@
 @import url('./main-layout.css');
+@import url('./registration.css');
+@import url('./authorization.css');
 @import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');

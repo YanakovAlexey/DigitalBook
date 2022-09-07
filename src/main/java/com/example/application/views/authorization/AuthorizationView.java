@@ -3,6 +3,7 @@ package com.example.application.views.authorization;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Anchor;
@@ -10,6 +11,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -27,16 +29,22 @@ public class AuthorizationView extends Div {
 
 
     public AuthorizationView() {
+
+        LoginI18n i18n = LoginI18n.createDefault();
+        LoginI18n.Form i18nForm = i18n.getForm();
+        i18nForm.setTitle("Авторизация");
+        i18n.setForm(i18nForm);
         LoginForm loginForm = new LoginForm();
-
+        loginForm.setI18n(i18n);
+        loginForm.addForgotPasswordListener((e) -> loginForm.getUI().ifPresent(ui
+                -> ui.navigate("forgot-password")));
         Anchor regLink = new Anchor("reg", "Registration");
+        Div container = new Div();
+        container.addClassNames("authorization-container");
 
-        add(loginForm, regLink);
-
-
+        container.add(loginForm, regLink);
+        addClassNames("authorization-view");
+        add(container);
 
     }
-
-
-
 }

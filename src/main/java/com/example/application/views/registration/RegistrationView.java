@@ -35,7 +35,7 @@ public class RegistrationView extends VerticalLayout {
     private TextField userName;
     private TextField email;
     private PasswordField password;
-    private TextField repeatPassword;
+    private PasswordField repeatPassword;
 
 
     public RegistrationView() {
@@ -67,7 +67,7 @@ public class RegistrationView extends VerticalLayout {
         password.setPlaceholder("password");
         password.setId("password-field");
         password.setWidth("500px");
-        repeatPassword = new TextField("Repeat password");
+        repeatPassword = new PasswordField("Repeat password");
         repeatPassword.setPlaceholder("repeat password");
         repeatPassword.setWidth("500px");
 
@@ -79,13 +79,11 @@ public class RegistrationView extends VerticalLayout {
 
         Anchor regLink = new Anchor("reg", "Авторизироваться");
 
-
+        addClassNames("registration-container");
         add(avatarName,userName,email,password, repeatPassword,submit,regLink);
 
     }
     private void handeLogin(ClickEvent<Button> buttonClickEvent) {
-
-
 
         // Change session id a security measure
         ((HttpServletRequest) VaadinRequest.getCurrent()).changeSessionId();
