@@ -1,33 +1,25 @@
 package com.example.application.views;
 
-import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.service.UsersService;
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
-import com.example.application.views.content.BookShapeContent;
 import com.example.application.views.helloworld.RegistrationView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginOverlay;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.atmosphere.cpr.AtmosphereRequestImpl;
-import org.atmosphere.interceptor.AtmosphereResourceStateRecovery;
-
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
@@ -39,10 +31,15 @@ public class MainLayout extends AppLayout {
     private H1 viewTitle;
     private H2 viewContent;
 
-    public MainLayout() {
+    private final UsersService usersService;
+
+    @Autowired
+    public MainLayout(UsersService usersService) {
+        this.usersService = usersService;
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
 
+        System.out.println(this.usersService.getAll());
 //        addToDrawer(createDrawerContent());
 
 //        add(createFooter());
@@ -175,6 +172,7 @@ public class MainLayout extends AppLayout {
     @Route("dialog-basic")
     public class CartDialogBasic extends Div {
 
+
         public CartDialogBasic(Icon icon) {
             LoginOverlay loginOverlay = new LoginOverlay();
 
@@ -217,18 +215,18 @@ public class MainLayout extends AppLayout {
 
     @Route("login-basic")
     public class LoginBasic extends Div {
-        //public LoginBasic() {
-//            getStyle()
-//                    .set("background-color", "var(--lumo-contrast-5pct)")
-//                    .set("display", "flex")
-//                    .set("justify-content", "center")
-//                    .set("padding", "var(--lumo-space-l)");
-//
-//            LoginForm loginForm = new LoginForm();
-//            add(loginForm);
-//            // Prevent the example from stealing focus when browsing the documentation
-//            loginForm.getElement().setAttribute("no-autofocus", "");
-//        }
+        public LoginBasic() {
+            getStyle()
+                    .set("background-color", "var(--lumo-contrast-5pct)")
+                    .set("display", "flex")
+                    .set("justify-content", "center")
+                    .set("padding", "var(--lumo-space-l)");
+
+            LoginForm loginForm = new LoginForm();
+            add(loginForm);
+            // Prevent the example from stealing focus when browsing the documentation
+            loginForm.getElement().setAttribute("no-autofocus", "");
+        }
     }
 
     private AppNav createNavigation() {
@@ -282,36 +280,6 @@ public class MainLayout extends AppLayout {
         return title == null ? "" : title.value();
     }
 
-//    private Component createMainContent() {
-//
-//        Main main = new Main();
-//        main.addClassNames("view-main");
-//        Grid<Book> grid = new Grid<>(Book.class, false);
-//        grid.addColumn(Book::getDescription).setHeader("Описание книги");
-//
-////         List<Book> books = bookService.getAll();
-//
-//        grid.setItems();
-//        main.add(grid);
-//        return main;
-//    }
-
-    private Component createMainContent() {
-        viewContent = new H2();
-
-        Book book = new Book();
-        Grid<Book> grid = new Grid<>(Book.class, false);
-        grid.addColumn(Book::getBookImg);
-        grid.addColumn(Book::getDescription).setHeader("Описание книги");
-        // addToDrawer(new Image("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg", "Cat"));
-//        List<Book> books;
-        book.setBookImg("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg");
-        book.setDescription("Книга про людей, Илья Янаков");
-
-        grid.setItems(book);
-        viewContent.add(grid);
-        return grid;
-    }
 }
 
 

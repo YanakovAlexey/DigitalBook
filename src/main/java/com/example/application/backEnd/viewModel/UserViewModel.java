@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class UserViewModel {
 
     Long id;
+    String username;
     String name;
     String surname;
     String patronymic;
