@@ -36,91 +36,20 @@ public class MainLayout extends AppLayout {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, new HeaderView());
         addToNavbar(true, new FooterView());
-//        addToDrawer(createDrawerContent());
     }
 
 
-//    private Component createDrawerContent() {
-//        H2 appName = new H2("DigitalBookBackEnd");
-//        appName.addClassNames("app-name");
-//
-//        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
-//                createNavigation(), createFooter());
-//        section.addClassNames("drawer-section");
-//        return section;
-//    }
 
-    public static class MainButton extends Div {
-        public MainButton() {
-            Button refresh = new Button(new H1("DigitalBooks.app"));
+    public static class MainTitle extends Div {
+        public MainTitle() {
+            Anchor refresh = new Anchor("reg", "DigitalBooks.app");
+            refresh.addClassNames("view-title");
+            addClassNames("view-title-container");
             add(refresh);
 
-            getStyle().set("position", "static").set("top", "0").set("right", "0")
-                    .set("bottom", "200px").set("left", "0").set("margin", "15px");
         }
     }
 
-
-
-    @Route("dialog-basic")
-    public class UserDialogBasic extends Div {
-
-        public UserDialogBasic(Icon icon) {
-
-            LoginOverlay loginOverlay = new LoginOverlay();
-
-            Button login = new Button(icon);
-            login.addClickListener(event -> loginOverlay.setOpened(true));
-            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            add(login);
-
-            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "85%").set("margin", "15px");
-
-
-        }
-    }
-
-    @Route("dialog-basic")
-    public class CartDialogBasic extends Div {
-
-        public CartDialogBasic(Icon icon) {
-            LoginOverlay loginOverlay = new LoginOverlay();
-
-
-            Button secondaryButton = new Button(icon);
-            secondaryButton.addClickListener(event -> loginOverlay.setOpened(true));
-            secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-            HorizontalLayout horizontalLayout = new HorizontalLayout(secondaryButton);
-
-            add(horizontalLayout);
-
-            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "80%").set("margin", "15px");
-
-        }
-    }
-
-    @Route("dialog-basic")
-    public class BookDialogBasic extends Div {
-
-        public BookDialogBasic(Icon icon) {
-            LoginOverlay loginOverlay = new LoginOverlay();
-
-            Button login = new Button(icon);
-            login.addClickListener(event -> loginOverlay.setOpened(true));
-            login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-
-            add(login);
-
-            getStyle().set("position", "absolute").set("top", "0").set("right", "0")
-                    .set("bottom", "0").set("left", "75%").set("margin", "15px");
-
-        }
-    }
 
 
 //    @Override
@@ -148,7 +77,7 @@ public class MainLayout extends AppLayout {
 //        return main;
 //    }
 
-    }
+}
 
 
 
