@@ -1,6 +1,8 @@
 package com.example.application.views.registration;
 
 
+import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
 import com.example.application.views.MainLayout;
 import com.example.application.views.authorization.AuthorizationView;
 import com.vaadin.flow.component.ClickEvent;
@@ -31,16 +33,16 @@ import javax.servlet.http.HttpServletRequest;
 @Route("reg")
 public class RegistrationView extends VerticalLayout {
 
-
-
     private TextField userName;
     private TextField email;
     private PasswordField password;
     private PasswordField repeatPassword;
 
+    private final UsersService usersService;
 
-    public RegistrationView() {
-
+    @Autowired
+    public RegistrationView(UsersService usersService) {
+        this.usersService = usersService;
 
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
@@ -66,9 +68,7 @@ public class RegistrationView extends VerticalLayout {
         repeatPassword.setPlaceholder("repeat password");
         repeatPassword.setWidth("500px");
 
-
-
-        Button submit = new Button("Отправить", this::handeLogin);
+        Button submit = new Button("Отправить", this::registrationButtonClicked);
         submit.setId("submit");
         submit.setWidth("200px");
 
@@ -80,35 +80,15 @@ public class RegistrationView extends VerticalLayout {
         addClassNames("registration-view");
         add(container);
         container.add(avatarName,userName,email,password, repeatPassword,submit,regLink);
-
     }
-    private void handeLogin(ClickEvent<Button> buttonClickEvent) {
 
-        // Change session id a security measure
-        ((HttpServletRequest) VaadinRequest.getCurrent()).changeSessionId();
+    private void registrationButtonClicked(ClickEvent<Button> buttonClickEvent) {
 
-        RouteConfiguration session = RouteConfiguration.forSessionScope();
-
-        // Set route should override global route, but throw if session contains same route.
-        if ("admin".equals(userName.getValue())) {
-            session.setAnnotatedRoute(AuthorizationView.class);
-        } else if ("user".equals(userName.getValue())) {
-            session.setAnnotatedRoute(AuthorizationView.class);
-        }
-
-        // Add the version view to the route for path "version" with the MainLayout as its parent.
-        // Note that the parent routes shouldn't be as a list as we can collect parents using
-        // RouterUtil.getParentLayoutsForNonRouteTarget(MainLayout.class), though this
-        // depends on how dynamic do we want to support. We should anyway be able to request
-        // registry for the parts that we need for navigation.
-        session.setParentAnnotatedRoute("version", MainLayout.class);
-//
-//        // Add a view using manually populated parent chain
-        session.setRoute("time", MainLayout.class, MainLayout.class,
-                MainLayout.class);
-
-        // Reload to target url that was navigated to as it may now be registered.
-        UI.getCurrent().getPage().reload();
+        usersService.registration(new RegistrationViewModel(
+                userName.getValue(),
+                email.getValue(),
+                password.getValue()
+        ));
     }
     public static void logout() {
         // close session to clear all registered routes.
