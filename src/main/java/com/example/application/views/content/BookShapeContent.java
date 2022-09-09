@@ -25,14 +25,15 @@ import java.util.stream.Stream;
 
 @Route("shapes")
 public class BookShapeContent extends Div {
+
   public BookShapeContent() {
     Book book = new Book();
-
+    var grid = new Grid<Book>();
     book.setTitle("Грива");
     book.setDescription("Описание гривы льва");
     book.setBookImg("https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg");
 
-    var grid = new Grid<Book>();
+
     grid.setSizeFull();
     grid.addComponentColumn(this::getThumbnail);
     grid.addColumn(Book::getTitle).setHeader("Название");
