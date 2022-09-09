@@ -4,6 +4,7 @@ import com.example.application.backEnd.domain.Book;
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.views.about.AboutView;
+import com.example.application.views.content.BookShapeContent;
 import com.example.application.views.registration.RegistrationView;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.applayout.AppLayout;
