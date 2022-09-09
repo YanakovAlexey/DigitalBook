@@ -54,8 +54,11 @@
 .app-nav-footer {
   align-items: center;
   display: flex;
-  gap: var(--lumo-space-s);
-  padding: var(--lumo-space-m);
+  background-color: var(--lumo-base-color);
+
+    height: auto;
+    width: 100%;
+  
 }
 
 .app-nav-footer vaadin-context-menu {

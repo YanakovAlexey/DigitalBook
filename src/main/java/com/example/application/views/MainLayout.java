@@ -35,8 +35,7 @@ public class MainLayout extends AppLayout {
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, new HeaderView());
-        addToNavbar(createNavigation());
-
+        addToNavbar(true, new FooterView());
 //        addToDrawer(createDrawerContent());
     }
 
@@ -121,26 +120,6 @@ public class MainLayout extends AppLayout {
                     .set("bottom", "0").set("left", "75%").set("margin", "15px");
 
         }
-    }
-
-
-    private AppNav createNavigation() {
-        // AppNav is not yet an official component.
-        // For documentation, visit https://github.com/vaadin/vcf-nav#readme
-        AppNav nav = new AppNav();
-        nav.addClassNames("app-nav");
-
-        nav.addItem(new AppNavItem("Hello World", RegistrationView.class, "la la-globe"));
-        nav.addItem(new AppNavItem("About", AboutView.class, "la la-file"));
-
-        return nav;
-    }
-
-    private FooterView createFooter() {
-        FooterView layout = new FooterView();
-        layout.addClassNames("app-nav-footer");
-
-        return layout;
     }
 
 

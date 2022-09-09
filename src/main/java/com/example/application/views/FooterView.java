@@ -6,6 +6,6 @@ import com.vaadin.flow.component.html.Div;
 public class FooterView extends Div {
 
     public FooterView() {
-        add(new Button("Hello"), new Button("world"));
+       this.addClassNames("app-nav-footer");
     }
 }

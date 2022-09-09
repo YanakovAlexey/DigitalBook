@@ -11,6 +11,7 @@ import com.vaadin.flow.component.button.Button;
 
 import com.vaadin.flow.component.html.Anchor;
 
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 
@@ -40,12 +41,6 @@ public class RegistrationView extends VerticalLayout {
 
     public RegistrationView() {
 
-
-    getStyle()
-                .set("background-color", "var(--lumo-contrast-5pct)")
-                .set("display", "flex")
-                .set("justify-content", "center")
-                .set("padding", "var(--lumo-space-l)");
 
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
@@ -79,8 +74,12 @@ public class RegistrationView extends VerticalLayout {
 
         Anchor regLink = new Anchor("reg", "Авторизироваться");
 
-        addClassNames("registration-container");
-        add(avatarName,userName,email,password, repeatPassword,submit,regLink);
+        Div container = new Div();
+        container.addClassNames("registration-container");
+
+        addClassNames("registration-view");
+        add(container);
+        container.add(avatarName,userName,email,password, repeatPassword,submit,regLink);
 
     }
     private void handeLogin(ClickEvent<Button> buttonClickEvent) {
