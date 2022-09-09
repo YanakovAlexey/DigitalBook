@@ -52,12 +52,8 @@
 }
 
 .app-nav-footer {
-  align-items: center;
-  display: flex;
-  background-color: var(--lumo-base-color);
+  
 
-    height: auto;
-    width: 100%;
   
 }
 
