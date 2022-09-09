@@ -24,9 +24,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Route("shapes")
-public class BookShapeContent extends Div {
+public class BookShapeContent {
 
   public BookShapeContent() {
+
     Book book = new Book();
     var grid = new Grid<Book>();
     book.setTitle("Грива");
