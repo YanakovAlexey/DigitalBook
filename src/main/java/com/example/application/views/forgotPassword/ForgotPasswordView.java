@@ -39,6 +39,8 @@ public class ForgotPasswordView extends Div {
 
         email.setPlaceholder("email");
         email.setId("email-field");
+        email.setWidth("500px");
+
 
         Button submit = new Button("Отправить", this::handeLogin);
         submit.setId("submit");
