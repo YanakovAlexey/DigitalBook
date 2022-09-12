@@ -26,6 +26,7 @@ public class HeaderView extends Header {
 
         this.addClassNames("view-header");
 
+
         Button cartButton = new Button(new Icon(CART));
         LoginOverlay loginOverlay = new LoginOverlay();
         Button secondaryButton = new Button();
