@@ -41,7 +41,6 @@ public class RegistrationView extends VerticalLayout {
 
     public RegistrationView() {
 
-
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
         i18nForm.setTitle("Registration");
@@ -65,8 +64,6 @@ public class RegistrationView extends VerticalLayout {
         repeatPassword = new PasswordField("Repeat password");
         repeatPassword.setPlaceholder("repeat password");
         repeatPassword.setWidth("500px");
-
-
 
         Button submit = new Button("Отправить", this::handeLogin);
         submit.setId("submit");

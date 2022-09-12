@@ -38,8 +38,6 @@ public class MainLayout extends AppLayout {
         addToNavbar(true, new FooterView());
     }
 
-
-
     public static class MainTitle extends Div {
         public MainTitle() {
             Anchor refresh = new Anchor("reg", "DigitalBooks.app");
@@ -49,14 +47,6 @@ public class MainLayout extends AppLayout {
 
         }
     }
-
-
-
-//    @Override
-//    protected void afterNavigation() {
-//        super.afterNavigation();
-//        viewTitle.setText(getCurrentPageTitle());
-//    }
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
