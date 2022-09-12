@@ -25,32 +25,32 @@ import java.util.stream.Stream;
 @Route("shapes")
 public class BookShapeContent extends Div {
 
-  @Autowired
-  public BookShapeContent() {
+    @Autowired
+    public BookShapeContent() {
 
-    add(constructUI());
-  }
+        add(constructUI());
+    }
 
-  private Component constructUI() {
+    private Component constructUI() {
 
-    Avatar avatarImage = new Avatar("https://pngicon.ru/file/uploads/dota-2.png");
+        Avatar avatarImage = new Avatar("https://pngicon.ru/file/uploads/dota-2.png");
 
-    VerticalLayout layout = new VerticalLayout();
+        VerticalLayout layout = new VerticalLayout();
 
-    Book book = new Book();
-    book.setTitle("Герой");
-    book.setDescription("Книга про одинокого героя");
-    Grid<Book> grid = new Grid<>(Book.class, false);
-    grid.addColumn(Book::getTitle).setHeader("Название");
-    grid.addColumn(Book::getDescription).setHeader("Описание");
+        Book book = new Book();
+        book.setTitle("Герой");
+        book.setDescription("Книга про одинокого героя");
+        Grid<Book> grid = new Grid<>(Book.class, false);
+        grid.addColumn(Book::getTitle).setHeader("Название");
+        grid.addColumn(Book::getDescription).setHeader("Описание");
 
-    avatarImage.setImage("https://pngicon.ru/file/uploads/dota-2.png");
-    avatarImage.setHeight("140px");
-    avatarImage.setWidth("140px");
+        avatarImage.setImage("https://pngicon.ru/file/uploads/dota-2.png");
+        avatarImage.setHeight("140px");
+        avatarImage.setWidth("140px");
 
 //    List<Book> people = DataService.getPeople();
-    grid.setItems(book);
-    layout.add(grid, avatarImage);
-    return layout;
-  }
+        grid.setItems(book);
+        layout.add(grid, avatarImage);
+        return layout;
+    }
 }

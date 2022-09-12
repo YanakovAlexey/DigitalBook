@@ -5,7 +5,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 
-
 /**
  * The main view is a top-level placeholder for other views.
  */
@@ -23,7 +22,6 @@ public class MainLayout extends VerticalLayout {
         add(contentView);
         add(footerView);
     }
-
 }
 
 

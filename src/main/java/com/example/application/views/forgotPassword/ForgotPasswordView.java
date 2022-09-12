@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route;
 @Route("forgot-password")
 public class ForgotPasswordView extends Component {
 
-    public ForgotPasswordView(){
+    public ForgotPasswordView() {
 
     }
 
