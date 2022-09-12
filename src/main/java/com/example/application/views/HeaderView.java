@@ -4,6 +4,8 @@ import com.example.application.views.registration.RegistrationView;
 import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.login.LoginOverlay;
@@ -13,10 +15,9 @@ import com.vaadin.flow.component.tabs.Tabs;
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
 public class HeaderView extends Header {
-  
 
     public HeaderView() {
-        super(new MainLayout.MainTitle());
+        super(createTitle());
 //        Tab tab1 = new Tab("Жанр");
 //        Tab tab2 = new Tab("Автор");
 //        Tab tab3 = new Tab("Издательство");
@@ -52,5 +53,14 @@ public class HeaderView extends Header {
         userButton.addClassNames("view-icons");
         SearchView searchView = new SearchView();
         this.add(searchView, bookButton, cartButton, userButton);
+    }
+
+    private static Div createTitle() {
+        Div container = new Div();
+        Anchor refresh = new Anchor("/", "DigitalBooks.app");
+        refresh.addClassNames("view-title");
+        container.addClassNames("view-title-container");
+        container.add(refresh);
+        return container;
     }
 }

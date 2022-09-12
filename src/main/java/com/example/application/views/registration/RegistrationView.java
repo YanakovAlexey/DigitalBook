@@ -101,8 +101,8 @@ public class RegistrationView extends VerticalLayout {
         session.setParentAnnotatedRoute("version", MainLayout.class);
 //
 //        // Add a view using manually populated parent chain
-        session.setRoute("time", MainLayout.class, MainLayout.class,
-                MainLayout.class);
+//        session.setRoute("time", MainLayout.class, MainLayout.class,
+//                MainLayout.class);
 
         // Reload to target url that was navigated to as it may now be registered.
         UI.getCurrent().getPage().reload();

@@ -27,6 +27,7 @@ public class BookShapeContent extends Div {
 
   @Autowired
   public BookShapeContent() {
+
     add(constructUI());
   }
 

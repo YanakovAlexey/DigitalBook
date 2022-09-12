@@ -1,79 +1,55 @@
-.view-title-container{
-margin-right: 40px;
+@import "./common.css"
+
+.vaadin-vertical-layout {
+    padding: 0;
+}
+.view-title-container {
+
+    margin-right: 40px;
 }
 
-.view-title{
+.view-title {
 
-color: #000000;
-font-size: 30px;
+    color: #000000;
+    font-size: 30px;
+    margin-right: 100px;
 }
 
-.view-search{
+.view-search {
+
 width: 100%;
-max-width: 700px;
-margin-right: 50px;
+    max-width: 600px;
+    margin-right: 50px;
 }
 
 .view-search-input{
-width: 100%;
+    width: 100%;
 }
 
 .view-icons{
-width: 50px;
-margin-right: 20px;
+    width: 50px;
+    margin-right: 20px;
 
 }
 .view-header {
 
-  display: flex;
-  align-items: center;
-  padding: 15px 150px;
-  width: 100%;
-  box-shadow: 0px 1px 8px #00000064;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0px 15px 0px;
+    width: 100%;
+    box-shadow: 0px 1px 8px #00000064;
 }
 
+.view-content{
 
-.app-name {
-  align-items: center;
-  display: flex;
-  height: var(--lumo-size-xl);
-  margin: 0 var(--lumo-space-m);
-  font-size: var(--lumo-font-size-m);
-}
-
-.drawer-section {
-  align-items: stretch;
-  background: linear-gradient(var(--lumo-shade-5pct), var(--lumo-shade-5pct));
-  display: flex;
-  flex-direction: column;
-  max-height: 100%;
-  min-height: 100%;
-}
-
-.app-nav {
-  border-bottom: 1px solid var(--lumo-contrast-10pct);
-  color: var(--lumo-secondary-text-color);
-  flex: 1;
-  font-size: var(--lumo-font-size-s);
-  overflow: auto;
-  padding: 0 var(--lumo-space-s);
-}
-
-.app-nav .nav-item-icon {
-  font-size: var(--lumo-icon-size-s);
-  margin: auto;
-  width: 100%;
-}
+    height: 100%;
+   }
 
 .app-nav-footer {
-  
+    display: flex;
+    width: 100%;
+    height: 80px;
+    background: #1E90FF;
 
-  
-}
-
-.app-nav-footer vaadin-context-menu {
-  cursor: var(--lumo-clickable-cursor);
-  display: contents;
-  font-weight: 500;
 }
