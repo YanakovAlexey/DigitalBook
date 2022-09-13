@@ -72,14 +72,14 @@ public class RegistrationView extends VerticalLayout {
         submit.setId("submit");
         submit.setWidth("200px");
 
-        Anchor regLink = new Anchor("reg", "Авторизироваться");
+        Anchor regLink = new Anchor("auth", "Авторизироваться");
 
         Div container = new Div();
         container.addClassNames("registration-container");
 
         addClassNames("registration-view");
         add(container);
-        container.add(avatarName,userName,email,password, repeatPassword,submit,regLink);
+        container.add(avatarName, userName, email, password, repeatPassword, submit, regLink);
     }
 
     private void registrationButtonClicked(ClickEvent<Button> buttonClickEvent) {
@@ -88,8 +88,10 @@ public class RegistrationView extends VerticalLayout {
                 userName.getValue(),
                 email.getValue(),
                 password.getValue()
+
         ));
     }
+
     public static void logout() {
         // close session to clear all registered routes.
         // also available as sessionRegistry.clear()
