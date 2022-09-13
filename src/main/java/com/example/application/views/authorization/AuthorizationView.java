@@ -29,7 +29,8 @@ public class AuthorizationView extends Div {
         loginForm.addForgotPasswordListener((e) -> loginForm.getUI().ifPresent(ui
                 -> ui.navigate("forgot-password")));
         loginForm.addLoginListener((e) -> loginForm.getUI().ifPresent(ui -> ui.navigate("/")));
-        Anchor regLink = new Anchor("reg", "Registration");
+        Anchor regLink = new Anchor("reg", this.translationProvider.getTranslation("registration",
+                UI.getCurrent().getLocale()));
         Div container = new Div();
         container.addClassNames("authorization-container");
 

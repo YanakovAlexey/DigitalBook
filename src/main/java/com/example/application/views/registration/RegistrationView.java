@@ -3,6 +3,7 @@ package com.example.application.views.registration;
 
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.ClickEvent;
 
 import com.vaadin.flow.component.UI;
@@ -33,6 +34,7 @@ public class RegistrationView extends VerticalLayout {
     private PasswordField repeatPasswordPF;
 
     private final UsersService usersService;
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     @Autowired
     public RegistrationView(UsersService usersService) {
@@ -40,34 +42,46 @@ public class RegistrationView extends VerticalLayout {
 
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
-        i18nForm.setTitle("Registration");
+        System.out.println("Current locale is = " + UI.getCurrent().getLocale());
+        i18nForm.setTitle(this.translationProvider.getTranslation("registration",
+                UI.getCurrent().getLocale()));
         Avatar avatarName = new Avatar();
         i18n.setForm(i18nForm);
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);
 
-        userNameTF = new TextField("Username");
-        userNameTF.setPlaceholder("username");
+        userNameTF = new TextField(this.translationProvider.getTranslation("username",
+                UI.getCurrent().getLocale()));
+        userNameTF.setPlaceholder(this.translationProvider.getTranslation("username",
+                UI.getCurrent().getLocale()));
         userNameTF.setId("userName-field");
         userNameTF.setWidth("500px");
-        emailTF = new TextField("Email");
-        emailTF.setPlaceholder("email");
+        emailTF = new TextField(this.translationProvider.getTranslation("email",
+                UI.getCurrent().getLocale()));
+        emailTF.setPlaceholder(this.translationProvider.getTranslation("email",
+                UI.getCurrent().getLocale()));
         emailTF.setId("email-field");
         emailTF.setWidth("500px");
-        passwordPF = new PasswordField("Password");
-        passwordPF.setPlaceholder("password");
+        passwordPF = new PasswordField(this.translationProvider.getTranslation("password",
+                UI.getCurrent().getLocale()));
+        passwordPF.setPlaceholder(this.translationProvider.getTranslation("password",
+                UI.getCurrent().getLocale()));
         passwordPF.setId("password-field");
         passwordPF.setWidth("500px");
-        repeatPasswordPF = new PasswordField("Repeat password");
-        repeatPasswordPF.setPlaceholder("repeat password");
+        repeatPasswordPF = new PasswordField(this.translationProvider.getTranslation("repeatPassword",
+                UI.getCurrent().getLocale()));
+        repeatPasswordPF.setPlaceholder(this.translationProvider.getTranslation("repeatPassword",
+                UI.getCurrent().getLocale()));
         repeatPasswordPF.setWidth("500px");
 
-        Button submit = new Button("Send", this::registrationButtonClicked);
+        Button submit = new Button(this.translationProvider.getTranslation("send",
+                UI.getCurrent().getLocale()), this::registrationButtonClicked);
         submit.addClickListener((e) -> submit.getUI().ifPresent(ui -> ui.navigate("/auth")));
         submit.setId("submit");
         submit.setWidth("200px");
 
-        Anchor regLink = new Anchor("auth", "Login");
+        Anchor regLink = new Anchor("auth", this.translationProvider.getTranslation("login",
+                UI.getCurrent().getLocale()));
 
         Div container = new Div();
         container.addClassNames("registration-container");

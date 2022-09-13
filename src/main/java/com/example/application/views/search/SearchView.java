@@ -4,18 +4,22 @@ import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SearchView extends Div {
 
     private final TranslationProvider translationProvider = new TranslationProvider();
 
+    @Autowired
     public SearchView() {
+
         TextField textField = new TextField();
 
-        System.out.println("Current locale is = " + UI.getCurrent().getLocale());
-        textField.setPlaceholder(this.translationProvider.getTranslation("searchTitle", UI.getCurrent().getLocale()));
+        textField.setPlaceholder(this.translationProvider.getTranslation("searchTitle",
+                UI.getCurrent().getLocale()));
         textField.setClearButtonVisible(true);
         textField.setPrefixComponent(VaadinIcon.SEARCH.create());
         addClassNames("view-search");
@@ -23,6 +27,5 @@ public class SearchView extends Div {
 
         add(textField);
         addClickShortcut(Key.ENTER);
-
     }
 }
