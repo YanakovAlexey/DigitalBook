@@ -1,9 +1,8 @@
 package com.example.application.backEnd.service;
 
-import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.domain.Users;
-import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.UserViewModel;
+import com.example.application.backEnd.viewModel.account.ForgotPasswordViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
 
 
@@ -25,4 +24,6 @@ public interface UsersService {
 
     String auth(RegistrationViewModel request);
 
+
+    void updatePassword(String email);
 }

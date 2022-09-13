@@ -1,7 +1,6 @@
 package com.example.application.backEnd.service.impl;
 
 import com.example.application.backEnd.builder.UsersBuilder;
-import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.UsersService;
@@ -99,5 +98,20 @@ public class UserServiceImpl implements UsersService {
         }
         return "Успешно";
     }
+
+
+    @Override
+    public void updatePassword(String email) {
+
+//        Optional<Users> userOpt = userRepository.findFirstByEmail(email);
+//        if (userOpt.isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+//        if (userOpt.isPresent()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }
+//        usersBuilder.updatePassword();
+    }
+
 
 }

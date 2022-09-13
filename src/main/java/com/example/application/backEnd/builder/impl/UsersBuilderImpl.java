@@ -7,7 +7,7 @@ import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UsersBuilderImpl implements UsersBuilder {
@@ -36,7 +36,7 @@ public class UsersBuilderImpl implements UsersBuilder {
     }
 
 
-    public void update(Users users, UserViewModel request){
+    public void update(Users users, UserViewModel request) {
         users.setName(request.getName());
         users.setSurname(request.getSurname());
         users.setPatronymic(request.getPatronymic());
@@ -88,4 +88,5 @@ public class UsersBuilderImpl implements UsersBuilder {
         user.setEmail(request.getEmail());
         return user;
     }
+
 }
