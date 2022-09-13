@@ -36,8 +36,10 @@ public class AuthorizationView extends Div {
         i18n.setForm(i18nForm);
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);
+
         loginForm.addForgotPasswordListener((e) -> loginForm.getUI().ifPresent(ui
                 -> ui.navigate("forgot-password")));
+        loginForm.addLoginListener((e) -> loginForm.getUI().ifPresent(ui -> ui.navigate("/")));
         Anchor regLink = new Anchor("reg", "Registration");
         Div container = new Div();
         container.addClassNames("authorization-container");

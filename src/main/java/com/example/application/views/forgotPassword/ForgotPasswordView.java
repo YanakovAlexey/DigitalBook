@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Tag("div")
 @Route("forgot-password")
 public class ForgotPasswordView extends Div {
+
     public TextField email;
 
     private final UsersService usersService;

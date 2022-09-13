@@ -69,10 +69,13 @@ public class RegistrationView extends VerticalLayout {
         repeatPassword.setWidth("500px");
 
         Button submit = new Button("Отправить", this::registrationButtonClicked);
+        submit.addClickListener((e) -> submit.getUI().ifPresent(ui -> ui.navigate("/")));
         submit.setId("submit");
         submit.setWidth("200px");
 
+
         Anchor regLink = new Anchor("auth", "Авторизироваться");
+
 
         Div container = new Div();
         container.addClassNames("registration-container");
