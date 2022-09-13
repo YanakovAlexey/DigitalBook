@@ -21,7 +21,16 @@ public class AuthorizationView extends Div {
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
         System.out.println("Current locale is = " + UI.getCurrent().getLocale());
-        i18nForm.setTitle(this.translationProvider.getTranslation("authorization", UI.getCurrent().getLocale()));
+        i18nForm.setTitle(this.translationProvider.getTranslation("authorization",
+                UI.getCurrent().getLocale()));
+        i18nForm.setUsername( this.translationProvider.getTranslation("username",
+                UI.getCurrent().getLocale()));
+        i18nForm.setPassword( this.translationProvider.getTranslation("password",
+                UI.getCurrent().getLocale()));
+        i18nForm.setForgotPassword( this.translationProvider.getTranslation("forgotPassword",
+                UI.getCurrent().getLocale()));
+        i18nForm.setSubmit( this.translationProvider.getTranslation("logIn",
+                UI.getCurrent().getLocale()));
         i18n.setForm(i18nForm);
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);
