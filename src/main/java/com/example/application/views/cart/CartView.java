@@ -11,7 +11,7 @@ import com.vaadin.flow.router.Route;
 
 
 
-@Route(value = "cart", layout = MainLayout.class)
+//@Route(value = "cart", layout = MainLayout.class)
 public class CartView extends Div {
 
     public CartView() {
