@@ -37,6 +37,5 @@ public class AuthorizationView extends Div {
         container.add(loginForm, regLink);
         addClassNames("authorization-view");
         add(container);
-
     }
 }

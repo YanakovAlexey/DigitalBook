@@ -13,8 +13,6 @@ import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Locale;
-
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
 public class HeaderView extends Header {

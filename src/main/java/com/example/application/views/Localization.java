@@ -11,7 +11,6 @@ import java.text.MessageFormat;
 import java.util.*;
 
 
-
 public class Localization implements I18NProvider {
 
     public static final String BUNDLE_PREFIX = "translate";

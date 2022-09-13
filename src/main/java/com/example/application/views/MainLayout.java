@@ -25,39 +25,12 @@ public class MainLayout extends VerticalLayout {
     private final FooterView footerView = new FooterView();
     private final ContentView contentView = new ContentView();
 
-//    private final Button langButtonGE = new Button("GE");
-//    private final Button langButtonEN = new Button("EN");
-
-//    @Autowired
     public MainLayout() {
         this.setPadding(false);
         this.setHeight("100%");
         add(headerView);
         add(contentView);
         add(footerView);
-//        final UI ui = UI.getCurrent();
-//        ui.setLocale(new Locale("ge", "GE"));
-//        add(new Paragraph(translationProvider.getTranslation("searchTitle", ui.getLocale())));
-//        if (ui.getLocale().getLanguage() == "ar") {
-//            ui.setDirection(Direction.RIGHT_TO_LEFT);
-//        }
-//        langButtonEN.addClickListener(buttonClickEvent -> {
-//            UI.getCurrent().setLocale(translationProvider.LOCALE_EN);
-//            VaadinSession.getCurrent().setLocale(translationProvider.LOCALE_EN);
-//            System.out.println("Current locale is = " + UI.getCurrent().getLocale());
-//            System.out.println("Current vaadin session locale = " + VaadinSession.getCurrent().getLocale());
-//            UI.getCurrent().getPage().reload();
-//        });
-//
-//        langButtonGE.addClickListener(buttonClickEvent -> {
-//            UI.getCurrent().setLocale(translationProvider.LOCALE_GE);
-//            VaadinSession.getCurrent().setLocale(translationProvider.LOCALE_GE);
-//            System.out.println("Current locale is = " + UI.getCurrent().getLocale());
-//            System.out.println("Current vaadin session locale = " + VaadinSession.getCurrent().getLocale());
-//            UI.getCurrent().getPage().reload();
-//        });
-//
-//        add(langButtonEN, langButtonGE);
     }
 }
 
