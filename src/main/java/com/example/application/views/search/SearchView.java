@@ -1,17 +1,21 @@
 package com.example.application.views.search;
 
+import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.TextField;
-import org.jfree.chart.plot.dial.DialValueIndicator;
 
 public class SearchView extends Div {
 
-    public SearchView() {
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
+    public SearchView() {
         TextField textField = new TextField();
-        textField.setPlaceholder("Search");
+
+        System.out.println("Current locale is = " + UI.getCurrent().getLocale());
+        textField.setPlaceholder(this.translationProvider.getTranslation("searchTitle", UI.getCurrent().getLocale()));
         textField.setClearButtonVisible(true);
         textField.setPrefixComponent(VaadinIcon.SEARCH.create());
         addClassNames("view-search");
