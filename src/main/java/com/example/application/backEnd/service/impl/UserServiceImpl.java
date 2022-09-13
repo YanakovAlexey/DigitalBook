@@ -98,20 +98,4 @@ public class UserServiceImpl implements UsersService {
         }
         return "Успешно";
     }
-
-
-    @Override
-    public void updatePassword(String email) {
-
-//        Optional<Users> userOpt = userRepository.findFirstByEmail(email);
-//        if (userOpt.isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//        }
-//        if (userOpt.isPresent()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//        }
-//        usersBuilder.updatePassword();
-    }
-
-
 }

@@ -23,7 +23,4 @@ public interface UsersService {
     void registration(RegistrationViewModel request);
 
     String auth(RegistrationViewModel request);
-
-
-    void updatePassword(String email);
 }
