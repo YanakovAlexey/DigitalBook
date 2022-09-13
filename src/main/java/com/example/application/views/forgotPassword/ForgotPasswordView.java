@@ -30,7 +30,7 @@ public class ForgotPasswordView extends Div {
 
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
-        i18nForm.setTitle(" forgot-password");
+        i18nForm.setTitle("forgot-password");
         i18n.setForm(i18nForm);
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);

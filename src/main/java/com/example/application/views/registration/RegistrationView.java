@@ -69,13 +69,11 @@ public class RegistrationView extends VerticalLayout {
         repeatPassword.setWidth("500px");
 
         Button submit = new Button("Отправить", this::registrationButtonClicked);
-        submit.addClickListener((e) -> submit.getUI().ifPresent(ui -> ui.navigate("/")));
+        submit.addClickListener((e) -> submit.getUI().ifPresent(ui -> ui.navigate("/auth")));
         submit.setId("submit");
         submit.setWidth("200px");
 
-
         Anchor regLink = new Anchor("auth", "Авторизироваться");
-
 
         Div container = new Div();
         container.addClassNames("registration-container");
@@ -86,7 +84,6 @@ public class RegistrationView extends VerticalLayout {
     }
 
     private void registrationButtonClicked(ClickEvent<Button> buttonClickEvent) {
-
         usersService.registration(new RegistrationViewModel(
                 userName.getValue(),
                 email.getValue(),
@@ -101,6 +98,5 @@ public class RegistrationView extends VerticalLayout {
         VaadinSession.getCurrent().close();
         UI.getCurrent().getPage().reload();
     }
-
 }
 
