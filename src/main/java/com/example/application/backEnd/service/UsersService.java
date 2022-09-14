@@ -20,7 +20,7 @@ public interface UsersService {
 
     void deleteById(Long id);
 
-    void registration(RegistrationViewModel request);
+    void registration(RegistrationViewModel request) throws ResponseException;
 
     String auth(RegistrationViewModel request);
 }

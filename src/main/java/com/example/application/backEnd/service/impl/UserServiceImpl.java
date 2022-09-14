@@ -3,6 +3,7 @@ package com.example.application.backEnd.service.impl;
 import com.example.application.backEnd.builder.UsersBuilder;
 import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.UserRepository;
+import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
@@ -76,14 +77,14 @@ public class UserServiceImpl implements UsersService {
     }
 
     @Override
-    public void registration(RegistrationViewModel request) {
+    public void registration(RegistrationViewModel request) throws ResponseException {
         if (request.getPassword().length() < 6) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseException("Short password", "Длина пароля должна быть больше 5 символов", 504);
         }
 
         var userLoginOpt = userRepository.findFirstByUsername(request.getUsername());
         if (userLoginOpt.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseException("Такой пользовательно уже существует", "Выберете другое имя", 504);
         }
 
         var entityUser = usersBuilder.regBuild(request);
@@ -93,7 +94,7 @@ public class UserServiceImpl implements UsersService {
     @Override
     public String auth(RegistrationViewModel request) {
         Optional<Users> userOpt = userRepository.findFirstByUsername(request.getUsername());
-        if (userOpt.isEmpty() || !DigestUtils.md5DigestAsHex(request.getPassword().getBytes()).equals(userOpt.get().getPassword())){
+        if (userOpt.isEmpty() || !DigestUtils.md5DigestAsHex(request.getPassword().getBytes()).equals(userOpt.get().getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return "Успешно";

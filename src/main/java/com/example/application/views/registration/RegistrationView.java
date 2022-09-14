@@ -1,9 +1,12 @@
 package com.example.application.views.registration;
 
 
+import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
+import com.example.application.ui.NotificationComponent;
 import com.vaadin.flow.component.ClickEvent;
 
 import com.vaadin.flow.component.UI;
@@ -76,7 +79,6 @@ public class RegistrationView extends VerticalLayout {
 
         Button submit = new Button(this.translationProvider.getTranslation("send",
                 UI.getCurrent().getLocale()), this::registrationButtonClicked);
-        submit.addClickListener((e) -> submit.getUI().ifPresent(ui -> ui.navigate("/auth")));
         submit.setId("submit");
         submit.setWidth("200px");
 
@@ -92,12 +94,20 @@ public class RegistrationView extends VerticalLayout {
     }
 
     private void registrationButtonClicked(ClickEvent<Button> buttonClickEvent) {
-        usersService.registration(new RegistrationViewModel(
-                userNameTF.getValue(),
-                emailTF.getValue(),
-                passwordPF.getValue()
+        try {
+            usersService.registration(new RegistrationViewModel(
+                    userNameTF.getValue(),
+                    emailTF.getValue(),
+                    passwordPF.getValue()
+            ));
 
-        ));
+            this.getUI().ifPresent(ui -> ui.navigate("/auth"));
+
+        } catch (ResponseException e) {
+            e.printStackTrace();
+            NotificationComponent notification = new NotificationComponent(e.error, e.message, NotificationType.Error);
+            this.add(notification);
+        }
     }
 
     public static void logout() {
