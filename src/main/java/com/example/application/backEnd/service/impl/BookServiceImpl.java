@@ -37,10 +37,10 @@ public class BookServiceImpl implements BookService {
     public List<Book> getAll() {
 
         List<Book> book = bookRepository.findAll();
-//        List<BookViewModel> bookList = new ArrayList<>();
-//        for (Book item : book) {
-//            bookList.add(bookBuilder.build(item));
-//        }
+        List<BookViewModel> bookList = new ArrayList<>();
+        for (Book item : book) {
+            bookList.add(bookBuilder.build(item));
+        }
         return book;
     }
 
