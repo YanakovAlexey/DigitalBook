@@ -6,15 +6,19 @@ import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.charts.model.Select;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.gridpro.GridPro;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,34 +27,28 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Route("shapes")
-public class BookShapeContent extends Div {
+public class BookShapeContent extends VerticalLayout {
+
+
+
 
     @Autowired
     public BookShapeContent() {
+        FormLayout layout = new FormLayout();
+        Book book = new Book();
+        book.setAuthor("Илья Янаков");
+        book.setTitle("Личная биография");
+        Button button = new Button();
+        button.addClickListener(bookButton -> System.out.println("Работает"));
+        button.setIcon(getThumbnail(book));
+        layout.add(button);
 
-        add(constructUI());
     }
 
-    private Component constructUI() {
-
-        Avatar avatarImage = new Avatar("https://pngicon.ru/file/uploads/dota-2.png");
-
-        VerticalLayout layout = new VerticalLayout();
-
-        Book book = new Book();
-        book.setTitle("Герой");
-        book.setDescription("Книга про одинокого героя");
-        Grid<Book> grid = new Grid<>(Book.class, false);
-        grid.addColumn(Book::getTitle).setHeader("Название");
-        grid.addColumn(Book::getDescription).setHeader("Описание");
-
-        avatarImage.setImage("https://pngicon.ru/file/uploads/dota-2.png");
-        avatarImage.setHeight("140px");
-        avatarImage.setWidth("140px");
-
-//    List<Book> people = DataService.getPeople();
-        grid.setItems(book);
-        layout.add(grid, avatarImage);
-        return layout;
+    private Image getThumbnail(Book book) {
+        var image = new Image(book.getBookImg(), book.getTitle() + " cover");
+        image.setHeight("70px");
+        image.addClickListener(event -> System.out.println("Прописать поведение кнопки здесь"));
+        return image;
     }
 }
