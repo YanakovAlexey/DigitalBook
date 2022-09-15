@@ -14,7 +14,9 @@ public class ContentView extends Div {
         RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
         radioGroup.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
         radioGroup.setLabel("Travel class");
-        radioGroup.setItems("Economy", "Business", "First Class", "Economy", "Business", "First Class", "Economy", "Business", "First Class");
+        radioGroup.setItems("Economy", "Business", "First Class", "Economy",
+                "Business", "First Class", "Economy", "Business", "First Class");
+        add(radioGroup);
     }
 
 }
