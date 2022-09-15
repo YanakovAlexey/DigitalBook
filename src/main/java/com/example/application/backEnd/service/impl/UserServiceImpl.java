@@ -86,7 +86,7 @@ public class UserServiceImpl implements UsersService {
             throw new ResponseException(this.translationProvider.getTranslation("shortPassword",
                     UI.getCurrent().getLocale()), this.
                     translationProvider.getTranslation("passwordLengthMustBeMoreThanFiveCharacters",
-                    UI.getCurrent().getLocale()), 504);
+                            UI.getCurrent().getLocale()), 504);
         }
 
         var userLoginOpt = userRepository.findFirstByUsername(request.getUsername());
@@ -112,8 +112,10 @@ public class UserServiceImpl implements UsersService {
         Optional<Users> userOpt = userRepository.findFirstByEmail(request.getLogin());
 //        System.out.println(!DigestUtils.md5DigestAsHex(request.getPassword().getBytes())
 //                .equals(userOpt.get().getPassword()));
-        if (!userOpt.isPresent()){
+        if (!userOpt.isPresent()) {
             throw new ResponseException("Неверный логин или пароль", "Неверный логин или пароль", 102);
+        } else{
+
         }
     }
 }

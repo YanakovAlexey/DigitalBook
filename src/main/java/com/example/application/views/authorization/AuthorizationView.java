@@ -3,15 +3,11 @@ package com.example.application.views.authorization;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
-import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
-import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
-import com.example.application.ui.NotificationComponent;
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.login.AbstractLogin;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -32,6 +28,11 @@ public class AuthorizationView extends Div {
         this.usersService = usersService;
 
         i18n = LoginI18n.createDefault();
+        LoginI18n.ErrorMessage i18nError = i18n.getErrorMessage();
+        i18nError.setTitle("Incorrect username or password");
+        i18nError.setMessage("Check that you have entered the correct username and password and try again");
+        this.i18n.setErrorMessage(i18nError);
+
         LoginI18n.Form i18nForm = i18n.getForm();
         System.out.println("Current locale is = " + UI.getCurrent().getLocale());
         i18nForm.setTitle(this.translationProvider.getTranslation("authorization",
@@ -49,7 +50,7 @@ public class AuthorizationView extends Div {
         loginForm.setI18n(i18n);
         loginForm.addForgotPasswordListener((e) -> loginForm.getUI().ifPresent(ui
                 -> ui.navigate("forgot-password")));
-        loginForm.addLoginListener((e) -> this.handleSubmit());
+        loginForm.addLoginListener(this::handleSubmit);
         Anchor regLink = new Anchor("reg", this.translationProvider.getTranslation("registration",
                 UI.getCurrent().getLocale()));
 
@@ -60,25 +61,19 @@ public class AuthorizationView extends Div {
         add(container);
     }
 
-    private void handleSubmit() {
+    private void handleSubmit(AbstractLogin.LoginEvent event) {
 
         try {
             usersService.auth(new AuthViewModel(
-                    this.i18n.getForm().getUsername(),
-                    this.i18n.getForm().getPassword()
+                    event.getUsername(),
+                    event.getPassword()
             ));
 
             this.getUI().ifPresent(ui -> ui.navigate("/"));
 
         } catch (ResponseException e) {
             e.printStackTrace();
-            LoginI18n.ErrorMessage i18nError = i18n.getErrorMessage();
-            i18nError.setTitle("Incorrect username or password");
-            i18nError.setMessage("Check that you have entered the correct username and password and try again.");
-            this.i18n.setErrorMessage(i18nError);
-            this.container.remove(loginForm);
-            this.loginForm.setI18n(this.i18n);
-            this.container.add(loginForm);
+            loginForm.setError(true);
         }
     }
 }
