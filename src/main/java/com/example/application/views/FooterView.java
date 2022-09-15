@@ -1,14 +1,18 @@
 package com.example.application.views;
 
-import com.vaadin.flow.component.button.Button;
+
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class FooterView extends Div {
 
+    @Autowired
     public FooterView() {
         this.addClassNames("app-nav-footer");
 
+        Anchor aboutUsLink = new Anchor("aboutUs", "О нас");
+        aboutUsLink.addClassNames("app-nav-aboutUs");
+        this.add(aboutUsLink);
     }
 }
