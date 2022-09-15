@@ -2,6 +2,7 @@ package com.example.application.views.authorization;
 
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.UI;
@@ -12,20 +13,23 @@ import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
 @Route("/auth")
-public class AuthorizationView extends Div {
-    private TextField login;
-    private PasswordField password;
+public class AuthorizationView extends Div implements BeforeEnterObserver {
+
     LoginForm loginForm;
     LoginI18n i18n;
     Div container = new Div();
     private final TranslationProvider translationProvider = new TranslationProvider();
     private final UsersService usersService;
+    private final AuthenticatedUser authenticatedUser;
 
-    public AuthorizationView(UsersService usersService) {
+    public AuthorizationView(UsersService usersService, AuthenticatedUser authenticatedUser) {
         this.usersService = usersService;
+        this.authenticatedUser = authenticatedUser;
 
         i18n = LoginI18n.createDefault();
         LoginI18n.ErrorMessage i18nError = i18n.getErrorMessage();
@@ -74,6 +78,14 @@ public class AuthorizationView extends Div {
         } catch (ResponseException e) {
             e.printStackTrace();
             loginForm.setError(true);
+        }
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (authenticatedUser.get().isPresent()) {
+            // Already logged in
+            event.forwardTo("/");
         }
     }
 }

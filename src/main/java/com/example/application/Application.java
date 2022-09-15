@@ -20,9 +20,7 @@ import javax.servlet.annotation.WebInitParam;
  * and some desktop browsers.
  *
  */
-@SpringBootApplication(exclude = {
-        SecurityAutoConfiguration.class
-})
+@SpringBootApplication
 @Theme(value = "DigitalBook")
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 @NpmPackage(value = "@vaadin-component-factory/vcf-nav", version = "1.0.6")

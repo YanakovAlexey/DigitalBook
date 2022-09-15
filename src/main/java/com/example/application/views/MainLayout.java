@@ -3,11 +3,14 @@ package com.example.application.views;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.RolesAllowed;
+
 
 /**
  * The main view is a top-level placeholder for other views.
  */
 @Route("/")
+@RolesAllowed("USER")
 public class MainLayout extends VerticalLayout {
 
     private final HeaderView headerView = new HeaderView();

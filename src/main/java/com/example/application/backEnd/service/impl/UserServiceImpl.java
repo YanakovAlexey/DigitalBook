@@ -16,8 +16,14 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -108,14 +114,25 @@ public class UserServiceImpl implements UsersService {
 
     @Override
     public void auth(AuthViewModel request) throws ResponseException {
+        Optional<Users> userOpt = userRepository.findFirstByUsername(request.getLogin());
+        var result = userOpt.map(user -> {
+            var u = new User(
+                    user.getUsername(),
+                    user.getPassword(),
+                    List.of(new SimpleGrantedAuthority("ROLE_USER"))
+            );
+            SecurityContext context = SecurityContextHolder.getContext();
+            var authentication = new UsernamePasswordAuthenticationToken(
+                    u.getUsername(),
+                    u.getPassword(),
+                    u.getAuthorities()
+            );
+            context.setAuthentication(authentication);
+            return u;
+        }).orElseThrow(() -> new ResponseException("Неверный логин или пароль", "Неверный логин или пароль", 102));
 
-        Optional<Users> userOpt = userRepository.findFirstByEmail(request.getLogin());
-//        System.out.println(!DigestUtils.md5DigestAsHex(request.getPassword().getBytes())
-//                .equals(userOpt.get().getPassword()));
-        if (!userOpt.isPresent()) {
-            throw new ResponseException("Неверный логин или пароль", "Неверный логин или пароль", 102);
-        } else{
-
-        }
+        System.out.println(result);
     }
+
 }
+
