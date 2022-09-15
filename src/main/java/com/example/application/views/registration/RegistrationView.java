@@ -109,18 +109,21 @@ public class RegistrationView extends VerticalLayout {
 
 
         if (emailTF.isInvalid()) {
-            emailTF.setErrorMessage("Неверный формат почты");
+            emailTF.setErrorMessage(this.translationProvider.getTranslation("invalidMailFormat",
+                    UI.getCurrent().getLocale()));
             return;
         }
 
         if (passwordPF.isInvalid()) {
-            passwordPF.setErrorMessage("Короткий пароль");
+            passwordPF.setErrorMessage(this.translationProvider.getTranslation("shortPassword",
+                    UI.getCurrent().getLocale()));
             return;
         }
 
         if (!Objects.equals(passwordPF.getValue(), repeatPasswordPF.getValue())) {
             repeatPasswordPF.setInvalid(true);
-            repeatPasswordPF.setErrorMessage("Пароли не совпадают");
+            repeatPasswordPF.setErrorMessage(this.translationProvider.getTranslation("passwordsDoNotMatch",
+                    UI.getCurrent().getLocale()));
             return;
         }
 

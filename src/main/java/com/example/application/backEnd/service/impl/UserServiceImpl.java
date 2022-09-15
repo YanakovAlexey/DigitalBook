@@ -8,6 +8,8 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import com.example.application.translation.TranslationProvider;
+import com.vaadin.flow.component.UI;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UsersService {
 
     UsersBuilder usersBuilder;
     UserRepository userRepository;
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     public List<UserViewModel> getAll() {
         List<Users> userList = userRepository.findAll();
@@ -80,17 +83,23 @@ public class UserServiceImpl implements UsersService {
     @Override
     public void registration(RegistrationViewModel request) throws ResponseException {
         if (request.getPassword().length() < 6) {
-            throw new ResponseException("Short password", "Длина пароля должна быть больше 5 символов", 504);
+            throw new ResponseException(this.translationProvider.getTranslation("shortPassword",
+                    UI.getCurrent().getLocale()), this.
+                    translationProvider.getTranslation("passwordLengthMustBeMoreThanFiveCharacters",
+                    UI.getCurrent().getLocale()), 504);
         }
 
         var userLoginOpt = userRepository.findFirstByUsername(request.getUsername());
         if (userLoginOpt.isPresent()) {
-            throw new ResponseException("Такой пользовательно уже существует", "Выберете другое имя", 504);
+            throw new ResponseException(this.translationProvider.getTranslation("thisCustomAlreadyExists",
+                    UI.getCurrent().getLocale()), this.translationProvider.getTranslation("chooseAnotherName",
+                    UI.getCurrent().getLocale()), 504);
         }
 
         var userEmailOpt = userRepository.findFirstByEmail(request.getEmail());
         if (userEmailOpt.isPresent()) {
-            throw new ResponseException("Пользователь с email уже существует", "Выберете другое email", 504);
+            throw new ResponseException(this.translationProvider.getTranslation("userWithEmailAlreadyExists",
+                    UI.getCurrent().getLocale()), "Выберете другое email", 504);
         }
 
         var entityUser = usersBuilder.regBuild(request);
