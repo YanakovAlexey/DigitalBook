@@ -30,23 +30,12 @@ public class BookShapeContent extends HorizontalLayout {
         this.bookBuilder = bookBuilder;
         var books = bookService.getAll().stream().map(book -> bookBuilder.createBook(book));
         var layout = new FlexLayout();
-       layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
         add(layout);
     }
-
-
-
-    private Image getThumbnail(Book book) {
-        var image = new Image(book.getBookImg(), book.getTitle() + " cover");
-        image.setHeight("210x");
-        image.setWidth("154px");
-        image.addClickListener(bookButton -> System.out.println("Работает"));
-        return image;
-    }
-
 
     //        https://digitalbooks.app/books_img/2021/09/cover_227.jpg
 //        https://digitalbooks.app/books_img/2022/06/cover_228.png
