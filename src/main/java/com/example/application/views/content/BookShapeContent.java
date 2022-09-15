@@ -9,10 +9,12 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.RolesAllowed;
 
 
 @Route("shapes")
-public  class BookShapeContent extends HorizontalLayout {
+@RolesAllowed("USER")
+public class BookShapeContent extends HorizontalLayout {
 
     private final BookService bookService;
     private Button button;

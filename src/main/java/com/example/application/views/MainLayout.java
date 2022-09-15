@@ -2,6 +2,7 @@ package com.example.application.views;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -10,7 +11,7 @@ import javax.annotation.security.RolesAllowed;
  * The main view is a top-level placeholder for other views.
  */
 @Route("/")
-@RolesAllowed("USER")
+@AnonymousAllowed
 public class MainLayout extends VerticalLayout {
 
     private final HeaderView headerView = new HeaderView();
