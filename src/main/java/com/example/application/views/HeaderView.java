@@ -12,6 +12,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.login.LoginOverlay;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,11 +31,11 @@ public class HeaderView extends Header {
     public HeaderView() {
 
         super(createTitle());
-//        Tab tab1 = new Tab("Жанр");
-//        Tab tab2 = new Tab("Автор");
-//        Tab tab3 = new Tab("Издательство");
-//        Tab tab4 = new Tab("Поддержка");
-//        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
+        Tab tab1 = new Tab("Жанр");
+        Tab tab2 = new Tab("Автор");
+        Tab tab3 = new Tab("Издательство");
+        Tab tab4 = new Tab("Поддержка");
+        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
 
         this.addClassNames("view-header");
 
@@ -87,6 +89,7 @@ public class HeaderView extends Header {
         userButton.addClassNames("view-icons");
         SearchView searchView = new SearchView();
         this.add(searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
+        this.add(tabs);
     }
 
     private static Div createTitle() {

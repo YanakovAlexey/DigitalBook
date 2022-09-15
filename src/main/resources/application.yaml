@@ -11,8 +11,8 @@ spring:
       ddl-auto: update
   datasource:
 
-    password: 080802Alex
-    url: jdbc:postgresql://localhost:5432/DigitalBooks
+    password: Ivan230691
+    url: jdbc:postgresql://localhost:5433/DigitalBooks
     username: postgres
 
 module-name: DigitalBooks
