@@ -1,5 +1,7 @@
 package com.example.application.views;
 
+import com.example.application.backEnd.reporitory.UserRepository;
+import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.UI;
@@ -10,6 +12,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.login.LoginOverlay;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +24,8 @@ public class HeaderView extends Header {
     private final TranslationProvider translationProvider = new TranslationProvider();
     private final Button langButtonGE = new Button("GE");
     private final Button langButtonEN = new Button("EN");
+    private UserRepository userRepository;
+    private final AuthenticatedUser authenticatedUser = new AuthenticatedUser(userRepository);
 
     @Autowired
     public HeaderView() {
@@ -33,11 +39,17 @@ public class HeaderView extends Header {
 
         this.addClassNames("view-header");
 
+        Button exit = new Button("Exit");
         Button cartButton = new Button(new Icon(CART));
         LoginOverlay loginOverlay = new LoginOverlay();
         Button secondaryButton = new Button();
         secondaryButton.addClickListener(event -> loginOverlay.setOpened(true));
         secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        exit.addClickListener(event -> {
+            exit.getUI().ifPresent(ui -> ui.navigate("logout"));
+            authenticatedUser.logout();
+        });
         cartButton.addClickListener(event -> {
             cartButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
@@ -76,7 +88,7 @@ public class HeaderView extends Header {
         cartButton.addClassNames("view-icons");
         userButton.addClassNames("view-icons");
         SearchView searchView = new SearchView();
-        this.add(searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE);
+        this.add(searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
     }
 
     private static Div createTitle() {

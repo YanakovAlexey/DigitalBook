@@ -10,9 +10,13 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.Route;
 
-import java.util.List;
+import javax.annotation.security.RolesAllowed;
 
+
+@Route("shapes")
+@RolesAllowed("USER")
 public class BookShapeContent extends HorizontalLayout {
 
     private final BookService bookService;
@@ -32,6 +36,7 @@ public class BookShapeContent extends HorizontalLayout {
         });
         add(layout);
     }
+
 
 
     private Image getThumbnail(Book book) {

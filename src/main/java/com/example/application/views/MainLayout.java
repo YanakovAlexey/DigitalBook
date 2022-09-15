@@ -5,12 +5,16 @@ import com.example.application.backEnd.service.BookService;
 import com.example.application.views.content.BookShapeContent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+
+import javax.annotation.security.RolesAllowed;
 
 
 /**
  * The main view is a top-level placeholder for other views.
  */
 @Route("/")
+@AnonymousAllowed
 public class MainLayout extends VerticalLayout {
 
     private final BookService bookService;
