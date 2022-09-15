@@ -1,42 +1,38 @@
 package com.example.application.views.content;
 
+import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.router.Route;
 
+import java.util.List;
 
-
-@Route("shapes")
-public  class BookShapeContent extends HorizontalLayout {
+public class BookShapeContent extends HorizontalLayout {
 
     private final BookService bookService;
+    private final BookBuilder bookBuilder;
     private Button button;
 
+    public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
 
-    public BookShapeContent(BookService bookService) {
+        this.addClassNames("view-content");
         this.bookService = bookService;
-        add(createContent());
+        this.bookBuilder = bookBuilder;
+        var books = bookService.getAll().stream().map(book -> bookBuilder.createBook(book));
+        var layout = new FlexLayout();
+       layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        books.forEach(bookViewModel -> {
+            layout.add(new BookItem(bookViewModel));
+        });
+        add(layout);
     }
 
-    private Component createContent() {
-        Div container = new Div();
-
-
-        var bookList = bookService.getAll();
-
-        for(int i = 0; i < bookList.size(); i++){
-            button = new Button(getThumbnail(bookList.get(i)));
-            container.add(button);
-        }
-
-        container.setTitle("Все");
-        return container;
-    }
 
     private Image getThumbnail(Book book) {
         var image = new Image(book.getBookImg(), book.getTitle() + " cover");
@@ -45,6 +41,7 @@ public  class BookShapeContent extends HorizontalLayout {
         image.addClickListener(bookButton -> System.out.println("Работает"));
         return image;
     }
+
 
     //        https://digitalbooks.app/books_img/2021/09/cover_227.jpg
 //        https://digitalbooks.app/books_img/2022/06/cover_228.png
