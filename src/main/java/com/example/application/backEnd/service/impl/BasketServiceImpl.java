@@ -70,11 +70,23 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public void update(Long id, BasketViewModel request) {
-
+        Optional<Basket> basketOpt = basketRepository.findById(id);
+        if (basketOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (basketOpt.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+//        basketBuilder.update(request);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        Optional<Basket> basketOpt = basketRepository.findById(id);
+        if (basketOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        basketRepository.deleteById(basketOpt.get().getId());
+        basketRepository.deleteById(id);
     }
 }
