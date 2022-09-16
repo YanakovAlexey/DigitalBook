@@ -76,14 +76,11 @@ public class UserServiceImpl implements UsersService {
     }
 
     public UserViewModel getById(Long id) {
-        Optional<Users> usersOpt = userRepository.findById(id);
-        if (usersOpt.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        if (usersOpt.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        return usersBuilder.build(usersOpt.get());
+
+        return userRepository.findById(id)
+                .map(usersBuilder::build)
+                .orElseThrow(()
+                        -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
     }
 
     @Override

@@ -1,14 +1,10 @@
 package com.example.application.views.items;
 
-import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BookViewModel;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-
-import javax.swing.*;
 
 public class BookItem extends Div {
 

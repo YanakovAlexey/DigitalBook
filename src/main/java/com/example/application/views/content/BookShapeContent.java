@@ -1,15 +1,9 @@
 package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
-import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.views.items.BookItem;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
