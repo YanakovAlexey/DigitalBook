@@ -26,6 +26,7 @@ public class BookShapeContent extends HorizontalLayout {
     private Div div = new Div();
 
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
+
         this.addClassNames("view-content");
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;

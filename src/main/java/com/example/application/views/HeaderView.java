@@ -24,7 +24,7 @@ public class HeaderView extends Header {
     private final TranslationProvider translationProvider = new TranslationProvider();
     private final Button langButtonGE = new Button("GE");
     private final Button langButtonEN = new Button("EN");
-    private final Button bookButton;
+
     private UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser = new AuthenticatedUser(userRepository);
 
