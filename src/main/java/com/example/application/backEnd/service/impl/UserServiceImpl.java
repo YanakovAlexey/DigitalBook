@@ -105,7 +105,8 @@ public class UserServiceImpl implements UsersService {
         var userEmailOpt = userRepository.findFirstByEmail(request.getEmail());
         if (userEmailOpt.isPresent()) {
             throw new ResponseException(this.translationProvider.getTranslation("userWithEmailAlreadyExists",
-                    UI.getCurrent().getLocale()), "Выберете другое email", 504);
+                    UI.getCurrent().getLocale()), this.translationProvider.getTranslation("chooseAnotherEmail",
+                    UI.getCurrent().getLocale()), 504);
         }
 
         var entityUser = usersBuilder.regBuild(request);
@@ -129,7 +130,9 @@ public class UserServiceImpl implements UsersService {
             );
             context.setAuthentication(authentication);
             return u;
-        }).orElseThrow(() -> new ResponseException("Неверный логин или пароль", "Неверный логин или пароль", 102));
+        }).orElseThrow(() -> new ResponseException(this.translationProvider.getTranslation("wrongLoginOrPassword",
+                UI.getCurrent().getLocale()), this.translationProvider.getTranslation("wrongLoginOrPassword",
+                UI.getCurrent().getLocale()), 102));
 
         System.out.println(result);
     }
