@@ -6,8 +6,10 @@ import com.example.application.backEnd.service.BookService;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
@@ -21,10 +23,9 @@ public class BookShapeContent extends HorizontalLayout {
 
     private final BookService bookService;
     private final BookBuilder bookBuilder;
-    private Button button;
+    private Div div = new Div();
 
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
-
         this.addClassNames("view-content");
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
@@ -34,10 +35,9 @@ public class BookShapeContent extends HorizontalLayout {
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        add(layout);
-    }
+        div.setText("ВСЕ");
+        div.add(layout);
 
-    //        https://digitalbooks.app/books_img/2021/09/cover_227.jpg
-//        https://digitalbooks.app/books_img/2022/06/cover_228.png
-//        https://digitalbooks.app/books_img/2022/06/cover_231.png
+        add(div);
+    }
 }
