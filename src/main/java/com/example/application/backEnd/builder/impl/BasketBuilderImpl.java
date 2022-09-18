@@ -34,7 +34,5 @@ public class BasketBuilderImpl implements BasketBuilder {
     public void update(Basket basket, BasketViewModel request) {
         basket.setId_user(request.getId_user());
         basket.setId_book(request.getId_book());
-
-
     }
 }

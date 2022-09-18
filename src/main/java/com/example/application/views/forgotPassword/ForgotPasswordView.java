@@ -2,11 +2,8 @@ package com.example.application.views.forgotPassword;
 
 
 import com.example.application.backEnd.service.UsersService;
-import com.example.application.backEnd.viewModel.account.ForgotPasswordViewModel;
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;

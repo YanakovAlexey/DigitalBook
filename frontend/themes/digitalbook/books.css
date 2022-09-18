@@ -1,0 +1,13 @@
+.book-item {
+    width: 100%;
+    max-width: 120px;
+    padding: 30px;
+    margin-right: 50px;
+    cursor: pointer;
+
+}
+
+.book-item-image {
+    width: 145px;
+    height: 210px;
+}
