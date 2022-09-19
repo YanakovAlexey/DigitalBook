@@ -21,7 +21,7 @@ public class MainLayout extends VerticalLayout {
     private final BookBuilder bookBuilder;
 
     private final HeaderView headerView = new HeaderView();
-    private final FooterView footerView = new FooterView();
+//    private final FooterView footerView = new FooterView();
     private final BookShapeContent contentView;
 
     public MainLayout(BookService bookService, BookBuilder bookBuilder) {
@@ -33,7 +33,7 @@ public class MainLayout extends VerticalLayout {
 
         add(headerView);
         add(contentView);
-        add(footerView);
+//        add(footerView);
     }
 }
 
