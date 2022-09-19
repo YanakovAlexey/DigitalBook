@@ -10,11 +10,9 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.RolesAllowed;
 
-
 @Route("shapes")
 @RolesAllowed("USER")
 public class BookShapeContent extends HorizontalLayout {
-
     private final BookService bookService;
     private final BookBuilder bookBuilder;
     private Div div = new Div();
@@ -22,6 +20,7 @@ public class BookShapeContent extends HorizontalLayout {
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
 
         this.addClassNames("view-content");
+
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
         var books = bookService.getAll().stream().map(book -> bookBuilder.createBook(book));
@@ -30,7 +29,7 @@ public class BookShapeContent extends HorizontalLayout {
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        div.setText("ВСЕ");
+        div.setText("Все");
         div.add(layout);
 
         add(div);
