@@ -26,6 +26,18 @@ public class BookShapeContent extends HorizontalLayout {
     private Div div = new Div();
 
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
+        Book bo0ok = new Book();
+        bo0ok.setTitle("письмо солнца");
+        bo0ok.setAuthor("Малхаз Мачавариани");
+        bo0ok.setBookImg("https://digitalbooks.app/books_img/2021/09/cover_227.jpg");
+
+
+        for(long i = 1;i < 6; i++){
+
+            bo0ok.setId(i);
+            bookService.create(bo0ok);
+        }
+
         this.addClassNames("view-content");
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
