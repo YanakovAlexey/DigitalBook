@@ -12,7 +12,7 @@ import com.vaadin.flow.router.Route;
 import javax.annotation.security.RolesAllowed;
 
 
-//@RolesAllowed("USER")
+@RolesAllowed("USER")
 @Route(value = "shapes", layout = ContentView.class)
 public class BookShapeContent extends HorizontalLayout {
 
