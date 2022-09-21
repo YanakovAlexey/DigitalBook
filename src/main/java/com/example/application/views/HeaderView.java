@@ -40,6 +40,8 @@ public class HeaderView extends Header {
 
         this.addClassNames("view-header");
 
+
+        Button aboutUs = new Button(new Icon(EXCLAMATION_CIRCLE_O));
         Button exit = new Button("Exit");
         Button cartButton = new Button(new Icon(CART));
         LoginOverlay loginOverlay = new LoginOverlay();
@@ -89,7 +91,7 @@ public class HeaderView extends Header {
         cartButton.addClassNames("view-icons");
         userButton.addClassNames("view-icons");
         SearchView searchView = new SearchView();
-        this.add(searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
+        this.add(aboutUs, searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
     }
 
     private static Div createTitle() {

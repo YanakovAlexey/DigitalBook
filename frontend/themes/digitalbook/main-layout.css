@@ -12,13 +12,14 @@
 
     color: #000000;
     font-size: 30px;
-    margin-right: 100px;
+    margin-right: 50px;
 }
 
 .view-search {
     width: 100%;
     max-width: 500px;
     margin-right: 50px;
+    margin-left: 20px;
 }
 
 .view-search-input{
