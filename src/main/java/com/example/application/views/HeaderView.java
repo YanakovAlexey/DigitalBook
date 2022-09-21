@@ -23,7 +23,7 @@ public class HeaderView extends Header {
 
     private final TranslationProvider translationProvider = new TranslationProvider();
     private final Button langButtonGE = new Button("GE");
-    private final Button langButtonEN = new Button("EN");
+    private final Button langButtonEN = new Button("RU");
 
     private UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser = new AuthenticatedUser(userRepository);
@@ -52,20 +52,20 @@ public class HeaderView extends Header {
             authenticatedUser.logout();
         });
         cartButton.addClickListener(event -> {
-            cartButton.getUI().ifPresent(ui -> ui.navigate("auth"));
+            cartButton.getUI().ifPresent(ui -> ui.navigate("main/auth"));
         });
         Button bookButton = new Button(new Icon(OPEN_BOOK));
         Button login = new Button();
         login.addClickListener(event -> loginOverlay.setOpened(true));
         login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         bookButton.addClickListener(event -> {
-            bookButton.getUI().ifPresent(ui -> ui.navigate("auth"));
+            bookButton.getUI().ifPresent(ui -> ui.navigate("main/auth"));
         });
         Button userButton = new Button(new Icon(USER));
         login.addClickListener(event -> loginOverlay.setOpened(true));
         login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         userButton.addClickListener(event -> {
-            userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
+            userButton.getUI().ifPresent(ui -> ui.navigate("main/auth"));
         });
 
 

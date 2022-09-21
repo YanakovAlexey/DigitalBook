@@ -2,6 +2,7 @@ package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.views.ContentView;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -11,13 +12,14 @@ import com.vaadin.flow.router.Route;
 import javax.annotation.security.RolesAllowed;
 
 
-@Route("shapes")
-@RolesAllowed("USER")
+//@RolesAllowed("USER")
+@Route(value = "shapes", layout = ContentView.class)
 public class BookShapeContent extends HorizontalLayout {
 
     private final BookService bookService;
     private final BookBuilder bookBuilder;
     private Div div = new Div();
+
 
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
 

@@ -5,6 +5,8 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
 import com.example.application.translation.TranslationProvider;
+import com.example.application.views.ContentView;
+import com.example.application.views.HeaderView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
@@ -15,8 +17,9 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
-@Route("/auth")
+@Route(value = "auth", layout = ContentView.class)
 public class AuthorizationView extends Div implements BeforeEnterObserver {
+
 
     LoginForm loginForm;
     LoginI18n i18n;
@@ -53,7 +56,7 @@ public class AuthorizationView extends Div implements BeforeEnterObserver {
         loginForm.addForgotPasswordListener((e) -> loginForm.getUI().ifPresent(ui
                 -> ui.navigate("forgot-password")));
         loginForm.addLoginListener(this::handleSubmit);
-        Anchor regLink = new Anchor("reg", this.translationProvider.getTranslation("registration",
+        Anchor regLink = new Anchor("/main/reg", this.translationProvider.getTranslation("registration",
                 UI.getCurrent().getLocale()));
 
         container.addClassNames("authorization-container");
