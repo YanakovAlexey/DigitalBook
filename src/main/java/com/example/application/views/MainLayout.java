@@ -16,7 +16,7 @@ import javax.annotation.security.RolesAllowed;
  */
 @Route("/")
 @AnonymousAllowed
-public class MainLayout extends VerticalLayout  implements RouterLayout {
+public class MainLayout extends VerticalLayout implements RouterLayout {
 
     private final BookService bookService;
     private final BookBuilder bookBuilder;
