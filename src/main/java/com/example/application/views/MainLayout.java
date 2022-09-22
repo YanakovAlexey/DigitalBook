@@ -22,7 +22,6 @@ public class MainLayout extends VerticalLayout  implements RouterLayout {
     private final BookBuilder bookBuilder;
 
     private final HeaderView headerView = new HeaderView();
-//    private final FooterView footerView = new FooterView();
     private final BookShapeContent contentView;
 
     public MainLayout(BookService bookService, BookBuilder bookBuilder) {
@@ -34,7 +33,6 @@ public class MainLayout extends VerticalLayout  implements RouterLayout {
 
         add(headerView);
         add(contentView);
-//        add(footerView);
     }
 }
 
