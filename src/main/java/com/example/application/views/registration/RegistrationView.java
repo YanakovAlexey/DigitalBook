@@ -6,6 +6,7 @@ import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
+import com.example.application.views.ContentView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -24,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
 
-@Route("reg")
+@Route(value = "reg", layout = ContentView.class)
 @AnonymousAllowed
 public class RegistrationView extends VerticalLayout {
 
@@ -82,7 +83,7 @@ public class RegistrationView extends VerticalLayout {
         submit.setId("submit");
         submit.setWidth("200px");
 
-        Anchor regLink = new Anchor("auth", this.translationProvider.getTranslation("login",
+        Anchor regLink = new Anchor("main/auth", this.translationProvider.getTranslation("login",
                 UI.getCurrent().getLocale()));
 
         Div container = new Div();
@@ -90,6 +91,7 @@ public class RegistrationView extends VerticalLayout {
 
         addClassNames("registration-view");
         add(container);
+        this.setWidth(String.valueOf(false));
         container.add(avatarName, userNameTF, emailTF, passwordPF, repeatPasswordPF, submit, regLink);
     }
 
@@ -123,7 +125,7 @@ public class RegistrationView extends VerticalLayout {
                     passwordPF.getValue()
             ));
 
-            this.getUI().ifPresent(ui -> ui.navigate("/auth"));
+            this.getUI().ifPresent(ui -> ui.navigate("/main/auth"));
 
         } catch (ResponseException e) {
             e.printStackTrace();

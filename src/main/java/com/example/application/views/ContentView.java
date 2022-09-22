@@ -1,20 +1,20 @@
 package com.example.application.views;
 
-import com.example.application.backEnd.service.BookService;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
+import com.example.application.views.content.BookShapeContent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.ParentLayout;
+import com.vaadin.flow.router.RoutePrefix;
+import com.vaadin.flow.router.RouterLayout;
 
-public class ContentView extends Div {
+@ParentLayout(MainLayout.class)
+@RoutePrefix("main")
+public class ContentView extends HorizontalLayout implements RouterLayout {
+
+    BookShapeContent bookShapeContent;
 
     public ContentView() {
-        this.addClassNames("view-content");
-//        RadioButtonGroup<String> radioGroup = new RadioButtonGroup<>();
-//        radioGroup.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
-//        radioGroup.setLabel("Travel class");
-//        radioGroup.setItems("Economy", "Business", "First Class", "Economy", "Business", "First Class", "Economy", "Business", "First Class");
+
+//        this.addClassNames("view-content");
 
     }
-
 }
