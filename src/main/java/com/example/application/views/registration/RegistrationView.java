@@ -130,7 +130,7 @@ public class RegistrationView extends VerticalLayout {
         } catch (ResponseException e) {
             e.printStackTrace();
             NotificationComponent notification =
-                    new NotificationComponent(e.error, e.message, NotificationType.Error);
+                    new NotificationComponent(e.error, e.message, NotificationType.ERROR);
             this.add(notification);
         }
     }
