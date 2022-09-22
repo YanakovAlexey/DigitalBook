@@ -7,12 +7,14 @@ flex-direction: column;
 justify-content: flex-start;
 align-items: center;
 background: #FFFFFF;
+box-shadow: 0px 1px 8px #00000064;
 
 }
 
 @media(max-width: 1200px){
 
 .registration-container{
+
 max-width: 970px;
 }
 }
@@ -27,6 +29,7 @@ max-width: 750px;
 @media(max-width: 767px){
 
 .registration-container{
+
 max-width: none;
 }
 }
@@ -38,6 +41,7 @@ height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
-background: gray;
+background: #f6f7f7;
+
 
 }

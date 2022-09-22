@@ -10,11 +10,11 @@ import com.vaadin.flow.router.RouterLayout;
 @RoutePrefix("main")
 public class ContentView extends HorizontalLayout implements RouterLayout {
 
-
+    BookShapeContent bookShapeContent;
 
     public ContentView() {
 
-        this.addClassNames("view-content");
+//        this.addClassNames("view-content");
 
     }
 }

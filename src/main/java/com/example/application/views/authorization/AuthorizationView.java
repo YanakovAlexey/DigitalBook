@@ -6,7 +6,6 @@ import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
-import com.example.application.views.HeaderView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;

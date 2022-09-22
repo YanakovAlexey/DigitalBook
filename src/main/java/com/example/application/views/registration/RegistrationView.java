@@ -91,6 +91,7 @@ public class RegistrationView extends VerticalLayout {
 
         addClassNames("registration-view");
         add(container);
+        this.setWidth(String.valueOf(false));
         container.add(avatarName, userNameTF, emailTF, passwordPF, repeatPasswordPF, submit, regLink);
     }
 
