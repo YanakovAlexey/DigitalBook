@@ -1,12 +1,8 @@
 package com.example.application.views;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.i18n.I18NProvider;
-import com.vaadin.flow.server.Constants;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -15,11 +11,11 @@ public class Localization implements I18NProvider {
 
     public static final String BUNDLE_PREFIX = "translate";
 
-    public final Locale LOCALE_FI = new Locale("fi", "FI");
-    public final Locale LOCALE_EN = new Locale("en", "GB");
+    public final Locale LOCALE_RU = new Locale("ru", "RU");
+    public final Locale LOCALE_GE = new Locale("ge", "GE");
 
     private List<Locale> locales = Collections
-            .unmodifiableList(Arrays.asList(LOCALE_FI, LOCALE_EN));
+            .unmodifiableList(Arrays.asList(LOCALE_RU, LOCALE_GE));
 
 
     public List<Locale> getProvidedLocales() {

@@ -1,5 +1,7 @@
 package com.example.application.backEnd.service.impl.security;
 
+
+
 import com.example.application.views.authorization.AuthorizationView;
 import com.vaadin.flow.spring.security.VaadinWebSecurityConfigurerAdapter;
 import org.springframework.context.annotation.Bean;
