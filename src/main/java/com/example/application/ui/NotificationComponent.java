@@ -4,13 +4,12 @@ import com.example.application.models.NotificationType;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.textfield.TextField;
 
 public class NotificationComponent extends Div {
 
     H1 heading = new H1();
     Text message = new Text("");
-    NotificationType type = NotificationType.Error;
+    NotificationType type = NotificationType.ERROR;
 
     public NotificationComponent(String title, String description, NotificationType type) {
 
