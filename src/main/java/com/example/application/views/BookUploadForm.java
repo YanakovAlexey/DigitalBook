@@ -1,5 +1,6 @@
 package com.example.application.views;
 
+import ch.qos.logback.core.Layout;
 import com.example.application.backEnd.viewModel.UploadBookModel;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.select.Select;
@@ -12,7 +13,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @Route(value = "upload")
 @AnonymousAllowed
-public class BookUploadForm extends FormLayout {
+public class BookUploadForm extends FormLayout  {
 
     private final Binder<UploadBookModel> binder =
             new BeanValidationBinder<>(UploadBookModel.class);
@@ -46,9 +47,11 @@ public class BookUploadForm extends FormLayout {
 
         addFormItem(bookFileUpload, "Файл книги");
         addFormItem(bookThumbnailUpload, "Файл обложки");
-        addFormItem(genresSelect, "Файл обложки");
-        addFormItem(titleTF, "Файл обложки");
-        addFormItem(descriptionTF, "Файл обложки");
-        addFormItem(authorTF, "Файл обложки");
+        addFormItem(genresSelect, "Жанр");
+        addFormItem(titleTF, "Название");
+        addFormItem(descriptionTF, "Описание ");
+        addFormItem(authorTF, "Автор");
+
     }
+
 }
