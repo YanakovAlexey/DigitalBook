@@ -30,6 +30,10 @@ public class BookUploadForm extends FormLayout  {
     }
 
     private void setupForm() {
+        setResponsiveSteps(
+                new ResponsiveStep("0", 1));
+
+
         if (bookFileUpload == null)
             bookFileUpload = new Upload();
         if (bookThumbnailUpload == null)
