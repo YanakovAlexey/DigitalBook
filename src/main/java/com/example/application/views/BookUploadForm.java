@@ -35,7 +35,12 @@ public class BookUploadForm extends FormLayout {
         if (bookThumbnailUpload == null)
             bookThumbnailUpload = new Upload();
         if (genresSelect == null)
-            genresSelect = new Select<>("Item 1", "Item 11", "Item 2", "Item 3");
+            genresSelect = new Select<>("Альбом", "Биография",
+                    "Документальная проза", "Учебник", "Словарь",
+                    "Комикс/графический роман", "Кулинарный", "Детская литература",
+                    "Юношеская литература", "Грузинская проза", "Переведенная проза",
+                    "Грузинская поэзия", "Переведенные стихи", "Научно-популярный",
+                    "Переведенные стихи", "Специальная литература");
         if (titleTF == null) {
             titleTF = new TextField();
         }

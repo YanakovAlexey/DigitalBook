@@ -31,6 +31,7 @@ public class MainLayout extends VerticalLayout implements RouterLayout {
         this.setHeight("100%");
         contentView = new BookShapeContent(bookService, bookBuilder);
 
+
         add(headerView);
         add(contentView);
     }
