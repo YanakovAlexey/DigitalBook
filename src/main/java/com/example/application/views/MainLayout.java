@@ -8,8 +8,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-import javax.annotation.security.RolesAllowed;
-
 
 /**
  * The main view is a top-level placeholder for other views.
