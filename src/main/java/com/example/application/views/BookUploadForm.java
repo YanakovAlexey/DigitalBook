@@ -2,6 +2,7 @@ package com.example.application.views;
 
 import com.example.application.backEnd.viewModel.UploadBookModel;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
@@ -30,9 +31,9 @@ public class BookUploadForm extends FormLayout  {
     }
 
     private void setupForm() {
-        setResponsiveSteps(
-                new ResponsiveStep("0", 1));
 
+        setResponsiveSteps(
+                new ResponsiveStep("0",1));
 
         if (bookFileUpload == null)
             bookFileUpload = new Upload();
@@ -53,13 +54,24 @@ public class BookUploadForm extends FormLayout  {
         if (authorTF == null)
             authorTF = new TextField();
 
-        addFormItem(bookFileUpload, "Файл книги");
-        addFormItem(bookThumbnailUpload, "Файл обложки");
-        addFormItem(genresSelect, "Жанр");
-        addFormItem(titleTF, "Название");
-        addFormItem(descriptionTF, "Описание ");
-        addFormItem(authorTF, "Автор");
 
+
+        bookFileUpload.setWidth("200px");
+        bookThumbnailUpload.setWidth("200px");
+
+
+        FormLayout container = new FormLayout();
+        container.addClassNames("upload-container");
+
+        addClassNames("upload-view");
+        add(container);
+
+
+        container.addFormItem(bookFileUpload, "Файл книги");
+        container.addFormItem(bookThumbnailUpload, "Файл обложки");
+        container.addFormItem(genresSelect, "Жанр");
+        container.addFormItem(titleTF, "Название");
+        container.addFormItem(descriptionTF, "Описание ");
+        container.addFormItem(authorTF, "Автор");
     }
-
 }
