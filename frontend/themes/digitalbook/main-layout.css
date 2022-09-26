@@ -1,6 +1,7 @@
 @import "./common.css"
 
 .vaadin-vertical-layout {
+
     padding: 0;
 }
 .view-title-container {
@@ -16,6 +17,7 @@
 }
 
 .view-search {
+
     width: 100%;
     max-width: 500px;
     margin-right: 50px;
@@ -47,20 +49,22 @@
 }
 
 .view-content {
+
           margin: 0 auto;
           padding-top: 15px;
           padding-right: 50px;
           padding-bottom: 15px;
           padding-left: 100px;
-
-    height: 100%;
+          height: 100%;
 }
 .view-content-inner {
+
     gap: 20px;
     cursor: pointer;
 }
 
 .wrapper {
+
     margin: 0 auto;
 }
 
@@ -72,5 +76,6 @@
     background: #1E90FF;
 }
 .app-nav-aboutUs{
+
 color: #000000;
 }

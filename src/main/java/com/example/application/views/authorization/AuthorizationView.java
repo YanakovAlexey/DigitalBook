@@ -61,6 +61,8 @@ public class AuthorizationView extends Div implements BeforeEnterObserver {
 
         container.add(loginForm, regLink);
         addClassNames("authorization-view");
+        this.setWidth("100%");
+        this.setHeight("100%");
         add(container);
     }
 

@@ -11,8 +11,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.security.RolesAllowed;
-
 @Route(value = "/", layout = ContentView.class)
 //@RolesAllowed("USER")
 @AnonymousAllowed
@@ -37,6 +35,6 @@ public class BookShapeContent extends HorizontalLayout {
         div.setText("Все");
         div.add(layout);
 
-        add(div);
+        add(layout);
     }
 }
