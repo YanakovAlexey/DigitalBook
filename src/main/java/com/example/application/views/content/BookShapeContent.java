@@ -4,6 +4,7 @@ import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.views.ContentView;
 import com.example.application.views.items.BookItem;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -35,8 +36,9 @@ public class BookShapeContent extends HorizontalLayout {
             layout.add(new BookItem(bookViewModel));
         });
         div.setText("Все");
-        div.add(layout);
 
-        add(div);
+
+
+        add( layout,div);
     }
 }
