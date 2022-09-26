@@ -36,9 +36,9 @@ public class BookShapeContent extends HorizontalLayout {
             layout.add(new BookItem(bookViewModel));
         });
         div.setText("Все");
-        Anchor linkBookContent = new Anchor("bookContent", layout);
 
 
-        add(linkBookContent, div);
+
+        add( layout,div);
     }
 }
