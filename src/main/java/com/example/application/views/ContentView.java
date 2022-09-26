@@ -11,7 +11,5 @@ public class ContentView extends HorizontalLayout implements RouterLayout {
 
     public ContentView() {
 
-//        this.addClassNames("view-content");
-
     }
 }

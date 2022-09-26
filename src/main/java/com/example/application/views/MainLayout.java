@@ -12,22 +12,15 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 /**
  * The main view is a top-level placeholder for other views.
  */
-@Route("/")
+
 @AnonymousAllowed
 public class MainLayout extends VerticalLayout implements RouterLayout {
-
-    private final BookService bookService;
-    private final BookBuilder bookBuilder;
-
     private final HeaderView headerView = new HeaderView();
-    private final BookShapeContent contentView;
+    private final ContentView contentView = new ContentView();
 
-    public MainLayout(BookService bookService, BookBuilder bookBuilder) {
-        this.bookService = bookService;
-        this.bookBuilder = bookBuilder;
+    public MainLayout() {
         this.setPadding(false);
         this.setHeight("100%");
-        contentView = new BookShapeContent(bookService, bookBuilder);
 
         add(headerView);
         add(contentView);

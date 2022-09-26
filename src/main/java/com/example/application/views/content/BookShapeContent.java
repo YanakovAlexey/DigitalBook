@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.security.RolesAllowed;
 
-@Route(value = "shapes", layout = ContentView.class)
+@Route(value = "/", layout = ContentView.class)
 //@RolesAllowed("USER")
 @AnonymousAllowed
 public class BookShapeContent extends HorizontalLayout {
