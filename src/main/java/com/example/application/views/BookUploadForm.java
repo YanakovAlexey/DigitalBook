@@ -11,7 +11,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-@Route(value = "upload", layout = ContentView.class)
+@Route(value = "upload")
 @AnonymousAllowed
 public class BookUploadForm extends FormLayout  {
 
@@ -31,9 +31,9 @@ public class BookUploadForm extends FormLayout  {
     }
 
     private void setupForm() {
-        setResponsiveSteps(
-                new ResponsiveStep("0", 1));
 
+        setResponsiveSteps(
+                new ResponsiveStep("0",1));
 
         if (bookFileUpload == null)
             bookFileUpload = new Upload();
