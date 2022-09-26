@@ -19,7 +19,6 @@ import com.vaadin.flow.router.Route;
 @Route(value = "auth", layout = ContentView.class)
 public class AuthorizationView extends Div implements BeforeEnterObserver {
 
-
     LoginForm loginForm;
     LoginI18n i18n;
     Div container = new Div();

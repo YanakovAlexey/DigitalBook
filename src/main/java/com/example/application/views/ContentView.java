@@ -7,10 +7,7 @@ import com.vaadin.flow.router.RoutePrefix;
 import com.vaadin.flow.router.RouterLayout;
 
 @ParentLayout(MainLayout.class)
-@RoutePrefix("main")
 public class ContentView extends HorizontalLayout implements RouterLayout {
-
-    BookShapeContent bookShapeContent;
 
     public ContentView() {
 
