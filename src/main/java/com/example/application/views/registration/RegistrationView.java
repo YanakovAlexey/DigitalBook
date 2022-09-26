@@ -125,7 +125,7 @@ public class RegistrationView extends VerticalLayout {
                     passwordPF.getValue()
             ));
 
-            this.getUI().ifPresent(ui -> ui.navigate("/main/auth"));
+            this.getUI().ifPresent(ui -> ui.navigate("/auth"));
 
         } catch (ResponseException e) {
             e.printStackTrace();

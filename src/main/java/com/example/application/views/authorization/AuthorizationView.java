@@ -54,7 +54,7 @@ public class AuthorizationView extends Div implements BeforeEnterObserver {
         loginForm.addForgotPasswordListener((e) -> loginForm.getUI().ifPresent(ui
                 -> ui.navigate("forgot-password")));
         loginForm.addLoginListener(this::handleSubmit);
-        Anchor regLink = new Anchor("/main/reg", this.translationProvider.getTranslation("registration",
+        Anchor regLink = new Anchor("/reg", this.translationProvider.getTranslation("registration",
                 UI.getCurrent().getLocale()));
 
         container.addClassNames("authorization-container");
