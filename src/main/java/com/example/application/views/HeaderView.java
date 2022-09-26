@@ -53,20 +53,20 @@ public class HeaderView extends Header {
             authenticatedUser.logout();
         });
         cartButton.addClickListener(event -> {
-            cartButton.getUI().ifPresent(ui -> ui.navigate("main/auth"));
+            cartButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
         Button bookButton = new Button(new Icon(OPEN_BOOK));
         Button login = new Button();
         login.addClickListener(event -> loginOverlay.setOpened(true));
         login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         bookButton.addClickListener(event -> {
-            bookButton.getUI().ifPresent(ui -> ui.navigate("main/auth"));
+            bookButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
         Button userButton = new Button(new Icon(USER));
         login.addClickListener(event -> loginOverlay.setOpened(true));
         login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         userButton.addClickListener(event -> {
-            userButton.getUI().ifPresent(ui -> ui.navigate("main/auth"));
+            userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
 
 
