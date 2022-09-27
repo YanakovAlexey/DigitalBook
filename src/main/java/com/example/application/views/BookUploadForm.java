@@ -2,7 +2,7 @@ package com.example.application.views;
 
 import com.example.application.backEnd.viewModel.UploadBookModel;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
@@ -11,9 +11,9 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-@Route(value = "upload")
+@Route(value = "upload", layout = MainLayout.class)
 @AnonymousAllowed
-public class BookUploadForm extends FormLayout  {
+public class BookUploadForm extends VerticalLayout {
 
     private final Binder<UploadBookModel> binder =
             new BeanValidationBinder<>(UploadBookModel.class);
@@ -31,9 +31,6 @@ public class BookUploadForm extends FormLayout  {
     }
 
     private void setupForm() {
-
-        setResponsiveSteps(
-                new ResponsiveStep("0",1));
 
         if (bookFileUpload == null)
             bookFileUpload = new Upload();
@@ -54,18 +51,15 @@ public class BookUploadForm extends FormLayout  {
         if (authorTF == null)
             authorTF = new TextField();
 
-
-
         bookFileUpload.setWidth("200px");
         bookThumbnailUpload.setWidth("200px");
 
-
         FormLayout container = new FormLayout();
         container.addClassNames("upload-container");
+        this.setWidth(String.valueOf(false));
 
         addClassNames("upload-view");
         add(container);
-
 
         container.addFormItem(bookFileUpload, "Файл книги");
         container.addFormItem(bookThumbnailUpload, "Файл обложки");

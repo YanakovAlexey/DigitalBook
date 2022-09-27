@@ -2,7 +2,7 @@ package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
-import com.example.application.views.ContentView;
+import com.example.application.views.MainLayout;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -11,7 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "/", layout = ContentView.class)
+@Route(value = "/", layout = MainLayout.class)
 //@RolesAllowed("USER")
 @AnonymousAllowed
 public class BookShapeContent extends HorizontalLayout {

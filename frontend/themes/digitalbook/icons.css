@@ -1,0 +1,29 @@
+.view-icons {
+
+    width: 50px;
+    margin-right: 20px;
+}
+
+/* @media (max-width: 1280px) {
+    .view-icons {
+        width: 50px;
+        margin-right: 20px;
+        min-width: 1000px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .view-icons {
+        width: 50px;
+        margin-right: 20px;
+        min-width: 768px;
+    }
+}
+
+@media (max-width: 768px) {
+    .view-icons {
+        width: 50px;
+        margin-right: 20px;
+        min-width: 480px;
+    }
+} */
