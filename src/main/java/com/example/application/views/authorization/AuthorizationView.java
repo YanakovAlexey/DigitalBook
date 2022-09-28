@@ -5,7 +5,7 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
 import com.example.application.translation.TranslationProvider;
-import com.example.application.views.ContentView;
+import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
@@ -16,7 +16,7 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "auth", layout = ContentView.class)
+@Route(value = "auth", layout = MainLayout.class)
 public class AuthorizationView extends Div implements BeforeEnterObserver {
 
     LoginForm loginForm;
@@ -61,6 +61,8 @@ public class AuthorizationView extends Div implements BeforeEnterObserver {
 
         container.add(loginForm, regLink);
         addClassNames("authorization-view");
+        this.setWidth("100%");
+        this.setHeight("100%");
         add(container);
     }
 

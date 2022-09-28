@@ -6,7 +6,7 @@ import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
-import com.example.application.views.ContentView;
+import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -25,15 +25,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
 
-@Route(value = "reg", layout = ContentView.class)
+@Route(value = "reg", layout = MainLayout.class)
 @AnonymousAllowed
 public class RegistrationView extends VerticalLayout {
 
-    private TextField userNameTF;
-    private TextField emailTF;
-    private PasswordField passwordPF;
-    private PasswordField repeatPasswordPF;
-
+    TextField userNameTF;
+    TextField emailTF;
+    PasswordField passwordPF;
+    PasswordField repeatPasswordPF;
     private final UsersService usersService;
     private final TranslationProvider translationProvider = new TranslationProvider();
 
@@ -83,7 +82,7 @@ public class RegistrationView extends VerticalLayout {
         submit.setId("submit");
         submit.setWidth("200px");
 
-        Anchor regLink = new Anchor("main/auth", this.translationProvider.getTranslation("login",
+        Anchor regLink = new Anchor("auth", this.translationProvider.getTranslation("login",
                 UI.getCurrent().getLocale()));
 
         Div container = new Div();

@@ -36,7 +36,7 @@ public class HeaderView extends VerticalLayout {
         screen();
     }
 
-    private void screen(){
+    private void screen() {
         Button aboutUs = new Button(new Icon(EXCLAMATION_CIRCLE_O));
         Button exit = new Button("Exit");
         Button cartButton = new Button(new Icon(CART));
@@ -65,7 +65,11 @@ public class HeaderView extends VerticalLayout {
         userButton.addClickListener(event -> {
             userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
-
+        Button burgerButton = new Button(new Icon(MENU));
+        burgerButton.addClickListener(event -> userButton.setDisableOnClick(true));
+        burgerButton.addClickListener(event -> {
+            userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
+        });
 
         langButtonEN.addClickListener(buttonClickEvent -> {
             UI.getCurrent().setLocale(translationProvider.LOCALE_EN);
@@ -86,13 +90,14 @@ public class HeaderView extends VerticalLayout {
         bookButton.addClassNames("view-icons");
         cartButton.addClassNames("view-icons");
         userButton.addClassNames("view-icons");
+        burgerButton.addClassNames("view-burger");
         SearchView searchView = new SearchView();
 
         this.addClassNames("view-header");
 //        this.topLine.addClassNames("view-header");
-        this.add(topLine,bottomLine);
-        this.topLine.add(createTitle(), aboutUs, searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
-        if(authenticatedUser.get().isPresent()) {
+        this.add(topLine, bottomLine);
+        this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
+        if (authenticatedUser.get().isPresent()) {
             this.bottomLine.add(createTabs());
         }
     }

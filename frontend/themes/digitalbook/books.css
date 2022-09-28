@@ -1,4 +1,5 @@
 .book-item {
+
     width: 100%;
     max-width: 120px;
     padding: 30px;
@@ -8,6 +9,7 @@
 }
 
 .book-item-image {
+    
     width: 145px;
     height: 210px;
 }
