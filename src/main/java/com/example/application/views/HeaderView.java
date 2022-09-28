@@ -12,34 +12,31 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.login.LoginOverlay;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
-public class HeaderView extends Header {
+public class HeaderView extends VerticalLayout {
 
+    private HorizontalLayout topLine = new HorizontalLayout();
+    private HorizontalLayout bottomLine = new HorizontalLayout();
     private final TranslationProvider translationProvider = new TranslationProvider();
     private final Button langButtonGE = new Button("GE");
     private final Button langButtonEN = new Button("RU");
+    private final AuthenticatedUser authenticatedUser;
 
 
-    private UserRepository userRepository;
-    private final AuthenticatedUser authenticatedUser = new AuthenticatedUser(userRepository);
+    public HeaderView(AuthenticatedUser authenticatedUser) {
+        this.authenticatedUser = authenticatedUser;
+        screen();
+    }
 
-    @Autowired
-    public HeaderView() {
-
-        super(createTitle());
-//        Tab tab1 = new Tab("Жанр");
-//        Tab tab2 = new Tab("Автор");
-//        Tab tab3 = new Tab("Издательство");
-//        Tab tab4 = new Tab("Поддержка");
-//        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
-
-        this.addClassNames("view-header");
-
-
+    private void screen(){
         Button aboutUs = new Button(new Icon(EXCLAMATION_CIRCLE_O));
         Button exit = new Button("Exit");
         Button cartButton = new Button(new Icon(CART));
@@ -50,7 +47,7 @@ public class HeaderView extends Header {
 
         exit.addClickListener(event -> {
             exit.getUI().ifPresent(ui -> ui.navigate("logout"));
-            authenticatedUser.logout();
+            this.authenticatedUser.logout();
         });
         cartButton.addClickListener(event -> {
             cartButton.getUI().ifPresent(ui -> ui.navigate("auth"));
@@ -90,7 +87,14 @@ public class HeaderView extends Header {
         cartButton.addClassNames("view-icons");
         userButton.addClassNames("view-icons");
         SearchView searchView = new SearchView();
-        this.add(aboutUs, searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
+
+        this.addClassNames("view-header");
+//        this.topLine.addClassNames("view-header");
+        this.add(topLine,bottomLine);
+        this.topLine.add(createTitle(), aboutUs, searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
+        if(authenticatedUser.get().isPresent()) {
+            this.bottomLine.add(createTabs());
+        }
     }
 
     private static Div createTitle() {
@@ -100,5 +104,15 @@ public class HeaderView extends Header {
         container.addClassNames("view-title-container");
         container.add(refresh);
         return container;
+    }
+
+    private Tabs createTabs() {
+        Tab tab1 = new Tab("Жанр");
+        Tab tab2 = new Tab("Автор");
+        Tab tab3 = new Tab("Издательство");
+        Tab tab4 = new Tab("Поддержка");
+        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
+        tabs.addClassNames("view-tabs");
+        return tabs;
     }
 }

@@ -22,6 +22,11 @@
     margin-left: 20px;
 }
 
+.view-tabs{
+left: 0px;
+color: #000000;
+}
+
 .view-search-input{
 
     width: 100%;
@@ -35,7 +40,7 @@
 .view-header {
 
     display: flex;
-    align-items: center;
+
     margin: 0 auto;
     padding-top: 15px;
     padding-right: 50px;
@@ -72,5 +77,5 @@
     background: #1E90FF;
 }
 .app-nav-aboutUs{
-color: #000000;
+    color: #000000;
 }
