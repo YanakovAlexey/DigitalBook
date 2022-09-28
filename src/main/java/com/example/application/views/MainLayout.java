@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @AnonymousAllowed
 public class MainLayout extends VerticalLayout implements RouterLayout {
     private final HeaderView headerView;
-    private final ContentView contentView = new ContentView();
     private final AuthenticatedUser authenticatedUser;
 
     @Autowired
