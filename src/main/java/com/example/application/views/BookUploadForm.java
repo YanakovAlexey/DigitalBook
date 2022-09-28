@@ -2,6 +2,7 @@ package com.example.application.views;
 
 import com.example.application.backEnd.viewModel.UploadBookModel;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
@@ -13,7 +14,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @Route(value = "upload", layout = MainLayout.class)
 @AnonymousAllowed
-public class BookUploadForm extends VerticalLayout {
+public class BookUploadForm extends Div {
 
     private final Binder<UploadBookModel> binder =
             new BeanValidationBinder<>(UploadBookModel.class);

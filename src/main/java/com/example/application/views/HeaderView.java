@@ -68,7 +68,11 @@ public class HeaderView extends Header {
         userButton.addClickListener(event -> {
             userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
-
+        Button burgerButton = new Button(new Icon(MENU));
+        burgerButton.addClickListener(event -> userButton.setDisableOnClick(true));
+        burgerButton.addClickListener(event -> {
+            userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
+        });
 
         langButtonEN.addClickListener(buttonClickEvent -> {
             UI.getCurrent().setLocale(translationProvider.LOCALE_EN);
@@ -89,8 +93,10 @@ public class HeaderView extends Header {
         bookButton.addClassNames("view-icons");
         cartButton.addClassNames("view-icons");
         userButton.addClassNames("view-icons");
+        burgerButton.addClassNames("view-burger");
         SearchView searchView = new SearchView();
-        this.add(aboutUs, searchView, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
+        this.add(aboutUs, searchView, burgerButton, bookButton,
+                cartButton, userButton, langButtonEN, langButtonGE, exit);
     }
 
     private static Div createTitle() {
