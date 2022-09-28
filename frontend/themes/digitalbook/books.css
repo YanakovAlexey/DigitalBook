@@ -13,6 +13,21 @@
 }
 
 .book-content-item-image{
-weight: 350;
-height: 450;
+padding-left: 100px;
+
+weight: 350px;
+height: 450px;
+
 }
+
+.book-content-item-column{
+padding-top: 50px;
+padding-left: 70px;
+}
+
+.book-content-item-button{
+padding-top: 189px;
+}
+
+
+

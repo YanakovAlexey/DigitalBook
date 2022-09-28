@@ -17,14 +17,10 @@ import java.util.List;
 @Route("bookContent")
 @AnonymousAllowed
 public class BookContentContent extends VerticalLayout {
-
     private final BookService bookService;
     private final BookBuilder bookBuilder;
-
     List<BookViewModel> bookViewModelList = new ArrayList<>();
-
     private Div div = new Div();
-
     @Autowired
     public BookContentContent(BookService bookService, BookBuilder bookBuilder) {
         this.bookService = bookService;
@@ -32,11 +28,16 @@ public class BookContentContent extends VerticalLayout {
 
         var bookList = bookService.getAll();
 
-        for(int i = 0; i < bookList.size(); i++){
-             bookViewModelList.add(bookBuilder.createBook(bookList.get(i))) ;
+        for (com.example.application.backEnd.domain.Book book : bookList) {
+            bookViewModelList.add(bookBuilder.createBook(book));
         }
 
+//        for (BookViewModel bookViewModel : bookViewModelList) {
+//            div.add(new BookContentItem(bookViewModel, bookService, bookBuilder));
+//        }
+
         div.add(new BookContentItem(bookViewModelList.get(1), bookService, bookBuilder));
+
 
         add(div);
 

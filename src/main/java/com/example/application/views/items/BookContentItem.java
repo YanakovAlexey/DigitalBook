@@ -16,6 +16,7 @@ import java.util.List;
 
 public class BookContentItem extends Div {
     private Image image;
+
     private Label title;
     private Label author;
     private Label publishingHouse;
@@ -32,7 +33,7 @@ public class BookContentItem extends Div {
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
 
-        add(content(bookViewModel), searchByAuthor(bookViewModel));
+        add(content(bookViewModel), searchByAuthor(bookViewModel), searchByAuthor(bookViewModel));
     }
 
     private HorizontalLayout content(BookViewModel bookViewModel){
@@ -59,12 +60,11 @@ public class BookContentItem extends Div {
         this.genre = new Label("Жанр: " + bookViewModel.getType());
 
         this.button = new Button("В корзину");
-        this.button.addClassNames("book-content-item-button");
 
         genrePagesButton.add(printedPages, genre, button);
 
         div.add(genrePagesButton);
-        div.addClassNames("book-item-container-button");
+        div.addClassName("book-content-item-button");
 
         verticalLayout.add(title, author, publishingHouse, description, div);
 
@@ -86,7 +86,6 @@ public class BookContentItem extends Div {
 
         for(int i = 0; i < books.size(); i++){
             bookViewModelList.add(bookBuilder.createBook(books.get(i)));
-
         }
 
         for (int i = 0; i < books.size(); i++){
@@ -100,16 +99,45 @@ public class BookContentItem extends Div {
         }
 
         div.add(horizontalLayout);
-        div.addClassName("book-content-item-author");
+        div.addClassName("book-content-item-column");
+
 
         return div;
     }
 
     private Div searchByPublishingHouse(BookViewModel bookViewModel){
-        return null;
+        Div divPublishHouse = new Div();
+
+        List<Book> publishHouse = new ArrayList<>();
+
+        return divPublishHouse;
     }
 
-    private Div searchByGenre(){
-        return null;
+    private Div searchByGenre(BookViewModel bookViewModel){
+        List<BookViewModel> bookViewModelList = new ArrayList<>();
+
+        Div div = new Div();
+        div.setText("В том же жанре \"" + bookViewModel.getType() + "\"");
+
+        var horizontalLayout = new HorizontalLayout();
+
+        var books = bookService.getAll();
+
+        for(int i = 0; i < books.size(); i++){
+            bookViewModelList.add(bookBuilder.createBook(books.get(i)));
+        }
+
+        for (int i = 0; i < books.size(); i++){
+            if(books.get(i).getType().equals(bookViewModel.getType())){
+                listBooks.add(books.get(i));
+            }
+        }
+
+        for(int i = 0; i < listBooks.size(); i++){
+            horizontalLayout.add(new BookItem(bookViewModelList.get(i)));
+        }
+        div.add(horizontalLayout);
+
+        return div;
     }
 }
