@@ -109,13 +109,17 @@ public class HeaderView extends VerticalLayout {
         return container;
     }
 
-    private Tabs createTabs() {
-        Tab tab1 = new Tab("Жанр");
-        Tab tab2 = new Tab("Автор");
-        Tab tab3 = new Tab("Издательство");
-        Tab tab4 = new Tab("Поддержка");
-        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
-        tabs.addClassNames("view-tabs");
-        return tabs;
+    private Div createTabs() {
+        Anchor tab1 = new Anchor("/", "Жанр");
+        Anchor tab2 = new Anchor("/", "Издательство");
+        Anchor tab3 = new Anchor("/", "Автор");
+        Anchor tab4 = new Anchor("upload", "Добавить книгу");
+
+        tab4.addFocusListener(event -> {
+            tab4.getUI().ifPresent(ui -> ui.navigate("upload"));
+        });
+        var result = new Div(tab1, tab2, tab3, tab4);
+        result.addClassNames("view-tabs");
+        return result;
     }
 }
