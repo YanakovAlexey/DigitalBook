@@ -98,7 +98,7 @@ public class HeaderView extends VerticalLayout {
         this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
                 cartButton, userButton, langButtonEN, langButtonGE, exit);
         if (authenticatedUser.get().isPresent()) {
-            this.bottomLine.add(createMenuBar());
+            this.bottomLine.add(createMenuBar(), createTabs());
         }
     }
 
@@ -111,22 +111,17 @@ public class HeaderView extends VerticalLayout {
         return container;
     }
 
-    private Div createTabs() {
-        Anchor tab1 = new Anchor("/", "Жанр");
-        Anchor tab2 = new Anchor("/", "Издательство");
-        Anchor tab3 = new Anchor("/", "Автор");
-        Anchor tab4 = new Anchor("upload", "Добавить книгу");
+    private Anchor createTabs() {
 
-        tab4.addFocusListener(event -> {
-            tab4.getUI().ifPresent(ui -> ui.navigate("upload"));
+        Anchor tab1 = new Anchor("upload", "Добавить книгу");
+
+        tab1.addFocusListener(event -> {
+            tab1.getUI().ifPresent(ui -> ui.navigate("upload"));
         });
-        var result = new Div(tab1, tab2, tab3, tab4);
-        tab1.addClassNames("view-tabs");
-        tab2.addClassNames("view-tabs");
-        tab3.addClassNames("view-tabs");
-        tab4.addClassNames("view-tabs");
 
-        return result;
+        tab1.addClassNames("view-tabs");
+
+        return tab1;
     }
 
     private MenuBar createMenuBar() {
@@ -148,6 +143,17 @@ public class HeaderView extends VerticalLayout {
         var publisherSubMenu = publisherMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             publisherSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
+                @Override
+                public void onComponentEvent(ClickEvent<MenuItem> event) {
+                    System.out.println("CLicked item is " + event);
+                }
+            });
+        }
+
+        var authorMenuItem = menuBar.addItem("Автор");
+        var authorSubMenu = authorMenuItem.getSubMenu();
+        for (int i = 0; i < 10; i++) {
+            authorSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
                 @Override
                 public void onComponentEvent(ClickEvent<MenuItem> event) {
                     System.out.println("CLicked item is " + event);

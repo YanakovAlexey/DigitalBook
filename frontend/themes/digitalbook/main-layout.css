@@ -3,10 +3,12 @@
 .vaadin-vertical-layout {
     padding: 0;
 }
+
 .view-title-container {
 
     margin-right: 40px;
 }
+
 .view-header {
 
     display: flex;
@@ -185,25 +187,27 @@
 
 
 
-.view-tabs{
-margin-right: 20px;
-color: #000000;
+.view-tabs {
+
+    margin: 5px;
+    color: #000000;
 }
 
-.view-search-input{
+.view-search-input {
 
     width: 100%;
 }
 
 
 .view-content {
-          margin: 0 auto;
-          padding-top: 15px;
-          padding-right: 50px;
-          padding-bottom: 15px;
-          padding-left: 100px;
-          height: 100%;
+    margin: 0 auto;
+    padding-top: 15px;
+    padding-right: 50px;
+    padding-bottom: 15px;
+    padding-left: 100px;
+    height: 100%;
 }
+
 .view-content-inner {
     gap: 20px;
     cursor: pointer;
@@ -220,6 +224,7 @@ color: #000000;
     height: 80px;
     background: #1E90FF;
 }
-.app-nav-aboutUs{
+
+.app-nav-aboutUs {
     color: #000000;
 }
