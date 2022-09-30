@@ -97,6 +97,10 @@ public class HeaderView extends VerticalLayout {
         this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
         if (authenticatedUser.get().isPresent()) {
             this.bottomLine.add(createTabs());
+            userButton.addClickListener(event -> {
+                userButton.getUI().ifPresent(ui -> ui.navigate("profile"));
+            });
+
         }
     }
 
