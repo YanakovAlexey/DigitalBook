@@ -3,6 +3,8 @@ package com.example.application.views.items;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.service.UsersService;
+
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -16,7 +18,6 @@ import java.util.List;
 
 public class BookContentItem extends Div {
     private Image image;
-
     private Label title;
     private Label author;
     private Label publishingHouse;
@@ -24,12 +25,14 @@ public class BookContentItem extends Div {
     private Label genre;
     private Label printedPages;
     private Button button;
+    private final UsersService usersService;
     private final BookService bookService;
     private final BookBuilder bookBuilder;
     private List<Book> listBooks = new ArrayList<>();
     Div div = new Div();
 
-    public BookContentItem(BookViewModel bookViewModel, BookService bookService, BookBuilder bookBuilder) {
+    public BookContentItem(BookViewModel bookViewModel, UsersService usersService, BookService bookService, BookBuilder bookBuilder) {
+        this.usersService = usersService;
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
 
@@ -84,13 +87,13 @@ public class BookContentItem extends Div {
 
         var books = bookService.getAll();
 
-        for(int i = 0; i < books.size(); i++){
-            bookViewModelList.add(bookBuilder.createBook(books.get(i)));
+        for (Book book : books) {
+            bookViewModelList.add(bookBuilder.createBook(book));
         }
 
-        for (int i = 0; i < books.size(); i++){
-            if(books.get(i).getAuthor().equals(bookViewModel.getAuthor())){
-                listBooks.add(books.get(i));
+        for (Book book : books) {
+            if (book.getAuthor().equals(bookViewModel.getAuthor())) {
+                listBooks.add(book);
             }
         }
 
@@ -117,7 +120,7 @@ public class BookContentItem extends Div {
         List<BookViewModel> bookViewModelList = new ArrayList<>();
 
         Div div = new Div();
-        div.setText("В том же жанре \"" + bookViewModel.getType() + "\"");
+        div.setText("В том же жанре \"" + bookViewModel.getIdDiscipline() + "\"");
 
         var horizontalLayout = new HorizontalLayout();
 
@@ -128,11 +131,10 @@ public class BookContentItem extends Div {
         }
 
         for (int i = 0; i < books.size(); i++){
-            if(books.get(i).getType().equals(bookViewModel.getType())){
+            if(books.get(i).getType().equals(bookViewModel.getIdDiscipline())){
                 listBooks.add(books.get(i));
             }
         }
-
         for(int i = 0; i < listBooks.size(); i++){
             horizontalLayout.add(new BookItem(bookViewModelList.get(i)));
         }
