@@ -7,6 +7,7 @@ import com.example.application.backEnd.service.UsersService;
 
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
@@ -28,15 +29,16 @@ public class BookContentItem extends Div {
     private final UsersService usersService;
     private final BookService bookService;
     private final BookBuilder bookBuilder;
-    private List<Book> listBooks = new ArrayList<>();
     Div div = new Div();
 
-    public BookContentItem(BookViewModel bookViewModel, UsersService usersService, BookService bookService, BookBuilder bookBuilder) {
+    public BookContentItem(BookViewModel bookViewModel, UsersService usersService,
+                           BookService bookService, BookBuilder bookBuilder) {
         this.usersService = usersService;
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
 
-        add(content(bookViewModel), searchByAuthor(bookViewModel), searchByAuthor(bookViewModel));
+        add(content(bookViewModel), searchByAuthor(bookViewModel),
+                searchByPublishingHouse(bookViewModel),searchByAuthor(bookViewModel));
     }
 
     private HorizontalLayout content(BookViewModel bookViewModel){
@@ -71,7 +73,7 @@ public class BookContentItem extends Div {
 
         verticalLayout.add(title, author, publishingHouse, description, div);
 
-        horizontalLayout.add(image, verticalLayout);
+        horizontalLayout.add(image, verticalLayout, div);
 
         return horizontalLayout;
     }
@@ -91,13 +93,15 @@ public class BookContentItem extends Div {
             bookViewModelList.add(bookBuilder.createBook(book));
         }
 
+         List<Book> listBooksAuthor = new ArrayList<>();
+
         for (Book book : books) {
             if (book.getAuthor().equals(bookViewModel.getAuthor())) {
-                listBooks.add(book);
+                listBooksAuthor.add(book);
             }
         }
 
-        for(int i = 0; i < listBooks.size(); i++){
+        for(int i = 0; i < listBooksAuthor.size(); i++){
             horizontalLayout.add(new BookItem(bookViewModelList.get(i)));
         }
 
@@ -109,11 +113,37 @@ public class BookContentItem extends Div {
     }
 
     private Div searchByPublishingHouse(BookViewModel bookViewModel){
-        Div divPublishHouse = new Div();
+        List<BookViewModel> bookViewModelList = new ArrayList<>();
 
-        List<Book> publishHouse = new ArrayList<>();
+        div.setText("Еще от издательства \"" + bookViewModel.getIdUsers() + "\"");
 
-        return divPublishHouse;
+        var horizontalLayout = new HorizontalLayout();
+
+//        var books = bookService.getAll().stream().map(book -> bookBuilder.createBook(book));
+
+        var books = bookService.getAll();
+
+        for (Book book : books) {
+            bookViewModelList.add(bookBuilder.createBook(book));
+        }
+
+        List<Book> listBooksAuthor = new ArrayList<>();
+
+        for (Book book : books) {
+            if (book.getIdUsers().equals(bookViewModel.getIdUsers())) {
+                listBooksAuthor.add(book);
+            }
+        }
+
+        for(int i = 0; i < listBooksAuthor.size(); i++){
+            horizontalLayout.add(new BookItem(bookViewModelList.get(i)));
+        }
+
+        div.add(horizontalLayout);
+        div.addClassName("book-content-item-column");
+
+
+        return div;
     }
 
     private Div searchByGenre(BookViewModel bookViewModel){
@@ -126,16 +156,19 @@ public class BookContentItem extends Div {
 
         var books = bookService.getAll();
 
-        for(int i = 0; i < books.size(); i++){
-            bookViewModelList.add(bookBuilder.createBook(books.get(i)));
+        for (Book book : books) {
+            bookViewModelList.add(bookBuilder.createBook(book));
         }
 
-        for (int i = 0; i < books.size(); i++){
-            if(books.get(i).getType().equals(bookViewModel.getIdDiscipline())){
-                listBooks.add(books.get(i));
+        List<Book> listBooksByGenre = new ArrayList<>();
+
+
+        for (Book book : books) {
+            if (book.getType().equals(bookViewModel.getIdDiscipline())) {
+                listBooksByGenre.add(book);
             }
         }
-        for(int i = 0; i < listBooks.size(); i++){
+        for(int i = 0; i < listBooksByGenre.size(); i++){
             horizontalLayout.add(new BookItem(bookViewModelList.get(i)));
         }
         div.add(horizontalLayout);

@@ -1,6 +1,7 @@
 package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
+import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BookViewModel;
@@ -30,12 +31,12 @@ public class BookContentContent extends VerticalLayout {
 
         var bookList = bookService.getAll();
 
-        for (com.example.application.backEnd.domain.Book book : bookList) {
+        for (Book book : bookList) {
             bookViewModelList.add(bookBuilder.createBook(book));
         }
 
 //        for (BookViewModel bookViewModel : bookViewModelList) {
-//            div.add(new BookContentItem(bookViewModel, bookService, bookBuilder));
+//            div.add(new BookContentItem(bookViewModel,usersService, bookService, bookBuilder));
 //        }
 
         div.add(new BookContentItem(bookViewModelList.get(1), usersService, bookService, bookBuilder));
