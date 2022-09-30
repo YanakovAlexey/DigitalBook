@@ -27,7 +27,7 @@ import java.util.Objects;
 
 @Route(value = "reg", layout = ContentView.class)
 @AnonymousAllowed
-public class RegistrationView extends VerticalLayout {
+public class RegistrationView extends VerticalLayout  {
 
     private TextField userNameTF;
     private TextField emailTF;
@@ -40,7 +40,10 @@ public class RegistrationView extends VerticalLayout {
     @Autowired
     public RegistrationView(UsersService usersService) {
         this.usersService = usersService;
+        registrationForm();
+    }
 
+    public void registrationForm(){
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
         System.out.println("Current locale is = " + UI.getCurrent().getLocale());
@@ -49,7 +52,7 @@ public class RegistrationView extends VerticalLayout {
         Avatar avatarName = new Avatar();
         i18n.setForm(i18nForm);
         LoginForm loginForm = new LoginForm();
-        loginForm.setI18n(i18n);
+          loginForm.setI18n(i18n);
 
         userNameTF = new TextField(this.translationProvider.getTranslation("username",
                 UI.getCurrent().getLocale()));
