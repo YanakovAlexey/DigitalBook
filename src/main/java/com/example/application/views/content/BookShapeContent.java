@@ -4,8 +4,7 @@ import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.views.ContentView;
 import com.example.application.views.items.BookItem;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.Div;
+
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
@@ -20,7 +19,6 @@ import javax.annotation.security.RolesAllowed;
 public class BookShapeContent extends HorizontalLayout {
     private final BookService bookService;
     private final BookBuilder bookBuilder;
-    private Div div = new Div();
 
     @Autowired
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
@@ -35,10 +33,7 @@ public class BookShapeContent extends HorizontalLayout {
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        div.setText("Все");
 
-
-
-        add( layout,div);
+        add(layout);
     }
 }

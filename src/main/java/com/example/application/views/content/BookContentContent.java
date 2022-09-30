@@ -2,6 +2,7 @@ package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.views.items.BookContentItem;
 import com.vaadin.flow.component.html.Div;
@@ -10,7 +11,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +18,14 @@ import java.util.List;
 @AnonymousAllowed
 public class BookContentContent extends VerticalLayout {
     private final BookService bookService;
+    private final UsersService usersService;
     private final BookBuilder bookBuilder;
     List<BookViewModel> bookViewModelList = new ArrayList<>();
     private Div div = new Div();
     @Autowired
-    public BookContentContent(BookService bookService, BookBuilder bookBuilder) {
+    public BookContentContent(BookService bookService, UsersService usersService, BookBuilder bookBuilder) {
         this.bookService = bookService;
+        this.usersService = usersService;
         this.bookBuilder = bookBuilder;
 
         var bookList = bookService.getAll();
@@ -36,7 +38,7 @@ public class BookContentContent extends VerticalLayout {
 //            div.add(new BookContentItem(bookViewModel, bookService, bookBuilder));
 //        }
 
-        div.add(new BookContentItem(bookViewModelList.get(1), bookService, bookBuilder));
+        div.add(new BookContentItem(bookViewModelList.get(1), usersService, bookService, bookBuilder));
 
 
         add(div);
