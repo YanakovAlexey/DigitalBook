@@ -186,7 +186,7 @@
 
 
 .view-tabs{
-margin-left: 10px;
+margin-right: 20px;
 color: #000000;
 }
 
@@ -202,8 +202,7 @@ color: #000000;
           padding-right: 50px;
           padding-bottom: 15px;
           padding-left: 100px;
-
-    height: 100%;
+          height: 100%;
 }
 .view-content-inner {
     gap: 20px;
