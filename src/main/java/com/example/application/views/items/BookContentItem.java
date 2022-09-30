@@ -140,7 +140,7 @@ public class BookContentItem extends Div {
         }
 
         div.add(horizontalLayout);
-        div.addClassName("book-content-item-column");
+        div.addClassName("book-content-item-column-author");
 
 
         return div;
