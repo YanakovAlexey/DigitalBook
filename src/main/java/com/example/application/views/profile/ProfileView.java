@@ -4,9 +4,13 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -16,50 +20,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "profile", layout = ContentView.class)
 @AnonymousAllowed
-public class ProfileView extends VerticalLayout {
+public class ProfileView extends Div {
+    private Image avatarImage;
     private TextField userNameTF;
     private TextField surNameTF;
     private TextField emailTF;
     private PasswordField passwordPF;
+    private Button changePasswordButton;
+    private Button saveButton;
+    private Button exitButton;
 
     private final UsersService usersService;
 
     @Autowired
     public ProfileView(UsersService usersService) {
+        addClassNames("profile-view");
+        this.setWidth(String.valueOf(false));
         this.usersService = usersService;
-        profileForm();
+        this.add(createForm());
     }
 
-    private void profileForm() {
-        LoginI18n i18n = LoginI18n.createDefault();
-        LoginI18n.Form i18nForm = i18n.getForm();
-        System.out.println("Current locale is = " + UI.getCurrent().getLocale());
-        i18nForm.setTitle("profile");
-        Avatar avatarName = new Avatar();
-        i18n.setForm(i18nForm);
-        LoginForm loginForm = new LoginForm();
-        loginForm.setI18n(i18n);
+    private FormLayout createForm() {
+        FormLayout formLayout = new FormLayout();
+        formLayout.addClassNames("profile-container");
+
+        avatarImage = new Image(
+                "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
+                "/");
 
         userNameTF = new TextField("Имя");
         userNameTF.setId("userName-field");
         userNameTF.setWidth("500px");
+
         surNameTF = new TextField("Фамилия");
         surNameTF.setId("surName-field");
         surNameTF.setWidth("500px");
+
         emailTF = new TextField("Электроная почта");
         emailTF.setId("email-field");
         emailTF.setWidth("500px");
+
         passwordPF = new PasswordField("Пароль");
         passwordPF.setId("password-field");
         passwordPF.setWidth("500px");
 
+        changePasswordButton = new Button("Сменить пароль");
 
-        Div container = new Div();
-        container.addClassNames("profile-container");
+        saveButton = new Button("Сохранить изменения");
+        exitButton = new Button("Выход");
 
-        addClassNames("profile-view");
-        add(container);
-        this.setWidth(String.valueOf(false));
-        container.add(avatarName, userNameTF, surNameTF, emailTF, passwordPF);
+        Div line = new Div();
+        line.addClassNames("horizontal-line");
+
+        formLayout.add(
+                avatarImage,
+                userNameTF,
+                surNameTF,
+                emailTF,
+                passwordPF,
+                changePasswordButton,
+                line,
+                new HorizontalLayout(saveButton, exitButton));
+
+        return formLayout;
     }
 }

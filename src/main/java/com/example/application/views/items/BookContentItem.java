@@ -38,9 +38,7 @@ public class BookContentItem extends Div {
     private HorizontalLayout content(BookViewModel bookViewModel){
 
         var genrePagesButton = new VerticalLayout();
-
         var verticalLayout = new VerticalLayout();
-
         var horizontalLayout = new HorizontalLayout();
 
         this.image = new Image(bookViewModel.getBookImg(), "");
