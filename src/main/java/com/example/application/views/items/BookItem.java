@@ -16,8 +16,8 @@ public class BookItem extends Div {
         this.image = new Image(bookViewModel.getBookImg(), "");
         this.image.addClickListener(button -> System.out.println("Работает"));
         this.image.addClassNames("book-item-image");
-        this.titleLabel = new Anchor("bookContent",bookViewModel.getTitle());
-        this.authorLabel = new Anchor("bookContent",bookViewModel.getAuthor());
+        this.titleLabel = new Anchor("bookContent/" + bookViewModel.getId(), bookViewModel.getTitle());
+        this.authorLabel = new Anchor("bookContent/" + bookViewModel.getId(), bookViewModel.getAuthor());
         var verticalLayout = new VerticalLayout();
         verticalLayout.addClassNames("book-item");
         verticalLayout.add(this.image, this.titleLabel, this.authorLabel);

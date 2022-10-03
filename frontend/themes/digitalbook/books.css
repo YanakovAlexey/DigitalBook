@@ -4,7 +4,6 @@
     padding: 30px;
     margin-right: 50px;
     cursor: pointer;
-
 }
 
 .book-item-image {
@@ -27,6 +26,11 @@ padding-left: 70px;
 
 .book-content-item-button{
 padding-top: 189px;
+}
+
+.book-content-item-column-author{
+padding-top: 50px;
+padding-left: 50px;
 }
 
 
