@@ -57,8 +57,10 @@ public class BookUploadForm extends Div  {
         bookThumbnailUpload.setWidth("200px");
 
 
+
         FormLayout container = new FormLayout();
         container.addClassNames("upload-container");
+
 
 
         addClassNames("upload-view");

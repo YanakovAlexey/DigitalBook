@@ -112,7 +112,8 @@ public class HeaderView extends VerticalLayout {
 
     private Anchor createTabs() {
 
-        Anchor tab1 = new Anchor("upload", "Добавить книгу");
+        Anchor tab1 = new Anchor("upload", this.translationProvider.getTranslation("addABook",
+                UI.getCurrent().getLocale()));
 
         tab1.addFocusListener(event -> {
             tab1.getUI().ifPresent(ui -> ui.navigate("upload"));
@@ -127,7 +128,8 @@ public class HeaderView extends VerticalLayout {
         var menuBar = new MenuBar();
         menuBar.setOpenOnHover(true);
 
-        var genresMenuItem = menuBar.addItem("Жанр");
+        var genresMenuItem = menuBar.addItem(this.translationProvider.getTranslation("genre",
+                UI.getCurrent().getLocale()));
         var genresSubMenu = genresMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             genresSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
@@ -138,7 +140,8 @@ public class HeaderView extends VerticalLayout {
             });
         }
 
-        var publisherMenuItem = menuBar.addItem("Издательство");
+        var publisherMenuItem = menuBar.addItem(this.translationProvider.getTranslation("publishingHouse",
+                UI.getCurrent().getLocale()));
         var publisherSubMenu = publisherMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             publisherSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
@@ -149,7 +152,8 @@ public class HeaderView extends VerticalLayout {
             });
         }
 
-        var authorMenuItem = menuBar.addItem("Автор");
+        var authorMenuItem = menuBar.addItem(this.translationProvider.getTranslation("author",
+                UI.getCurrent().getLocale()));
         var authorSubMenu = authorMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             authorSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
