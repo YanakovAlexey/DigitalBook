@@ -1,17 +1,13 @@
 package com.example.application.views.profile;
 
 import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.views.ContentView;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -31,9 +27,11 @@ public class ProfileView extends Div {
     private Button exitButton;
 
     private final UsersService usersService;
+    private final AuthenticatedUser authenticatedUser;
 
     @Autowired
-    public ProfileView(UsersService usersService) {
+    public ProfileView(UsersService usersService, AuthenticatedUser authenticatedUser) {
+        this.authenticatedUser = authenticatedUser;
         addClassNames("profile-view");
         this.setWidth(String.valueOf(false));
         this.usersService = usersService;
@@ -68,6 +66,10 @@ public class ProfileView extends Div {
 
         saveButton = new Button("Сохранить изменения");
         exitButton = new Button("Выход");
+        exitButton.addClickListener(event -> {
+            exitButton.getUI().ifPresent(ui -> ui.navigate("logout"));
+            this.authenticatedUser.logout();
+        });
 
         Div line = new Div();
         line.addClassNames("horizontal-line");

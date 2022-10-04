@@ -39,17 +39,12 @@ public class HeaderView extends VerticalLayout {
 
     private void screen() {
         Button aboutUs = new Button(new Icon(EXCLAMATION_CIRCLE_O));
-        Button exit = new Button("Exit");
         Button cartButton = new Button(new Icon(CART));
         LoginOverlay loginOverlay = new LoginOverlay();
         Button secondaryButton = new Button();
         secondaryButton.addClickListener(event -> loginOverlay.setOpened(true));
         secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        exit.addClickListener(event -> {
-            exit.getUI().ifPresent(ui -> ui.navigate("logout"));
-            this.authenticatedUser.logout();
-        });
         cartButton.addClickListener(event -> {
             cartButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
@@ -96,7 +91,7 @@ public class HeaderView extends VerticalLayout {
 //        this.topLine.addClassNames("view-header");
         this.add(topLine, bottomLine);
         this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
-                cartButton, userButton, langButtonEN, langButtonGE, exit);
+                cartButton, userButton, langButtonEN, langButtonGE);
         if (authenticatedUser.get().isPresent()) {
             this.bottomLine.add(createMenuBar(), createTabs());
             userButton.addClickListener(event -> {
