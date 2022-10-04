@@ -13,6 +13,7 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.spreadsheet.shared.ContentMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class BookContentItem extends Div {
 
         this.author = new Label("АВТОР:" + bookViewModel.getAuthor());
 
-        this.publishingHouse = new Label("ИЗДАТЕЛЬСТВО: ");
+        this.publishingHouse = new Label("ИЗДАТЕЛЬСТВО: " + bookViewModel.getIdUsers());
 
         this.description = new Label("ОПИСАНИЕ: " + bookViewModel.getDescription());
 

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Route(value = "bookContent", layout = ContentView.class)
 @AnonymousAllowed
@@ -32,10 +33,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
         this.bookService = bookService;
         this.usersService = usersService;
         this.bookBuilder = bookBuilder;
-
-
     }
-
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         this.bookId = parameter;
@@ -46,7 +44,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
             bookViewModelList.add(bookBuilder.createBook(book));
         }
 
-        div.add(new BookContentItem(bookViewModelList.get((int) getIdBook(bookId)),
+        div.add(new BookContentItem(getIdBook(bookId),
                 usersService,
                 bookService,
                 bookBuilder));
@@ -55,12 +53,12 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
 
     }
 
-    private long getIdBook(long id){
+    private BookViewModel getIdBook(Long id){
         for (BookViewModel bookViewModel : bookViewModelList) {
-            if (id == bookViewModel.getId()) {
-                return bookViewModel.getId();
+            if (id.equals(bookViewModel.getId())) {
+                return bookViewModel;
             }
         }
-        return id;
+        return bookViewModelList.get(1);
     }
 }
