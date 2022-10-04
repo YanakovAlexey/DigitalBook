@@ -6,14 +6,13 @@ import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.UsersService;
 
 import com.example.application.backEnd.viewModel.BookViewModel;
+import com.example.application.backEnd.viewModel.UserViewModel;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.spreadsheet.shared.ContentMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +53,11 @@ public class BookContentItem extends Div {
         this.image.addClassNames("book-content-item-image");
 
         this.title = new Label(bookViewModel.getTitle());
+        this.title.addClassNames("view-color-title");
 
         this.author = new Label("АВТОР:" + bookViewModel.getAuthor());
 
-        this.publishingHouse = new Label("ИЗДАТЕЛЬСТВО: " + bookViewModel.getIdUsers());
+        this.publishingHouse = new Label("ИЗДАТЕЛЬСТВО: " + getAPublisher(bookViewModel).getUsername());
 
         this.description = new Label("ОПИСАНИЕ: " + bookViewModel.getDescription());
 
@@ -175,5 +175,14 @@ public class BookContentItem extends Div {
         div.add(horizontalLayout);
 
         return div;
+    }
+
+    private String getAPublisher(BookViewModel bookViewModel){
+        var usersList = usersService.getAll();
+
+        for (UserViewModel userViewModel : usersList) {
+
+        }
+        return null;
     }
 }

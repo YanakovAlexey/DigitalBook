@@ -17,10 +17,13 @@ public class BookItem extends Div {
         this.image.addClassNames("book-item-image");
 
         this.titleLabel = new Anchor("bookContent/" + bookViewModel.getId(), bookViewModel.getTitle());
+        this.titleLabel.addClassNames("view-color-title");
 
         this.authorLabel = new Anchor("bookContent/" + bookViewModel.getId(), bookViewModel.getAuthor());
+        this.authorLabel.addClassNames("view-color-title");
 
         var verticalLayout = new VerticalLayout();
+
         verticalLayout.addClassNames("book-item");
         verticalLayout.add(this.image, this.titleLabel, this.authorLabel);
         add(verticalLayout);
