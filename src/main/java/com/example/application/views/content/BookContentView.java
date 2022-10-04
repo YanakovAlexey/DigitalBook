@@ -5,6 +5,7 @@ import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BookViewModel;
+import com.example.application.views.ContentView;
 import com.example.application.views.items.BookContentItem;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Route("bookContent")
+@Route(value = "bookContent", layout = ContentView.class)
 @AnonymousAllowed
 public class BookContentView extends VerticalLayout implements HasUrlParameter<Long> {
     private long bookId;
