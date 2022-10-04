@@ -1,6 +1,8 @@
 package com.example.application.views;
 
 import com.example.application.backEnd.viewModel.UploadBookModel;
+import com.example.application.translation.TranslationProvider;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.select.Select;
@@ -13,7 +15,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @Route(value = "upload", layout = ContentView.class)
 @AnonymousAllowed
-public class BookUploadForm extends Div  {
+public class BookUploadForm extends Div {
 
     private final Binder<UploadBookModel> binder =
             new BeanValidationBinder<>(UploadBookModel.class);
@@ -22,6 +24,7 @@ public class BookUploadForm extends Div  {
     private Upload bookThumbnailUpload;
     private Select<String> genresSelect;
     private TextField titleTF, descriptionTF, authorTF;
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     private UploadBookModel bookModel;
 
@@ -52,26 +55,29 @@ public class BookUploadForm extends Div  {
             authorTF = new TextField();
 
 
-
         bookFileUpload.setWidth("200px");
         bookThumbnailUpload.setWidth("200px");
-
 
 
         FormLayout container = new FormLayout();
         container.addClassNames("upload-container");
 
 
-
         addClassNames("upload-view");
         add(container);
 
 
-        container.addFormItem(bookFileUpload, "Файл книги");
-        container.addFormItem(bookThumbnailUpload, "Файл обложки");
-        container.addFormItem(genresSelect, "Жанр");
-        container.addFormItem(titleTF, "Название");
-        container.addFormItem(descriptionTF, "Описание ");
-        container.addFormItem(authorTF, "Автор");
+        container.addFormItem(bookFileUpload, this.translationProvider.getTranslation("bookFile",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(bookThumbnailUpload, this.translationProvider.getTranslation("coverFile",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(genresSelect, this.translationProvider.getTranslation("genre",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(titleTF, this.translationProvider.getTranslation("name",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(descriptionTF, this.translationProvider.getTranslation("description",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(authorTF, this.translationProvider.getTranslation("author",
+                UI.getCurrent().getLocale()));
     }
 }
