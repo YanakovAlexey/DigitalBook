@@ -1,23 +1,24 @@
 package com.example.application.views;
 
-import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.search.SearchView;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.login.LoginOverlay;
+import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.server.VaadinSession;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Random;
 
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
@@ -94,9 +95,10 @@ public class HeaderView extends VerticalLayout {
         this.addClassNames("view-header");
 //        this.topLine.addClassNames("view-header");
         this.add(topLine, bottomLine);
-        this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton, cartButton, userButton, langButtonEN, langButtonGE, exit);
+        this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
+                cartButton, userButton, langButtonEN, langButtonGE, exit);
         if (authenticatedUser.get().isPresent()) {
-            this.bottomLine.add(createTabs());
+            this.bottomLine.add(createMenuBar(), createTabs());
             userButton.addClickListener(event -> {
                 userButton.getUI().ifPresent(ui -> ui.navigate("profile"));
             });
@@ -113,17 +115,56 @@ public class HeaderView extends VerticalLayout {
         return container;
     }
 
-    private Div createTabs() {
-        Anchor tab1 = new Anchor("/", "Жанр");
-        Anchor tab2 = new Anchor("/", "Издательство");
-        Anchor tab3 = new Anchor("/", "Автор");
-        Anchor tab4 = new Anchor("upload", "Добавить книгу");
+    private Anchor createTabs() {
 
-        tab4.addFocusListener(event -> {
-            tab4.getUI().ifPresent(ui -> ui.navigate("upload"));
+        Anchor tab1 = new Anchor("upload", "Добавить книгу");
+
+        tab1.addFocusListener(event -> {
+            tab1.getUI().ifPresent(ui -> ui.navigate("upload"));
         });
-        var result = new Div(tab1, tab2, tab3, tab4);
-        result.addClassNames("view-tabs");
-        return result;
+
+        tab1.addClassNames("view-tabs");
+
+        return tab1;
+    }
+
+    private MenuBar createMenuBar() {
+        var menuBar = new MenuBar();
+        menuBar.setOpenOnHover(true);
+
+        var genresMenuItem = menuBar.addItem("Жанр");
+        var genresSubMenu = genresMenuItem.getSubMenu();
+        for (int i = 0; i < 10; i++) {
+            genresSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
+                @Override
+                public void onComponentEvent(ClickEvent<MenuItem> event) {
+                    System.out.println("CLicked item is " + event);
+                }
+            });
+        }
+
+        var publisherMenuItem = menuBar.addItem("Издательство");
+        var publisherSubMenu = publisherMenuItem.getSubMenu();
+        for (int i = 0; i < 10; i++) {
+            publisherSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
+                @Override
+                public void onComponentEvent(ClickEvent<MenuItem> event) {
+                    System.out.println("CLicked item is " + event);
+                }
+            });
+        }
+
+        var authorMenuItem = menuBar.addItem("Автор");
+        var authorSubMenu = authorMenuItem.getSubMenu();
+        for (int i = 0; i < 10; i++) {
+            authorSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
+                @Override
+                public void onComponentEvent(ClickEvent<MenuItem> event) {
+                    System.out.println("CLicked item is " + event);
+                }
+            });
+        }
+
+        return menuBar;
     }
 }
