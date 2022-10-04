@@ -33,6 +33,9 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
         this.usersService = usersService;
         this.bookBuilder = bookBuilder;
     }
+
+
+
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         this.bookId = parameter;
@@ -49,7 +52,6 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
                 bookBuilder));
 
         add(div);
-
     }
 
     private BookViewModel getIdBook(Long id){
