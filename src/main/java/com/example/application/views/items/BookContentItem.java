@@ -38,7 +38,7 @@ public class BookContentItem extends Div {
         this.bookBuilder = bookBuilder;
 
         add(content(bookViewModel), searchByAuthor(bookViewModel),
-                searchByPublishingHouse(bookViewModel),searchByAuthor(bookViewModel));
+                searchByPublishingHouse(bookViewModel),searchByGenre(bookViewModel));
     }
 
     private HorizontalLayout content(BookViewModel bookViewModel){
@@ -57,7 +57,7 @@ public class BookContentItem extends Div {
 
         this.author = new Label("АВТОР:" + bookViewModel.getAuthor());
 
-        this.publishingHouse = new Label("ИЗДАТЕЛЬСТВО: " + getAPublisher(bookViewModel).getUsername());
+        this.publishingHouse = new Label("ИЗДАТЕЛЬСТВО: " + getAPublisher(bookViewModel).getName());
 
         this.description = new Label("ОПИСАНИЕ: " + bookViewModel.getDescription());
 
@@ -74,7 +74,7 @@ public class BookContentItem extends Div {
 
         verticalLayout.add(title, author, publishingHouse, description, div);
 
-        horizontalLayout.add(image, verticalLayout, div);
+        horizontalLayout.add(image, verticalLayout);
 
         return horizontalLayout;
     }
@@ -116,11 +116,9 @@ public class BookContentItem extends Div {
     private Div searchByPublishingHouse(BookViewModel bookViewModel){
         List<BookViewModel> bookViewModelList = new ArrayList<>();
 
-        div.setText("Еще от издательства \"" + bookViewModel.getIdUsers() + "\"");
+        div.setText("Еще от издательства \"" + getAPublisher(bookViewModel).getUsername() + "\"");
 
         var horizontalLayout = new HorizontalLayout();
-
-//        var books = bookService.getAll().stream().map(book -> bookBuilder.createBook(book));
 
         var books = bookService.getAll();
 
@@ -177,11 +175,13 @@ public class BookContentItem extends Div {
         return div;
     }
 
-    private String getAPublisher(BookViewModel bookViewModel){
+    private UserViewModel getAPublisher(BookViewModel bookViewModel){
         var usersList = usersService.getAll();
 
         for (UserViewModel userViewModel : usersList) {
-
+            if(userViewModel.getId().equals(bookViewModel.getId())){
+                return userViewModel;
+            }
         }
         return null;
     }
