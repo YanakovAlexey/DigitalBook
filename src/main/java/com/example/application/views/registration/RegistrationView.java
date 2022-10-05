@@ -86,7 +86,7 @@ public class RegistrationView extends VerticalLayout  {
         submit.setId("submit");
         submit.setWidth("200px");
 
-        Anchor regLink = new Anchor("main/auth", this.translationProvider.getTranslation("login",
+        Anchor regLink = new Anchor("auth", this.translationProvider.getTranslation("login",
                 UI.getCurrent().getLocale()));
 
         Div container = new Div();

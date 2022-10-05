@@ -46,9 +46,8 @@ public class BookUploadForm extends Div {
                     "Юношеская литература", "Грузинская проза", "Переведенная проза",
                     "Грузинская поэзия", "Переведенные стихи", "Научно-популярный",
                     "Переведенные стихи", "Специальная литература");
-        if (titleTF == null) {
+        if (titleTF == null)
             titleTF = new TextField();
-        }
         if (descriptionTF == null)
             descriptionTF = new TextField();
         if (authorTF == null)
