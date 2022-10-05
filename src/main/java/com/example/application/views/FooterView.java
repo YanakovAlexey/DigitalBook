@@ -1,9 +1,7 @@
 package com.example.application.views;
 
 
-import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class FooterView extends Div {
 

@@ -4,7 +4,6 @@ import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.UsersService;
-
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.vaadin.flow.component.button.Button;
@@ -44,9 +43,7 @@ public class BookContentItem extends Div {
     private HorizontalLayout content(BookViewModel bookViewModel){
 
         var genrePagesButton = new VerticalLayout();
-
         var verticalLayout = new VerticalLayout();
-
         var horizontalLayout = new HorizontalLayout();
 
         this.image = new Image(bookViewModel.getBookImg(), "");

@@ -4,6 +4,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.Constants;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.theme.NoTheme;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +22,7 @@ import javax.servlet.annotation.WebInitParam;
  *
  */
 @SpringBootApplication
-@Theme(value = "DigitalBook")
+@Theme("digitalbook")
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 @NpmPackage(value = "@vaadin-component-factory/vcf-nav", version = "1.0.6")
 @WebInitParam(name = Constants.I18N_PROVIDER, value = "com.example.application.translation.TranslationProvider")

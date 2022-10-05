@@ -18,8 +18,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 
-import java.util.Random;
-
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
 public class HeaderView extends VerticalLayout {
@@ -39,17 +37,12 @@ public class HeaderView extends VerticalLayout {
 
     private void screen() {
         Button aboutUs = new Button(new Icon(EXCLAMATION_CIRCLE_O));
-        Button exit = new Button("Exit");
         Button cartButton = new Button(new Icon(CART));
         LoginOverlay loginOverlay = new LoginOverlay();
         Button secondaryButton = new Button();
         secondaryButton.addClickListener(event -> loginOverlay.setOpened(true));
         secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        exit.addClickListener(event -> {
-            exit.getUI().ifPresent(ui -> ui.navigate("logout"));
-            this.authenticatedUser.logout();
-        });
         cartButton.addClickListener(event -> {
             cartButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
@@ -66,7 +59,6 @@ public class HeaderView extends VerticalLayout {
         userButton.addClickListener(event -> {
             userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
-
 
         langButtonEN.addClickListener(buttonClickEvent -> {
             UI.getCurrent().setLocale(translationProvider.LOCALE_EN);
@@ -93,10 +85,9 @@ public class HeaderView extends VerticalLayout {
         SearchView searchView = new SearchView();
 
         this.addClassNames("view-header");
-//        this.topLine.addClassNames("view-header");
         this.add(topLine, bottomLine);
         this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
-                cartButton, userButton, langButtonEN, langButtonGE, exit);
+                cartButton, userButton, langButtonEN, langButtonGE);
         if (authenticatedUser.get().isPresent()) {
             this.bottomLine.add(createMenuBar(), createTabs());
             userButton.addClickListener(event -> {
@@ -117,7 +108,8 @@ public class HeaderView extends VerticalLayout {
 
     private Anchor createTabs() {
 
-        Anchor tab1 = new Anchor("upload", "Добавить книгу");
+        Anchor tab1 = new Anchor("upload", this.translationProvider.getTranslation("addABook",
+                UI.getCurrent().getLocale()));
 
         tab1.addFocusListener(event -> {
             tab1.getUI().ifPresent(ui -> ui.navigate("upload"));
@@ -132,7 +124,8 @@ public class HeaderView extends VerticalLayout {
         var menuBar = new MenuBar();
         menuBar.setOpenOnHover(true);
 
-        var genresMenuItem = menuBar.addItem("Жанр");
+        var genresMenuItem = menuBar.addItem(this.translationProvider.getTranslation("genre",
+                UI.getCurrent().getLocale()));
         var genresSubMenu = genresMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             genresSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
@@ -143,7 +136,8 @@ public class HeaderView extends VerticalLayout {
             });
         }
 
-        var publisherMenuItem = menuBar.addItem("Издательство");
+        var publisherMenuItem = menuBar.addItem(this.translationProvider.getTranslation("publishingHouse",
+                UI.getCurrent().getLocale()));
         var publisherSubMenu = publisherMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             publisherSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
@@ -154,7 +148,8 @@ public class HeaderView extends VerticalLayout {
             });
         }
 
-        var authorMenuItem = menuBar.addItem("Автор");
+        var authorMenuItem = menuBar.addItem(this.translationProvider.getTranslation("author",
+                UI.getCurrent().getLocale()));
         var authorSubMenu = authorMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             authorSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {

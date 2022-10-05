@@ -1,6 +1,7 @@
 package com.example.application.views;
 
 import com.example.application.backEnd.viewModel.UploadBookModel;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.select.Select;
@@ -22,6 +23,8 @@ public class BookUploadForm extends Div  {
     private Upload bookThumbnailUpload;
     private Select<String> genresSelect;
     private TextField titleTF, descriptionTF, authorTF;
+
+    private Button download;
 
     private UploadBookModel bookModel;
 
@@ -50,12 +53,15 @@ public class BookUploadForm extends Div  {
             descriptionTF = new TextField();
         if (authorTF == null)
             authorTF = new TextField();
-
-
+        if (download == null){
+            download = new Button("загрузить");
+        }
 
         bookFileUpload.setWidth("200px");
         bookThumbnailUpload.setWidth("200px");
 
+        Div line = new Div();
+        line.addClassNames("horizontal-line");
 
         FormLayout container = new FormLayout();
         container.addClassNames("upload-container");
@@ -71,5 +77,8 @@ public class BookUploadForm extends Div  {
         container.addFormItem(titleTF, "Название");
         container.addFormItem(descriptionTF, "Описание ");
         container.addFormItem(authorTF, "Автор");
+        container.add(line);
+        container.addFormItem(download,download);
+
     }
 }

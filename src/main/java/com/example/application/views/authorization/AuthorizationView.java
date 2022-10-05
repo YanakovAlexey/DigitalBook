@@ -73,6 +73,7 @@ public class AuthorizationView extends Div implements BeforeEnterObserver {
                     event.getPassword()
             ));
 
+            UI.getCurrent().getPage().reload();
             this.getUI().ifPresent(ui -> ui.navigate("/"));
 
         } catch (ResponseException e) {
