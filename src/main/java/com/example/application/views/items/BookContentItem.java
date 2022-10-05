@@ -4,16 +4,13 @@ import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.UsersService;
-
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.spreadsheet.shared.ContentMode;
 
 import java.util.ArrayList;
 import java.util.List;

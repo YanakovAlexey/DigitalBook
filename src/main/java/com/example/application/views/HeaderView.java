@@ -18,8 +18,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 
-import java.util.Random;
-
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
 public class HeaderView extends VerticalLayout {
@@ -62,7 +60,6 @@ public class HeaderView extends VerticalLayout {
             userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
 
-
         langButtonEN.addClickListener(buttonClickEvent -> {
             UI.getCurrent().setLocale(translationProvider.LOCALE_EN);
             VaadinSession.getCurrent().setLocale(translationProvider.LOCALE_EN);
@@ -88,7 +85,6 @@ public class HeaderView extends VerticalLayout {
         SearchView searchView = new SearchView();
 
         this.addClassNames("view-header");
-//        this.topLine.addClassNames("view-header");
         this.add(topLine, bottomLine);
         this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
                 cartButton, userButton, langButtonEN, langButtonGE);
