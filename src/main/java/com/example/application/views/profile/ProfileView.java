@@ -2,7 +2,9 @@ package com.example.application.views.profile;
 
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
@@ -28,6 +30,7 @@ public class ProfileView extends Div {
 
     private final UsersService usersService;
     private final AuthenticatedUser authenticatedUser;
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     @Autowired
     public ProfileView(UsersService usersService, AuthenticatedUser authenticatedUser) {
@@ -46,26 +49,33 @@ public class ProfileView extends Div {
                 "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
                 "/");
 
-        userNameTF = new TextField("Имя");
+        userNameTF = new TextField(this.translationProvider.getTranslation("username",
+                UI.getCurrent().getLocale()));
         userNameTF.setId("userName-field");
         userNameTF.setWidth("500px");
 
-        surNameTF = new TextField("Фамилия");
+        surNameTF = new TextField(this.translationProvider.getTranslation("surname",
+                UI.getCurrent().getLocale()));
         surNameTF.setId("surName-field");
         surNameTF.setWidth("500px");
 
-        emailTF = new TextField("Электроная почта");
+        emailTF = new TextField(this.translationProvider.getTranslation("email",
+                UI.getCurrent().getLocale()));
         emailTF.setId("email-field");
         emailTF.setWidth("500px");
 
-        passwordPF = new PasswordField("Пароль");
+        passwordPF = new PasswordField(this.translationProvider.getTranslation("password",
+                UI.getCurrent().getLocale()));
         passwordPF.setId("password-field");
         passwordPF.setWidth("500px");
 
-        changePasswordButton = new Button("Сменить пароль");
+        changePasswordButton = new Button(this.translationProvider.getTranslation("changePassword",
+                UI.getCurrent().getLocale()));
 
-        saveButton = new Button("Сохранить изменения");
-        exitButton = new Button("Выход");
+        saveButton = new Button(this.translationProvider.getTranslation("savePassword",
+                UI.getCurrent().getLocale()));
+        exitButton = new Button(this.translationProvider.getTranslation("exit",
+                UI.getCurrent().getLocale()));
         exitButton.addClickListener(event -> {
             exitButton.getUI().ifPresent(ui -> ui.navigate("logout"));
             this.authenticatedUser.logout();
