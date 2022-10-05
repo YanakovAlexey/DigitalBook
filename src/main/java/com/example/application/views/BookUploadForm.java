@@ -13,7 +13,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @Route(value = "upload", layout = ContentView.class)
 @AnonymousAllowed
-public class BookUploadForm extends Div  {
+public class BookUploadForm extends Div {
 
     private final Binder<UploadBookModel> binder =
             new BeanValidationBinder<>(UploadBookModel.class);
@@ -43,24 +43,20 @@ public class BookUploadForm extends Div  {
                     "Юношеская литература", "Грузинская проза", "Переведенная проза",
                     "Грузинская поэзия", "Переведенные стихи", "Научно-популярный",
                     "Переведенные стихи", "Специальная литература");
-        if (titleTF == null) {
+        if (titleTF == null)
             titleTF = new TextField();
-        }
         if (descriptionTF == null)
             descriptionTF = new TextField();
         if (authorTF == null)
             authorTF = new TextField();
 
 
-
         bookFileUpload.setWidth("200px");
         bookThumbnailUpload.setWidth("200px");
 
 
-
         FormLayout container = new FormLayout();
         container.addClassNames("upload-container");
-
 
 
         addClassNames("upload-view");
