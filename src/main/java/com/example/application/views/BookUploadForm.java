@@ -54,7 +54,7 @@ public class BookUploadForm extends Div  {
         if (authorTF == null)
             authorTF = new TextField();
         if (download == null){
-            download = new Button("загрузить");
+            download = new Button("Загрузить");
         }
 
         bookFileUpload.setWidth("200px");

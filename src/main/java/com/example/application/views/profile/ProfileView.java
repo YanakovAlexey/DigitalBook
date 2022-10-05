@@ -45,29 +45,29 @@ public class ProfileView extends Div {
         FormLayout formLayout = new FormLayout();
         formLayout.addClassNames("profile-container");
 
-        avatarImage = new Image(
-                "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
-                "/");
+//        avatarImage = new Image(
+//                "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
+//                "/");
 
         userNameTF = new TextField(this.translationProvider.getTranslation("username",
                 UI.getCurrent().getLocale()));
         userNameTF.setId("userName-field");
-        userNameTF.setWidth("500px");
+        userNameTF.setWidth("550px");
 
         surNameTF = new TextField(this.translationProvider.getTranslation("surname",
                 UI.getCurrent().getLocale()));
         surNameTF.setId("surName-field");
-        surNameTF.setWidth("500px");
+        surNameTF.setWidth("550px");
 
         emailTF = new TextField(this.translationProvider.getTranslation("email",
                 UI.getCurrent().getLocale()));
         emailTF.setId("email-field");
-        emailTF.setWidth("500px");
+        emailTF.setWidth("550px");
 
         passwordPF = new PasswordField(this.translationProvider.getTranslation("password",
                 UI.getCurrent().getLocale()));
         passwordPF.setId("password-field");
-        passwordPF.setWidth("500px");
+        passwordPF.setWidth("550px");
 
         changePasswordButton = new Button(this.translationProvider.getTranslation("changePassword",
                 UI.getCurrent().getLocale()));
@@ -81,18 +81,26 @@ public class ProfileView extends Div {
             this.authenticatedUser.logout();
         });
 
+//        changePasswordButton.addClassNames("button");
+//        saveButton.addClassNames("button");
+//        exitButton.addClassNames("button");
+
         Div line = new Div();
         line.addClassNames("horizontal-line");
 
+        var buttonsHL = new Div(saveButton, exitButton);
+        buttonsHL.addClassNames("bottom-buttons");
         formLayout.add(
-                avatarImage,
+//                avatarImage,
                 userNameTF,
                 surNameTF,
                 emailTF,
                 passwordPF,
                 changePasswordButton,
                 line,
-                new HorizontalLayout(saveButton, exitButton));
+                buttonsHL
+                );
+
 
         return formLayout;
     }
