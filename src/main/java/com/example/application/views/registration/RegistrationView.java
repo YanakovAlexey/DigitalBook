@@ -27,7 +27,7 @@ import java.util.Objects;
 
 @Route(value = "reg", layout = ContentView.class)
 @AnonymousAllowed
-public class RegistrationView extends VerticalLayout  {
+public class RegistrationView extends Div  {
 
     private TextField userNameTF;
     private TextField emailTF;

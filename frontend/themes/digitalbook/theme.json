@@ -1,3 +1,8 @@
 {
-  "lumoImports" : [ "typography", "color", "badge", "utility" ]
+  "lumoImports": [
+    "typography",
+    "color",
+    "badge",
+    "utility"
+  ]
 }

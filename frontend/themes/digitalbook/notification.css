@@ -1,8 +1,8 @@
-.notification-container{
+.notification-container {
 
     position: fixed;
     top: calc(50vh - 75px);
     left: calc(50vw - 100px);
-    box-shadow: 0 0 10px rgba(255,255,255,0.7);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
     background: #ffffff;
 }

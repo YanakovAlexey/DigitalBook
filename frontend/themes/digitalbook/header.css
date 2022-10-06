@@ -1,4 +1,3 @@
-
 .view-header {
 
     display: flex;
@@ -36,7 +35,7 @@
 .view-icons {
 
     width: 50px;
-    margin-left: 20px;
+    margin-right: 10px;
 }
 
 /* @media (max-width: 1280px) {
@@ -74,5 +73,5 @@
 .view-search-input {
 
     width: 30vw;
-   
+
 }
