@@ -1,23 +1,27 @@
 .upload-container {
 
-width: 100%;
-max-width:450px;
-padding: 5px 25px 25px;
-margin: 20px;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-items: center;
-background: #FFFFFF;
-box-shadow: 0px 1px 8px #00000064;
+    width: 100%;
+    max-width: 450px;
+    padding: 15px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 8px #00000064;
 
 }
 
-.upload-view{
+.upload-view {
 
-padding: 30px 0px 0px 0px;
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
+    padding: 30px 0px 0px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-download {
+    margin-left: 170px;
 }
