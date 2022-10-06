@@ -32,6 +32,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
         this.bookService = bookService;
         this.usersService = usersService;
         this.bookBuilder = bookBuilder;
+        addClassName("book-content-background");
     }
 
 
