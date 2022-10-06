@@ -1,6 +1,8 @@
 package com.example.application.views;
 
 import com.example.application.backEnd.viewModel.UploadBookModel;
+import com.example.application.translation.TranslationProvider;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
@@ -16,6 +18,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @AnonymousAllowed
 public class BookUploadForm extends Div {
 
+    private final TranslationProvider translationProvider = new TranslationProvider();
     private final Binder<UploadBookModel> binder =
             new BeanValidationBinder<>(UploadBookModel.class);
 
@@ -56,7 +59,8 @@ public class BookUploadForm extends Div {
             authorTF = new TextField();
         }
         if (download == null) {
-            download = new Button("Загрузить");
+            download = new Button(this.translationProvider.getTranslation("download",
+                    UI.getCurrent().getLocale()));
         }
 
         bookFileUpload.setWidth("200px");
@@ -73,12 +77,19 @@ public class BookUploadForm extends Div {
         add(container);
 
 
-        container.addFormItem(bookFileUpload, "Файл книги");
-        container.addFormItem(bookThumbnailUpload, "Файл обложки");
-        container.addFormItem(genresSelect, "Жанр");
-        container.addFormItem(titleTF, "Название");
-        container.addFormItem(descriptionTF, "Описание ");
-        container.addFormItem(authorTF, "Автор");
+        container.addFormItem(bookFileUpload, this.translationProvider.getTranslation("bookFile",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(bookThumbnailUpload, this.translationProvider.getTranslation("coverFile",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(genresSelect, this.translationProvider.getTranslation("genre",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(titleTF, this.translationProvider.getTranslation("name",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(descriptionTF, this.translationProvider.getTranslation("description",
+                UI.getCurrent().getLocale()));
+        container.addFormItem(authorTF, this.translationProvider.getTranslation("author",
+                UI.getCurrent().getLocale()));
+
         container.add(line);
         container.addFormItem(download, download);
     }
