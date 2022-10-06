@@ -1,5 +1,6 @@
 package com.example.application.views;
 
+import com.example.application.backEnd.domain.Discipline;
 import com.example.application.backEnd.viewModel.UploadBookModel;
 import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.UI;
@@ -14,6 +15,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
+import java.util.List;
+
 @Route(value = "upload", layout = ContentView.class)
 @AnonymousAllowed
 public class BookUploadForm extends Div {
@@ -26,6 +29,7 @@ public class BookUploadForm extends Div {
     private Upload bookThumbnailUpload;
     private Select<String> genresSelect;
     private TextField titleTF, descriptionTF, authorTF;
+    private List<Discipline> disciplineList;
 
     private Button download;
 
@@ -43,12 +47,7 @@ public class BookUploadForm extends Div {
         if (bookThumbnailUpload == null)
             bookThumbnailUpload = new Upload();
         if (genresSelect == null)
-            genresSelect = new Select<>("Альбом", "Биография",
-                    "Документальная проза", "Учебник", "Словарь",
-                    "Комикс/графический роман", "Кулинарный", "Детская литература",
-                    "Юношеская литература", "Грузинская проза", "Переведенная проза",
-                    "Грузинская поэзия", "Переведенные стихи", "Научно-популярный",
-                    "Переведенные стихи", "Специальная литература");
+            genresSelect = new Select<>();
         if (titleTF == null) {
             titleTF = new TextField();
         }
