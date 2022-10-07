@@ -3,6 +3,7 @@ package com.example.application.views.content;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.service.DisciplineService;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.views.ContentView;

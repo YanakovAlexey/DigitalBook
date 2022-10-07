@@ -3,10 +3,11 @@ package com.example.application.views.items;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.service.DisciplineService;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BookViewModel;
-import com.example.application.backEnd.viewModel.UserViewModel;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
@@ -14,7 +15,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class BookContentItem extends Div {
@@ -55,7 +55,7 @@ public class BookContentItem extends Div {
 
         this.author = new Label("Автор:" + bookViewModel.getAuthor());
 
-        this.publishingHouse = new Label("Издательство: " + bookViewModel.getIdDiscipline());
+        this.publishingHouse = new Label("Издательство: " + getAPublisher(bookViewModel));
 
         this.description = new Label("Описание: " + bookViewModel.getDescription());
 
@@ -139,7 +139,6 @@ public class BookContentItem extends Div {
         div.add(horizontalLayout);
         div.addClassName("book-content-item-column-author");
 
-
         return div;
     }
 
@@ -159,7 +158,6 @@ public class BookContentItem extends Div {
 
         List<Book> listBooksByGenre = new ArrayList<>();
 
-
         for (Book book : books) {
             if (book.getType().equals(bookViewModel.getIdDiscipline())) {
                 listBooksByGenre.add(book);
@@ -177,11 +175,21 @@ public class BookContentItem extends Div {
     private String getAPublisher(BookViewModel bookViewModel) {
         var usersList = usersService.getAll();
 
-        for (int i = 0; i < usersList.size() + 1; i++) {
-            if (usersList.get(i).getId().equals(bookViewModel.getId())) {
+        for (int i = 0; i < usersList.size(); i++) {
+            if (usersList.get(i).getId().equals(bookViewModel.getIdUsers())) {
                 return usersList.get(i).getName();
             }
         }
         return null;
     }
+//    private String getAGenre(BookViewModel bookViewModel){
+//        var listGenre = disciplineService.getAll();
+//        for (long i = 0L; i < listGenre.size(); i++){
+//            if(listGenre.get((int) i).getId().equals(bookViewModel.getId())){
+//                return listGenre.get((int) i).getTitle();
+//            }
+//
+//        }
+//        return null;
+//    }
 }

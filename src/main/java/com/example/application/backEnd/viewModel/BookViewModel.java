@@ -19,7 +19,7 @@ public class BookViewModel {
     String link;
     Integer pricePay;
     Integer numClass;
-    Integer idUsers;
+    Long idUsers;
     Integer idDiscipline;
     String extension;
     String bookImg;
