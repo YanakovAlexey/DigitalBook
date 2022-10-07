@@ -30,8 +30,6 @@
     }
 }
 
-
-
 .view-icons {
 
     width: 50px;
@@ -63,10 +61,9 @@
 } */
 
 
-
 .view-tabs {
 
-    margin: 5px;
+    margin: auto;
     color: #000000;
 }
 
@@ -74,4 +71,9 @@
 
     width: 30vw;
 
+}
+@media (max-width: 525px){
+    .view-search-input{
+        width: 8vw;
+    }
 }
