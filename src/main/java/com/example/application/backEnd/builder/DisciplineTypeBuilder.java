@@ -3,13 +3,14 @@ package com.example.application.backEnd.builder;
 import com.example.application.backEnd.domain.City;
 import com.example.application.backEnd.domain.DisciplineType;
 import com.example.application.backEnd.viewModel.CityViewModel;
+import com.example.application.backEnd.viewModel.DisciplineTypeViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 
 public interface DisciplineTypeBuilder {
-    CityViewModel create(DisciplineType city);
+    DisciplineTypeViewModel create(DisciplineType disciplineType);
 
-    void update(City city, CityViewModel request);
+    void update(DisciplineType disciplineType, DisciplineTypeViewModel request);
 
-    CityViewModel build(City item);
+    DisciplineTypeViewModel build(DisciplineType item);
 
 }
