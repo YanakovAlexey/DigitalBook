@@ -1,11 +1,9 @@
 package com.example.application.backEnd.service.impl;
 
 import com.example.application.backEnd.builder.DisciplineBuilder;
-import com.example.application.backEnd.domain.City;
 import com.example.application.backEnd.domain.Discipline;
 import com.example.application.backEnd.reporitory.DisciplineRepository;
 import com.example.application.backEnd.service.DisciplineService;
-import com.example.application.backEnd.viewModel.CityViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
