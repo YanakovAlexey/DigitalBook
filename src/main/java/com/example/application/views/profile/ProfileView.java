@@ -1,8 +1,10 @@
 package com.example.application.views.profile;
 
+import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.UI;
@@ -16,8 +18,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.security.RolesAllowed;
+
 @Route(value = "profile", layout = ContentView.class)
-@AnonymousAllowed
+@RolesAllowed("USER")
 public class ProfileView extends Div {
     private Image avatarImage;
     private TextField userNameTF;
@@ -28,9 +32,6 @@ public class ProfileView extends Div {
     private Button saveButton;
     private Button exitButton;
 
-
-
-
     private final UsersService usersService;
     private final UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser;
@@ -38,6 +39,7 @@ public class ProfileView extends Div {
 
     @Autowired
     public ProfileView(UsersService usersService, AuthenticatedUser authenticatedUser, UserRepository userRepository) {
+
         this.authenticatedUser = authenticatedUser;
         addClassNames("profile-view");
         this.setWidth(String.valueOf(false));
@@ -57,7 +59,10 @@ public class ProfileView extends Div {
 
         userNameTF = new TextField(this.translationProvider.getTranslation("username",
                 UI.getCurrent().getLocale()));
-//        userNameTF.setValue(userRepository.findFirstByUsername(user));
+//        userNameTF.setValue(String.valueOf(usersService.getById()));
+        if (authenticatedUser.get().isPresent()) {
+            userNameTF.setValue(authenticatedUser.get().get().getUsername());
+        }
         userNameTF.setWidth("550px");
 
         surNameTF = new TextField(this.translationProvider.getTranslation("surname",
@@ -67,6 +72,9 @@ public class ProfileView extends Div {
 
         emailTF = new TextField(this.translationProvider.getTranslation("email",
                 UI.getCurrent().getLocale()));
+        if (authenticatedUser.get().isPresent()) {
+            emailTF.setValue(authenticatedUser.get().get().getEmail());
+        }
         emailTF.setId("email-field");
         emailTF.setWidth("550px");
 

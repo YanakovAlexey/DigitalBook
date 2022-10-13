@@ -7,8 +7,6 @@ import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.util.Optional;
-
 @Service
 public class UsersBuilderImpl implements UsersBuilder {
     @Override
@@ -88,5 +86,4 @@ public class UsersBuilderImpl implements UsersBuilder {
         user.setEmail(request.getEmail());
         return user;
     }
-
 }

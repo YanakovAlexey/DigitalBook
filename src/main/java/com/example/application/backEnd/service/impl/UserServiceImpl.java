@@ -16,13 +16,11 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -84,7 +82,7 @@ public class UserServiceImpl implements UsersService {
     }
 
     @Override
-    public void registration(RegistrationViewModel request) throws ResponseException {
+    public Users registration(RegistrationViewModel request) throws ResponseException {
         if (request.getPassword().length() < 6) {
             throw new ResponseException(this.translationProvider.getTranslation("shortPassword",
                     UI.getCurrent().getLocale()), this.
@@ -108,15 +106,17 @@ public class UserServiceImpl implements UsersService {
 
         var entityUser = usersBuilder.regBuild(request);
         userRepository.save(entityUser);
+        return userRepository.save(entityUser);
     }
 
     @Override
-    public void auth(AuthViewModel request) throws ResponseException {
-        Optional<Users> userOpt = userRepository.findFirstByUsername(request.getLogin());
-        var result = userOpt.map(user -> {
+    public User auth(AuthViewModel request) throws ResponseException {
+        Optional<Users> userOpt = userRepository.findFirstByUsername(request.getUsername());
+
+        var result = userOpt.map(users -> {
             var u = new User(
-                    user.getUsername(),
-                    user.getPassword(),
+                    users.getUsername(),
+                    users.getPassword(),
                     List.of(new SimpleGrantedAuthority("ROLE_USER"))
             );
             SecurityContext context = SecurityContextHolder.getContext();
@@ -131,8 +131,8 @@ public class UserServiceImpl implements UsersService {
                 UI.getCurrent().getLocale()), this.translationProvider.getTranslation("wrongLoginOrPassword",
                 UI.getCurrent().getLocale()), 102));
 
-        System.out.println(result);
-    }
 
+        return result;
+    }
 }
 

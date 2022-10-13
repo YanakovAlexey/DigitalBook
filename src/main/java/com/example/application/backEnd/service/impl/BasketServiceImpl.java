@@ -32,7 +32,6 @@ public class BasketServiceImpl implements BasketService {
     public BasketServiceImpl(UsersService usersService, UserRepository userRepository, BookRepository bookRepository, BasketRepository basketRepository, BookBuilder bookBuilder, BasketBuilder basketBuilder) {
         this.usersService = usersService;
         this.userRepository = userRepository;
-
         this.bookRepository = bookRepository;
         this.basketRepository = basketRepository;
         this.bookBuilder = bookBuilder;
