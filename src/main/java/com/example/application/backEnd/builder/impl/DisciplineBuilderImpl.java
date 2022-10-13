@@ -5,7 +5,9 @@ import com.example.application.backEnd.domain.Discipline;
 import com.example.application.backEnd.domain.School;
 import com.example.application.backEnd.viewModel.DisciplineTypeViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DisciplineBuilderImpl implements DisciplineBuilder {
     @Override
     public DisciplineViewModel create(Discipline discipline) {
@@ -17,7 +19,11 @@ public class DisciplineBuilderImpl implements DisciplineBuilder {
 
     @Override
     public DisciplineViewModel build(Discipline item) {
-        return null;
+        DisciplineViewModel discipline = new DisciplineViewModel();
+        discipline.setId(item.getId());
+        discipline.setTitle(item.getTitle());
+        discipline.setType(item.getType());
+        return discipline;
     }
 
     @Override

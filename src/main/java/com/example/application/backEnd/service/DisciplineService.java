@@ -4,8 +4,11 @@ import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.domain.Discipline;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 public interface DisciplineService {
     Discipline create(Discipline request);

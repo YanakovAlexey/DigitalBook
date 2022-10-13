@@ -37,7 +37,7 @@ public class Book {
     Integer numClass;
 
     @Column(name = "id_users")
-    Integer idUsers;
+    Long idUsers;
 
     @Column(name = "id_discipline")
     Integer idDiscipline;

@@ -1,9 +1,16 @@
 package com.example.application.backEnd.builder;
 
-import com.example.application.backEnd.builder.impl.DisciplineTypeBuilderImp;
+import com.example.application.backEnd.domain.City;
 import com.example.application.backEnd.domain.DisciplineType;
+import com.example.application.backEnd.viewModel.CityViewModel;
 import com.example.application.backEnd.viewModel.DisciplineTypeViewModel;
+import com.example.application.backEnd.viewModel.DisciplineViewModel;
 
 public interface DisciplineTypeBuilder {
-    DisciplineTypeViewModel createDisciplineType(DisciplineType disciplineType);
+    DisciplineTypeViewModel create(DisciplineType disciplineType);
+
+    void update(DisciplineType disciplineType, DisciplineTypeViewModel request);
+
+    DisciplineTypeViewModel build(DisciplineType item);
+
 }

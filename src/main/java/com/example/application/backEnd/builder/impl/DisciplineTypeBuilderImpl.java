@@ -1,24 +1,27 @@
 package com.example.application.backEnd.builder.impl;
 
-
 import com.example.application.backEnd.builder.DisciplineTypeBuilder;
 import com.example.application.backEnd.domain.DisciplineType;
 import com.example.application.backEnd.viewModel.DisciplineTypeViewModel;
-import org.springframework.stereotype.Component;
+import com.example.application.backEnd.viewModel.DisciplineViewModel;
 
-@Component
-public class DisciplineTypeBuilderImp implements DisciplineTypeBuilder {
-
+public class DisciplineTypeBuilderImpl implements DisciplineTypeBuilder {
     @Override
-    public DisciplineTypeViewModel createDisciplineType(DisciplineType disciplineType){
+    public DisciplineTypeViewModel create(DisciplineType disciplineType) {
         return DisciplineTypeViewModel.builder()
                 .id(disciplineType.getId())
                 .title(disciplineType.getTitle())
                 .build();
+    }
+
+    @Override
+    public void update(DisciplineType disciplineType, DisciplineTypeViewModel request) {
+        disciplineType.setTitle(request.getTitle());
 
     }
-    public void updateDisciplineType(DisciplineType disciplineType,DisciplineTypeViewModel request){
 
-        disciplineType.setTitle(request.getTitle());
+    @Override
+    public DisciplineTypeViewModel build(DisciplineType item) {
+        return null;
     }
 }
