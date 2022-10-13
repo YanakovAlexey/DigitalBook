@@ -3,7 +3,9 @@ package com.example.application.backEnd.builder.impl;
 import com.example.application.backEnd.builder.BasketBuilder;
 import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.viewModel.BasketViewModel;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BasketBuilderImpl implements BasketBuilder {
 
     @Override

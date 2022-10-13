@@ -2,6 +2,7 @@ package com.example.application.views.items;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.DisciplineService;
@@ -13,8 +14,6 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import org.atmosphere.interceptor.AtmosphereResourceStateRecovery;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,16 +25,18 @@ public class BookContentItem extends Div {
     private Label description;
     private Label genre;
     private Label printedPages;
-    private Button button;
+    private Button basketButton;
     private final UsersService usersService;
+    private final BasketService basketService;
     private final DisciplineService disciplineService;
     private final BookService bookService;
     private final BookBuilder bookBuilder;
     Div div = new Div();
 
     public BookContentItem(BookViewModel bookViewModel, UsersService usersService,
-                           DisciplineService disciplineService, BookService bookService, BookBuilder bookBuilder) {
+                           BasketService basketService, DisciplineService disciplineService, BookService bookService, BookBuilder bookBuilder) {
         this.usersService = usersService;
+        this.basketService = basketService;
         this.disciplineService = disciplineService;
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
@@ -68,9 +69,13 @@ public class BookContentItem extends Div {
 
         this.genre = new Label("Жанр: " + getAGenre(bookViewModel));
 
-        this.button = new Button("В корзину");
+        this.basketButton = new Button("В корзину");
+        this.basketButton.addClickListener(event ->
+                basketButton.getUI().ifPresent(ui -> ui.navigate("Basket")));
 
-        genrePagesButton.add(printedPages, genre, button);
+
+
+        genrePagesButton.add(printedPages, genre, basketButton);
         genrePagesButton.addClassName("book-content-item-button");
 
         verticalLayout.add(title, author, publishingHouse, description, genrePagesButton);

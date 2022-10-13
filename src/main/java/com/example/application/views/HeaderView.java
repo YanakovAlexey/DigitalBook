@@ -38,6 +38,7 @@ public class HeaderView extends VerticalLayout {
     private void screen() {
         Button aboutUs = new Button(new Icon(EXCLAMATION_CIRCLE_O));
         Button cartButton = new Button(new Icon(CART));
+
         LoginOverlay loginOverlay = new LoginOverlay();
         Button secondaryButton = new Button();
         secondaryButton.addClickListener(event -> loginOverlay.setOpened(true));

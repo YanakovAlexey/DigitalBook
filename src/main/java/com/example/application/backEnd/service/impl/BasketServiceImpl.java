@@ -13,12 +13,14 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BasketViewModel;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BasketServiceImpl implements BasketService {
     final UsersService usersService;
     final UserRepository userRepository;

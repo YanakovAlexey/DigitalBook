@@ -2,6 +2,7 @@ package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.DisciplineService;
 import com.example.application.backEnd.service.UsersService;
@@ -28,14 +29,18 @@ import java.util.List;
 public class BookContentView extends VerticalLayout implements HasUrlParameter<Long> {
     private long bookId;
     private final BookService bookService;
+    private final BasketService basketService;
     private final UsersService usersService;
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
     List<BookViewModel> bookViewModelList = new ArrayList<>();
     private Div div = new Div();
     @Autowired
-    public BookContentView(BookService bookService, UsersService usersService, DisciplineService disciplineService, BookBuilder bookBuilder) {
+    public BookContentView(BookService bookService, BasketService basketService,
+                           UsersService usersService, DisciplineService disciplineService,
+                           BookBuilder bookBuilder) {
         this.bookService = bookService;
+        this.basketService = basketService;
         this.usersService = usersService;
         this.disciplineService = disciplineService;
         this.bookBuilder = bookBuilder;
@@ -56,7 +61,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
 
         div.add(new BookContentItem(getIdBook(bookId),
                 usersService,
-                disciplineService, bookService,
+                basketService, disciplineService, bookService,
                 bookBuilder));
 
         add(div);

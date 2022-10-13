@@ -1,0 +1,11 @@
+.basket-title{
+padding-left: 110px;
+font-weight: bold;
+color: #000000;
+
+}
+
+.basket-button-buy-all{
+position: absolute;
+  right: 120px;
+}
