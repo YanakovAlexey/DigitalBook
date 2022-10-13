@@ -6,12 +6,14 @@ import com.example.application.backEnd.reporitory.DisciplineRepository;
 import com.example.application.backEnd.service.DisciplineService;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class DisciplineServiceImpl implements DisciplineService {
     final DisciplineRepository disciplineRepository;
     final DisciplineBuilder disciplineBuilder;
