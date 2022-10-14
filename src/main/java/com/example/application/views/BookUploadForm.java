@@ -42,12 +42,15 @@ public class BookUploadForm extends Div {
 
     private void setupForm() {
 
-        if (bookFileUpload == null)
+        if (bookFileUpload == null) {
             bookFileUpload = new Upload();
-        if (bookThumbnailUpload == null)
+        }
+        if (bookThumbnailUpload == null) {
             bookThumbnailUpload = new Upload();
-        if (genresSelect == null)
+        }
+        if (genresSelect == null) {
             genresSelect = new Select<>();
+        }
         if (titleTF == null) {
             titleTF = new TextField();
         }

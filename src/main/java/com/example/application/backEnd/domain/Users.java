@@ -71,7 +71,4 @@ public class Users {
 
     @Column(name = "ogrn")
     String ogrn;
-
-
-
 }
