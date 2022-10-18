@@ -28,7 +28,6 @@ public class ChangePasswordView extends Div {
     private Button saveButton;
 
     UsersService usersService;
-    Users users;
     private final AuthenticatedUser authenticatedUser;
     private final TranslationProvider translationProvider = new TranslationProvider();
 
@@ -60,9 +59,9 @@ public class ChangePasswordView extends Div {
                 saveButton.getUI().ifPresent(ui -> ui.navigate("/"));
             } catch (ResponseException e) {
                 e.printStackTrace();
-//                NotificationComponent notification =
-//                        new NotificationComponent(e.error, e.message, NotificationType.ERROR);
-//                this.add(notification);
+                NotificationComponent notification =
+                        new NotificationComponent(e.error, e.message, NotificationType.ERROR);
+                this.add(notification);
             }
         });
 
@@ -99,20 +98,6 @@ public class ChangePasswordView extends Div {
             repeatPasswordPF.setErrorMessage(this.translationProvider.getTranslation("passwordsDoNotMatch",
                     UI.getCurrent().getLocale()));
             return;
-        }
-        try {
-            usersService.changePassword(
-                    users,
-                    oldPasswordPF.getValue(),
-                    newPasswordPF.getValue(),
-                    repeatPasswordPF.getValue()
-            );
-
-        } catch (ResponseException e) {
-            e.printStackTrace();
-            NotificationComponent notification =
-                    new NotificationComponent(e.error, e.message, NotificationType.ERROR);
-            this.add(notification);
         }
     }
 }

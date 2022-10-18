@@ -14,6 +14,4 @@ public class ChangePasswordViewModel {
     String oldPassword;
     String newPassword;
     String repeatNewPassword;
-
-
 }

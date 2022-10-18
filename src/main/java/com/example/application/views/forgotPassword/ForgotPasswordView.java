@@ -2,8 +2,11 @@ package com.example.application.views.forgotPassword;
 
 
 import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.viewModel.account.ForgotPasswordViewModel;
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
@@ -18,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ForgotPasswordView extends Div {
 
     public TextField email;
-
     private final UsersService usersService;
 
     @Autowired
@@ -32,16 +34,13 @@ public class ForgotPasswordView extends Div {
         LoginForm loginForm = new LoginForm();
         loginForm.setI18n(i18n);
 
-
         email.setPlaceholder("email");
         email.setId("email-field");
         email.setWidth("500px");
 
-
-//        Button submit = new Button("Отправить", this::ForgotPasswordButtonClicked);
-//        submit.setId("submit");
-//        submit.setWidth("200px");
-
+        Button submit = new Button("Отправить", this::ForgotPasswordButtonClicked);
+        submit.setId("submit");
+        submit.setWidth("200px");
 
         Div container = new Div();
         container.addClassNames("forgot-password-container");
@@ -49,15 +48,13 @@ public class ForgotPasswordView extends Div {
         addClassNames("RecoverPassword-view");
         add(container);
         container.add(email);
-
-
     }
 
-//    private void ForgotPasswordButtonClicked(ClickEvent<Button> buttonClickEvent) {
-//        usersService.updatePassword(new ForgotPasswordViewModel((
-//                email.getValue()
-//        )));
-//    }
+    private void ForgotPasswordButtonClicked(ClickEvent<Button> buttonClickEvent) {
+        usersService.updatePassword(new ForgotPasswordViewModel((
+                email.getValue()
+        )));
+    }
 
     public static void logout() {
         // close session to clear all registered routes.

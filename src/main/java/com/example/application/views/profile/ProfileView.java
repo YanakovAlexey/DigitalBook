@@ -10,6 +10,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -21,7 +23,8 @@ import javax.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class ProfileView extends Div {
 
-    private Image avatarImage;
+    //    private Image avatarImage;
+    private Icon avatarIcon;
     private TextField userNameTF;
     private TextField surNameTF;
     private TextField emailTF;
@@ -53,6 +56,7 @@ public class ProfileView extends Div {
 //        avatarImage = new Image(
 //                "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
 //                "/");
+        avatarIcon = new Icon(VaadinIcon.USER);
 
         userNameTF = new TextField(this.translationProvider.getTranslation("username",
                 UI.getCurrent().getLocale()));
@@ -99,6 +103,7 @@ public class ProfileView extends Div {
         exitButton.addClassNames("bottom-buttons");
 
         formLayout.add(
+                avatarIcon,
 //                avatarImage,
                 userNameTF,
                 surNameTF,
