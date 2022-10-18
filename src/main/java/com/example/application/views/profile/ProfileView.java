@@ -1,10 +1,8 @@
 package com.example.application.views.profile;
 
-import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.UI;
@@ -15,7 +13,6 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.security.RolesAllowed;
@@ -23,14 +20,15 @@ import javax.annotation.security.RolesAllowed;
 @Route(value = "profile", layout = ContentView.class)
 @RolesAllowed("USER")
 public class ProfileView extends Div {
+
     private Image avatarImage;
     private TextField userNameTF;
     private TextField surNameTF;
     private TextField emailTF;
     private PasswordField passwordPF;
     private Button changePasswordButton;
-    private Button saveButton;
     private Button exitButton;
+
 
     private final UsersService usersService;
     private final UserRepository userRepository;
@@ -48,7 +46,6 @@ public class ProfileView extends Div {
         this.userRepository = userRepository;
     }
 
-
     private FormLayout createForm() {
         FormLayout formLayout = new FormLayout();
         formLayout.addClassNames("profile-container");
@@ -59,7 +56,6 @@ public class ProfileView extends Div {
 
         userNameTF = new TextField(this.translationProvider.getTranslation("username",
                 UI.getCurrent().getLocale()));
-//        userNameTF.setValue(String.valueOf(usersService.getById()));
         if (authenticatedUser.get().isPresent()) {
             userNameTF.setValue(authenticatedUser.get().get().getUsername());
         }
@@ -85,10 +81,10 @@ public class ProfileView extends Div {
 
         changePasswordButton = new Button(this.translationProvider.getTranslation("changePassword",
                 UI.getCurrent().getLocale()));
-        changePasswordButton.addClickListener(event -> passwordPF.setInvalid(true));
+        changePasswordButton.addClickListener(event -> {
+            changePasswordButton.getUI().ifPresent(ui -> ui.navigate("changePassword"));
+        });
 
-        saveButton = new Button(this.translationProvider.getTranslation("savePassword",
-                UI.getCurrent().getLocale()));
         exitButton = new Button(this.translationProvider.getTranslation("exit",
                 UI.getCurrent().getLocale()));
         exitButton.addClickListener(event -> {
@@ -100,7 +96,6 @@ public class ProfileView extends Div {
         line.addClassNames("horizontal-line");
 
 
-        saveButton.addClassNames("bottom-buttons");
         exitButton.addClassNames("bottom-buttons");
 
         formLayout.add(
@@ -111,10 +106,8 @@ public class ProfileView extends Div {
                 passwordPF,
                 changePasswordButton,
                 line,
-                saveButton,
                 exitButton
         );
-
 
         return formLayout;
     }

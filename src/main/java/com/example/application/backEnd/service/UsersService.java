@@ -3,7 +3,9 @@ package com.example.application.backEnd.service;
 import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
+import com.example.application.backEnd.viewModel.account.ChangePasswordViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import com.example.application.views.changePassword.ChangePasswordView;
 import org.springframework.security.core.userdetails.User;
 
 
@@ -24,4 +26,7 @@ public interface UsersService {
     Users registration(RegistrationViewModel request) throws ResponseException;
 
     User auth(AuthViewModel request) throws ResponseException;
+
+    void changePassword(Users users, String oldPassword, String newPassword, String repeatPassword)
+            throws ResponseException;
 }

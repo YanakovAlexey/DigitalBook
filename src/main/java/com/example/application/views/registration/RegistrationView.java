@@ -15,7 +15,6 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -27,7 +26,7 @@ import java.util.Objects;
 
 @Route(value = "reg", layout = ContentView.class)
 @AnonymousAllowed
-public class RegistrationView extends Div  {
+public class RegistrationView extends Div {
 
     private TextField userNameTF;
     private TextField emailTF;
@@ -43,7 +42,7 @@ public class RegistrationView extends Div  {
         registrationForm();
     }
 
-    public void registrationForm(){
+    public void registrationForm() {
         LoginI18n i18n = LoginI18n.createDefault();
         LoginI18n.Form i18nForm = i18n.getForm();
         System.out.println("Current locale is = " + UI.getCurrent().getLocale());
@@ -52,7 +51,7 @@ public class RegistrationView extends Div  {
         Avatar avatarName = new Avatar();
         i18n.setForm(i18nForm);
         LoginForm loginForm = new LoginForm();
-          loginForm.setI18n(i18n);
+        loginForm.setI18n(i18n);
 
         userNameTF = new TextField(this.translationProvider.getTranslation("username",
                 UI.getCurrent().getLocale()));
@@ -98,9 +97,7 @@ public class RegistrationView extends Div  {
         container.add(avatarName, userNameTF, emailTF, passwordPF, repeatPasswordPF, submit, regLink);
     }
 
-
     private void registrationButtonClicked(ClickEvent<Button> buttonClickEvent) {
-
 
         if (emailTF.isInvalid()) {
             emailTF.setErrorMessage(this.translationProvider.getTranslation("invalidMailFormat",
