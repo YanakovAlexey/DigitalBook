@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -74,7 +75,6 @@ public class UserServiceImpl implements UsersService {
     }
 
     public UserViewModel getById(Long id) {
-
         return userRepository.findById(id)
                 .map(usersBuilder::build)
                 .orElseThrow(()
@@ -133,6 +133,19 @@ public class UserServiceImpl implements UsersService {
 
 
         return result;
+    }
+
+    @Override
+    public void changePassword(Users user, String oldPassword, String newPassword, String repeatPassword)
+            throws ResponseException {
+        String hashOldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+
+        if (!hashOldPassword.equals(user.getPassword()) || !newPassword.equals(repeatPassword)) {
+            throw new ResponseException("Ошибка", "Старый пароль неверный", 400);
+        }
+
+        user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+        userRepository.save(user);
     }
 }
 
