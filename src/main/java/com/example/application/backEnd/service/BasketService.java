@@ -1,5 +1,6 @@
 package com.example.application.backEnd.service;
 
+import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BasketViewModel;
 import com.example.application.backEnd.viewModel.BookViewModel;
@@ -7,7 +8,7 @@ import com.example.application.backEnd.viewModel.BookViewModel;
 import java.util.List;
 
 public interface BasketService {
-    void create(BasketViewModel request);
+    void create(Basket request);
 
     List<BookViewModel> getAll();
 
@@ -16,4 +17,5 @@ public interface BasketService {
     void update(Long id, BasketViewModel request);
 
     void deleteById(Long id);
+
 }

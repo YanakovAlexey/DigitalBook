@@ -2,10 +2,12 @@ package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.DisciplineService;
 import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.views.ContentView;
@@ -33,17 +35,24 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     private final UsersService usersService;
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
+    private final AuthenticatedUser authenticatedUser;
+    private final BookRepository bookRepository;
+
+
+
     List<BookViewModel> bookViewModelList = new ArrayList<>();
     private Div div = new Div();
     @Autowired
     public BookContentView(BookService bookService, BasketService basketService,
                            UsersService usersService, DisciplineService disciplineService,
-                           BookBuilder bookBuilder) {
+                           BookBuilder bookBuilder, AuthenticatedUser authenticatedUser, BookRepository bookRepository) {
         this.bookService = bookService;
         this.basketService = basketService;
         this.usersService = usersService;
         this.disciplineService = disciplineService;
         this.bookBuilder = bookBuilder;
+        this.authenticatedUser = authenticatedUser;
+        this.bookRepository = bookRepository;
         addClassName("book-content-background");
     }
 
@@ -61,8 +70,11 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
 
         div.add(new BookContentItem(getIdBook(bookId),
                 usersService,
-                basketService, disciplineService, bookService,
-                bookBuilder));
+                basketService,
+                disciplineService,
+                bookService,
+                bookBuilder
+        ));
 
         add(div);
     }

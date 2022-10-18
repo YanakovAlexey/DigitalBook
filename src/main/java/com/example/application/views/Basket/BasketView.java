@@ -1,5 +1,6 @@
 package com.example.application.views.Basket;
 
+import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.reporitory.BasketRepository;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.views.ContentView;
@@ -18,13 +19,11 @@ public class BasketView extends HorizontalLayout {
     Button buyAllButton = new Button("КУПИТЬ ВСЕ");
     private final BasketService basketService;
     private final BasketRepository basketRepository;
-
     public BasketView(BasketService basketService, BasketRepository basketRepository) {
         this.basketService = basketService;
         this.basketRepository = basketRepository;
         this.title.addClassNames("basket-title");
         this.buyAllButton.addClassNames("basket-button-buy-all");
-
         div.add(title, buyAllButton);
         add(div);
 

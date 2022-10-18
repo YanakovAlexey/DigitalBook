@@ -34,7 +34,8 @@ public class BookContentItem extends Div {
     Div div = new Div();
 
     public BookContentItem(BookViewModel bookViewModel, UsersService usersService,
-                           BasketService basketService, DisciplineService disciplineService, BookService bookService, BookBuilder bookBuilder) {
+                           BasketService basketService, DisciplineService disciplineService,
+                           BookService bookService, BookBuilder bookBuilder) {
         this.usersService = usersService;
         this.basketService = basketService;
         this.disciplineService = disciplineService;
