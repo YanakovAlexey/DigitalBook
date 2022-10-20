@@ -12,7 +12,7 @@ spring:
   datasource:
 
 
-    password: Ivan230691
+    password: Ivan230191
 
     url: jdbc:postgresql://localhost:5432/DigitalBooks
     username: postgres
