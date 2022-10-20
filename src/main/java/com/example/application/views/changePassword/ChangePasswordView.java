@@ -1,6 +1,5 @@
 package com.example.application.views.changePassword;
 
-import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;

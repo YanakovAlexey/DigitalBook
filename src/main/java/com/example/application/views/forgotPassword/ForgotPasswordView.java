@@ -3,51 +3,47 @@ package com.example.application.views.forgotPassword;
 
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.account.ForgotPasswordViewModel;
+import com.example.application.views.ContentView;
 import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-@Tag("div")
-@Route("forgot-password")
+@Route(value = "forgot-password", layout = ContentView.class)
+@AnonymousAllowed
 public class ForgotPasswordView extends Div {
 
-    public TextField email;
+    private TextField email;
+    private Button send;
     private final UsersService usersService;
 
     @Autowired
     public ForgotPasswordView(UsersService usersService) {
         this.usersService = usersService;
+        forgotPassword();
 
-        LoginI18n i18n = LoginI18n.createDefault();
-        LoginI18n.Form i18nForm = i18n.getForm();
-        i18nForm.setTitle("forgot-password");
-        i18n.setForm(i18nForm);
-        LoginForm loginForm = new LoginForm();
-        loginForm.setI18n(i18n);
+    }
 
+    public void forgotPassword() {
+
+        email = new TextField("Введите Ваш email");
         email.setPlaceholder("email");
-        email.setId("email-field");
-        email.setWidth("500px");
-
-        Button submit = new Button("Отправить", this::ForgotPasswordButtonClicked);
-        submit.setId("submit");
-        submit.setWidth("200px");
+        email.setWidth("250px");
+        send = new Button("Отправить");
+        send.setWidth("170px");
 
         Div container = new Div();
         container.addClassNames("forgot-password-container");
 
-        addClassNames("RecoverPassword-view");
+        addClassNames("forgot-password-view");
         add(container);
-        container.add(email);
+        this.setWidth(String.valueOf(false));
+        container.add(email, send);
     }
 
     private void ForgotPasswordButtonClicked(ClickEvent<Button> buttonClickEvent) {

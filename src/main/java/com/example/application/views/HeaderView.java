@@ -26,7 +26,7 @@ public class HeaderView extends VerticalLayout {
     private HorizontalLayout bottomLine = new HorizontalLayout();
     private final TranslationProvider translationProvider = new TranslationProvider();
     private final Button langButtonGE = new Button("GE");
-    private final Button langButtonEN = new Button("RU");
+    private final Button langButtonRU = new Button("RU");
     private final AuthenticatedUser authenticatedUser;
 
 
@@ -60,9 +60,9 @@ public class HeaderView extends VerticalLayout {
             userButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
 
-        langButtonEN.addClickListener(buttonClickEvent -> {
-            UI.getCurrent().setLocale(translationProvider.LOCALE_EN);
-            VaadinSession.getCurrent().setLocale(translationProvider.LOCALE_EN);
+        langButtonRU.addClickListener(buttonClickEvent -> {
+            UI.getCurrent().setLocale(translationProvider.LOCALE_RU);
+            VaadinSession.getCurrent().setLocale(translationProvider.LOCALE_RU);
             System.out.println("Current locale is = " + UI.getCurrent().getLocale());
             System.out.println("Current vaadin session locale = " + VaadinSession.getCurrent().getLocale());
             UI.getCurrent().getPage().reload();
@@ -87,7 +87,7 @@ public class HeaderView extends VerticalLayout {
         this.addClassNames("view-header");
         this.add(topLine, bottomLine);
         this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
-                cartButton, userButton, langButtonEN, langButtonGE);
+                cartButton, userButton, langButtonRU, langButtonGE);
         if (authenticatedUser.get().isPresent()) {
             this.bottomLine.add(createMenuBar(), createTabs());
             userButton.addClickListener(event -> {
