@@ -13,11 +13,11 @@ public class TranslationProvider implements I18NProvider {
     public static final String BUNDLE_PREFIX = "translation";
 
     public final Locale LOCALE_GE = new Locale("ge", "GE");
-    public final Locale LOCALE_EN = new Locale("en", "US");
+    public final Locale LOCALE_RU = new Locale("ru", "RU");
 
 
     private List<Locale> locales = Collections
-            .unmodifiableList(Arrays.asList(LOCALE_GE, LOCALE_EN));
+            .unmodifiableList(Arrays.asList(LOCALE_GE, LOCALE_RU));
 
     @Override
     public List<Locale> getProvidedLocales() {

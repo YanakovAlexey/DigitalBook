@@ -7,6 +7,7 @@ import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
+import com.example.application.backEnd.viewModel.account.ForgotPasswordViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.UI;
@@ -74,6 +75,11 @@ public class UserServiceImpl implements UsersService {
         usersBuilder.update(users, request);
     }
 
+    @Override
+    public void updatePassword(ForgotPasswordViewModel forgotPasswordViewModel) {
+
+    }
+
     public UserViewModel getById(Long id) {
         return userRepository.findById(id)
                 .map(usersBuilder::build)
@@ -111,7 +117,8 @@ public class UserServiceImpl implements UsersService {
 
     @Override
     public User auth(AuthViewModel request) throws ResponseException {
-        Optional<Users> userOpt = userRepository.findFirstByUsername(request.getUsername());
+        Optional<Users> userOpt = userRepository.findFirstByUsernameAndPassword(request.getUsername(),
+                DigestUtils.md5DigestAsHex(request.getPassword().getBytes()));
 
         var result = userOpt.map(users -> {
             var u = new User(
@@ -136,16 +143,16 @@ public class UserServiceImpl implements UsersService {
     }
 
     @Override
-    public void changePassword(Users user, String oldPassword, String newPassword, String repeatPassword)
+    public void changePassword(Users users, String oldPassword, String newPassword, String repeatPassword)
             throws ResponseException {
         String hashOldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
 
-        if (!hashOldPassword.equals(user.getPassword()) || !newPassword.equals(repeatPassword)) {
+        if (!hashOldPassword.equals(users.getPassword()) || !newPassword.equals(repeatPassword)) {
             throw new ResponseException("Ошибка", "Старый пароль неверный", 400);
         }
 
-        user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
-        userRepository.save(user);
+        users.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+        userRepository.save(users);
     }
 }
 
