@@ -30,6 +30,7 @@ public class UsersBuilderImpl implements UsersBuilder {
                 .authorizationKey(users.getAuthorizationKey())
                 .address(users.getAddress())
                 .ogrn(users.getOgrn())
+                .idBasket(users.getIdBasket())
                 .build();
     }
 
@@ -52,6 +53,7 @@ public class UsersBuilderImpl implements UsersBuilder {
         users.setAuthorizationKey(request.getAuthorizationKey());
         users.setAddress(request.getAddress());
         users.setOgrn(request.getOgrn());
+        users.setIdBasket(request.getIdBasket());
     }
 
     @Override
@@ -75,6 +77,7 @@ public class UsersBuilderImpl implements UsersBuilder {
                 .authorizationKey(item.getAuthorizationKey())
                 .address(item.getAddress())
                 .ogrn(item.getOgrn())
+                .idBasket(item.getIdBasket())
                 .build();
     }
 

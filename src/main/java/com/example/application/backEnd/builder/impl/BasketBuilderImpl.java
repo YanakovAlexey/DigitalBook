@@ -24,6 +24,7 @@ public class BasketBuilderImpl implements BasketBuilder {
     @Override
     public BasketViewModel build(Basket request) {
         BasketViewModel basket = new BasketViewModel();
+        basket.setId(request.getId());
         basket.setId_user(request.getId_user());
         basket.setId_book(request.getId_book());
         basket.setPriceType(request.getPriceType());

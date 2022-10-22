@@ -1,6 +1,7 @@
 package com.example.application.backEnd.builder.impl;
 
 import com.example.application.backEnd.builder.BookBuilder;
+import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import org.springframework.stereotype.Component;

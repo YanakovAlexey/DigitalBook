@@ -45,7 +45,7 @@ public class HeaderView extends VerticalLayout {
         secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         cartButton.addClickListener(event -> {
-            cartButton.getUI().ifPresent(ui -> ui.navigate("Basket"));
+            cartButton.getUI().ifPresent(ui -> ui.navigate("Basket/" + authenticatedUser.get().get().getId()));
         });
         Button bookButton = new Button(new Icon(OPEN_BOOK));
         Button login = new Button();

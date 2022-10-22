@@ -1,17 +1,15 @@
 package com.example.application.views.content;
 
+import com.example.application.backEnd.builder.BasketPositionBuilder;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.reporitory.BasketRepository;
 import com.example.application.backEnd.reporitory.BookRepository;
-import com.example.application.backEnd.service.BasketService;
-import com.example.application.backEnd.service.BookService;
-import com.example.application.backEnd.service.DisciplineService;
-import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.views.ContentView;
-import com.example.application.views.items.BookContentItem;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -26,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route(value = "bookContent", layout = ContentView.class)
+@Route(value = "BookContent", layout = ContentView.class)
 @AnonymousAllowed
 public class BookContentView extends VerticalLayout implements HasUrlParameter<Long> {
     private long bookId;
@@ -35,8 +33,11 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     private final UsersService usersService;
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
+    private final BasketPositionService basketPositionService;
+    private final BasketPositionBuilder basketPositionBuilder;
+
     private final AuthenticatedUser authenticatedUser;
-    private final BookRepository bookRepository;
+    private final BasketRepository basketRepository;
 
 
 
@@ -44,16 +45,27 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     private Div div = new Div();
 
     @Autowired
-    public BookContentView(BookService bookService, BasketService basketService,
-                           UsersService usersService, DisciplineService disciplineService,
-                           BookBuilder bookBuilder, AuthenticatedUser authenticatedUser, BookRepository bookRepository) {
+    public BookContentView(BookService bookService,
+                           BasketService basketService,
+                           UsersService usersService,
+                           DisciplineService disciplineService,
+                           BookBuilder bookBuilder,
+                           BasketPositionService basketPositionService,
+                           BasketPositionBuilder basketPositionBuilder,
+                           AuthenticatedUser authenticatedUser,
+                           BookRepository bookRepository, BasketRepository basketRepository) {
+
         this.bookService = bookService;
         this.basketService = basketService;
         this.usersService = usersService;
         this.disciplineService = disciplineService;
         this.bookBuilder = bookBuilder;
+        this.basketPositionService = basketPositionService;
+        this.basketPositionBuilder = basketPositionBuilder;
         this.authenticatedUser = authenticatedUser;
-        this.bookRepository = bookRepository;
+        this.basketRepository = basketRepository;
+
+
         addClassName("book-content-background");
     }
 
@@ -67,13 +79,13 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
             bookViewModelList.add(bookBuilder.createBook(book));
         }
 
-        div.add(new BookContentItem(getIdBook(bookId),
+        div.add(new com.example.application.views.items.BookContentView(getIdBook(bookId),
                 usersService,
                 basketService,
                 disciplineService,
                 bookService,
-                bookBuilder
-        ));
+                bookBuilder,
+                basketPositionService, basketPositionBuilder, authenticatedUser, basketRepository));
 
         add(div);
     }
@@ -88,15 +100,15 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     }
 }
 
-@Route(value = "getAllAuthors", layout = ContentView.class)
+@Route(value = "GetAllAuthors", layout = ContentView.class)
 @AnonymousAllowed
-class getAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
+class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
     private String bookViewModel;
     private final BookService bookService;
     private Label title;
     private final BookBuilder bookBuilder;
 
-    getAllAuthors(BookService bookService, BookBuilder bookBuilder) {
+    GetAllAuthors(BookService bookService, BookBuilder bookBuilder) {
 
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
@@ -129,9 +141,9 @@ class getAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
     }
 }
 
-@Route(value = "getAllPublisher", layout = ContentView.class)
+@Route(value = "GetAllPublisher", layout = ContentView.class)
 @AnonymousAllowed
-class getAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
+class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
 
     private Long idPublisher;
     private final BookService bookService;
@@ -139,7 +151,7 @@ class getAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
     private Label title;
     private final BookBuilder bookBuilder;
 
-    getAllPublisher(BookService bookService, UsersService usersService, BookBuilder bookBuilder) {
+    GetAllPublisher(BookService bookService, UsersService usersService, BookBuilder bookBuilder) {
         this.bookService = bookService;
         this.usersService = usersService;
         this.bookBuilder = bookBuilder;
@@ -182,9 +194,9 @@ class getAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
     }
 }
 
-@Route(value = "getAllGenre", layout = ContentView.class)
+@Route(value = "GetAllGenre", layout = ContentView.class)
 @AnonymousAllowed
-class getAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
+class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
 
     private Long idGenre;
     private final BookService bookService;
@@ -193,7 +205,7 @@ class getAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
 
-    getAllGenre(BookService bookService, UsersService usersService,
+    GetAllGenre(BookService bookService, UsersService usersService,
                 DisciplineService disciplineService,
                 BookBuilder bookBuilder) {
         this.bookService = bookService;

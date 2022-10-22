@@ -71,4 +71,7 @@ public class Users {
 
     @Column(name = "ogrn")
     String ogrn;
+
+    @Column(name = "id_basket")
+    Long idBasket;
 }

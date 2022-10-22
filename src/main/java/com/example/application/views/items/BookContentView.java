@@ -1,12 +1,15 @@
 package com.example.application.views.items;
 
+import com.example.application.backEnd.builder.BasketPositionBuilder;
 import com.example.application.backEnd.builder.BookBuilder;
+import com.example.application.backEnd.domain.Basket;
+import com.example.application.backEnd.domain.BasketPosition;
 import com.example.application.backEnd.domain.Book;
-import com.example.application.backEnd.service.BasketService;
+import com.example.application.backEnd.reporitory.BasketRepository;
+import com.example.application.backEnd.service.*;
+import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.backEnd.viewModel.BasketViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
-import com.example.application.backEnd.service.BookService;
-import com.example.application.backEnd.service.DisciplineService;
-import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -14,10 +17,11 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookContentItem extends Div {
+public class BookContentView extends Div {
     private Image image;
     private Label title;
     private Label author;
@@ -31,16 +35,24 @@ public class BookContentItem extends Div {
     private final DisciplineService disciplineService;
     private final BookService bookService;
     private final BookBuilder bookBuilder;
+    private final BasketPositionService basketPositionService;
+    private final AuthenticatedUser authenticatedUser;
+    private final BasketRepository basketRepository;
+    private BasketViewModel basket;
     Div div = new Div();
 
-    public BookContentItem(BookViewModel bookViewModel, UsersService usersService,
+    public BookContentView(BookViewModel bookViewModel, UsersService usersService,
                            BasketService basketService, DisciplineService disciplineService,
-                           BookService bookService, BookBuilder bookBuilder) {
+                           BookService bookService, BookBuilder bookBuilder,
+                           BasketPositionService basketPositionService, BasketPositionBuilder basketPositionBuilder, AuthenticatedUser authenticatedUser, BasketRepository basketRepository) {
         this.usersService = usersService;
         this.basketService = basketService;
         this.disciplineService = disciplineService;
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
+        this.basketPositionService = basketPositionService;
+        this.authenticatedUser = authenticatedUser;
+        this.basketRepository = basketRepository;
 
         add(content(bookViewModel), searchByAuthor(bookViewModel),
                 searchByPublishingHouse(bookViewModel), searchByGenre(bookViewModel));
@@ -72,9 +84,8 @@ public class BookContentItem extends Div {
 
         this.basketButton = new Button("В корзину");
         this.basketButton.addClickListener(event ->
-                basketButton.getUI().ifPresent(ui -> ui.navigate("Basket")));
-
-
+                addToBasket(bookViewModel)
+        );
 
         genrePagesButton.add(printedPages, genre, basketButton);
         genrePagesButton.addClassName("book-content-item-button");
@@ -91,7 +102,7 @@ public class BookContentItem extends Div {
         label.addClassNames("book-label");
         Button getAllAuthorButton = new Button("  все");
         getAllAuthorButton.addClickListener(event ->
-                getAllAuthorButton.getUI().ifPresent(ui -> ui.navigate("getAllAuthors/" + bookViewModel.getAuthor())));
+                getAllAuthorButton.getUI().ifPresent(ui -> ui.navigate("GetAllAuthors/" + bookViewModel.getAuthor())));
 
         getAllAuthorButton.addClassName("book-content-anchor-getAll");
 
@@ -136,7 +147,7 @@ public class BookContentItem extends Div {
         Button getAllPublisherButton = new Button("  все");
         getAllPublisherButton.addClickListener(event ->
                 getAllPublisherButton.getUI().ifPresent(ui ->
-                        ui.navigate("getAllPublisher/" + bookViewModel.getIdUsers())));
+                        ui.navigate("GetAllPublisher/" + bookViewModel.getIdUsers())));
 
         getAllPublisherButton.addClassName("book-content-anchor-getAll");
 
@@ -169,17 +180,16 @@ public class BookContentItem extends Div {
 
     private Div searchByGenre(BookViewModel bookViewModel) {
         Div div = new Div();
-        Label label = new Label("В том же жанре  " +  getAGenre(bookViewModel));
+        Label label = new Label("В том же жанре  " + getAGenre(bookViewModel));
         label.addClassNames("book-label");
         List<BookViewModel> bookViewModelList = new ArrayList<>();
 
         Button genreAllGenreButton = new Button("все");
         genreAllGenreButton.addClickListener(event ->
                 genreAllGenreButton.getUI().ifPresent(ui ->
-                        ui.navigate("getAllGenre/" + bookViewModel.getIdDiscipline())));
+                        ui.navigate("GetAllGenre/" + bookViewModel.getIdDiscipline())));
 
         genreAllGenreButton.addClassName("book-content-anchor-getAll");
-
 
 
         var horizontalLayout = new HorizontalLayout();
@@ -216,7 +226,8 @@ public class BookContentItem extends Div {
         }
         return null;
     }
-    private String getAGenre(BookViewModel bookViewModel){
+
+    private String getAGenre(BookViewModel bookViewModel) {
         var listGenre = disciplineService.getAll();
 
         for (DisciplineViewModel disciplineViewModel : listGenre) {
@@ -226,6 +237,36 @@ public class BookContentItem extends Div {
 
         }
         return null;
+    }
+
+    private void addToBasket(BookViewModel bookViewModel) {
+        var basketList = basketService.getAll();
+
+        Basket localBasket = null;
+        if (basketList.isEmpty()) {
+            var basket = new Basket();
+            basket.setId_user(authenticatedUser.get().get().getId());
+            basket.setId_book(bookViewModel.getId());
+            basket.setPrice(bookViewModel.getPricePay());
+            basketService.create(basket);
+            localBasket = basket;
+        }
+
+        basket = basketList.stream().findFirst().orElseThrow(() -> new RuntimeException("User not created"));
+
+        var basketPosition = new BasketPosition();
+        basketPosition.setIdBook(bookViewModel.getId());
+        basketPosition.setIdBasket(localBasket == null ? basket.getId() : localBasket.getId());
+        basketPosition.setPrice(bookViewModel.getPricePay());
+        basketPosition.setNumberOfBooks(2);
+
+        basketPositionService.create(basketPosition);
+
+        authenticatedUser.get().ifPresent(u ->
+                        getUI().ifPresent(ui -> ui.navigate("Basket/" + u.getId()))
+
+
+        );
     }
 }
 

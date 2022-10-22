@@ -1,11 +1,13 @@
 package com.example.application.views.items;
 
+import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BookViewModel;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+import java.util.Optional;
 
 public class BookItem extends Div {
 
@@ -16,16 +18,16 @@ public class BookItem extends Div {
 
         this.image = new Image(bookViewModel.getBookImg(), "");
         this.image.addClickListener(event -> {
-            image.getUI().ifPresent(ui -> ui.navigate("bookContent/" + bookViewModel.getId()));
+            image.getUI().ifPresent(ui -> ui.navigate("BookContent/" + bookViewModel.getId()));
 
         });
 
         this.image.addClassNames("book-item-image");
 
-        this.titleLabel = new Anchor("bookContent/" + bookViewModel.getId(), bookViewModel.getTitle());
+        this.titleLabel = new Anchor("BookContent/" + bookViewModel.getId(), bookViewModel.getTitle());
         this.titleLabel.addClassNames("view-color-title");
 
-        this.authorLabel = new Anchor("bookContent/" + bookViewModel.getId(), bookViewModel.getAuthor());
+        this.authorLabel = new Anchor("BookContent/" + bookViewModel.getId(), bookViewModel.getAuthor());
         this.authorLabel.addClassNames("view-color-title");
 
         var verticalLayout = new VerticalLayout();

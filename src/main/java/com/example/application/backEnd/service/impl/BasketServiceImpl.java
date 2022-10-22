@@ -10,6 +10,7 @@ import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.viewModel.BasketPositionViewModel;
 import com.example.application.backEnd.viewModel.BasketViewModel;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import org.springframework.http.HttpStatus;
@@ -41,20 +42,23 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public void create(Basket request) {
-        basketBuilder.createBook(request);
         basketRepository.save(request);
+    }
+
+    @Override
+    public void addToBasket(BasketPositionViewModel request) {
 
     }
 
 
     @Override
-    public List<BookViewModel> getAll() {
-        List<Book> bookList = bookRepository.findAll();
-        List<BookViewModel> bookViewModels = new ArrayList<>();
-        for(Book item: bookList){
-            bookViewModels.add(bookBuilder.build(item));
+    public List<BasketViewModel> getAll() {
+        List<Basket> bookList = basketRepository.findAll();
+        List<BasketViewModel> basketViewModels = new ArrayList<>();
+        for(Basket item: bookList){
+            basketViewModels.add(basketBuilder.build(item));
         }
-        return bookViewModels;
+        return basketViewModels;
     }
 
     @Override

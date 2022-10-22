@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BasketViewModel {
+public class BasketPositionViewModel {
     Long id;
-    Long id_user;
-    Long id_book;
-    Integer priceType;
+    Long idBasket;
+    Long idBook;
     Integer price;
-    Integer period;
-
+    Integer numberOfBooks;
 }

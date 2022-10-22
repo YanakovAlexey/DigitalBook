@@ -30,4 +30,5 @@ public class UserViewModel {
     String authorizationKey;
     String address;
     String ogrn;
+    Long idBasket;
 }
