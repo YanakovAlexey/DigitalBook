@@ -1,14 +1,17 @@
 package com.example.application.backEnd.service.impl;
 
 import com.example.application.backEnd.builder.UsersBuilder;
+import com.example.application.backEnd.domain.CodeConfirmation;
 import com.example.application.backEnd.domain.Users;
+import com.example.application.backEnd.reporitory.CodeConfirmationRepository;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
+import com.example.application.backEnd.utils.GenerateCodeHelper;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
-import com.example.application.backEnd.viewModel.account.ForgotPasswordViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import com.example.application.models.ChangePasswordType;
 import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.UI;
 import lombok.AccessLevel;
@@ -27,6 +30,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +42,9 @@ public class UserServiceImpl implements UsersService {
 
     UsersBuilder usersBuilder;
     UserRepository userRepository;
+    CodeConfirmationRepository codeConfirmationRepository;
+    private final MailSenderService mailSenderService;
+
     private final TranslationProvider translationProvider = new TranslationProvider();
 
     public List<UserViewModel> getAll() {
@@ -73,11 +80,6 @@ public class UserServiceImpl implements UsersService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         usersBuilder.update(users, request);
-    }
-
-    @Override
-    public void updatePassword(ForgotPasswordViewModel forgotPasswordViewModel) {
-
     }
 
     public UserViewModel getById(Long id) {
@@ -138,21 +140,61 @@ public class UserServiceImpl implements UsersService {
                 UI.getCurrent().getLocale()), this.translationProvider.getTranslation("wrongLoginOrPassword",
                 UI.getCurrent().getLocale()), 102));
 
-
         return result;
     }
 
     @Override
-    public void changePassword(Users users, String oldPassword, String newPassword, String repeatPassword)
+    public void changePassword(Users users, String oldPassword, String newPassword, String repeatPassword,
+                               ChangePasswordType type)
             throws ResponseException {
-        String hashOldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
 
-        if (!hashOldPassword.equals(users.getPassword()) || !newPassword.equals(repeatPassword)) {
+        String hashOldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        if (ChangePasswordType.EDIT.equals(type)) {
+            if (!hashOldPassword.equals(users.getPassword()) || !newPassword.equals(repeatPassword)) {
+                throw new ResponseException("Ошибка", "Старый пароль неверный", 400);
+            }
+        } else if (!hashOldPassword.equals(users.getPassword())) {
             throw new ResponseException("Ошибка", "Старый пароль неверный", 400);
         }
 
         users.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
         userRepository.save(users);
+    }
+
+
+    @Override
+    public void emailVerification(String email) {
+        CodeConfirmation codeConfirmation = CodeConfirmation.builder()
+                .confirmation(false)
+                .email(email)
+                .code(GenerateCodeHelper.randomGenerateCode())
+                .dateOfCreation(new Date())
+                .build();
+        String text = String.format(
+                """
+                        Ниже Ваша ссылка на восстановление пароля
+                        http://localhost:782/recovery-password?email=%s&code=%s
+                        """,
+                email,
+                codeConfirmation.getCode()
+        );
+        mailSenderService.sendSimpleMessage(email, "Восстановление пароля",text);
+        codeConfirmationRepository.save(codeConfirmation);
+    }
+
+    @Override
+    public boolean restorePassword(String email, String code, String password) {
+        var codeOpt = codeConfirmationRepository.findByEmailAndCode(email, code);
+        if (codeOpt.isPresent()) {
+            var userOpt = userRepository.findFirstByEmail(codeOpt.get().getEmail());
+            if (userOpt.isPresent()) {
+                var user = userOpt.get();
+                user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+                userRepository.save(user);
+                return true;
+            }
+        }
+        return false;
     }
 }
 
