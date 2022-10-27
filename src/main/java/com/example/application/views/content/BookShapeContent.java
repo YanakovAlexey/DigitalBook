@@ -7,13 +7,13 @@ import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.security.RolesAllowed;
 
 @Route(value = "/", layout = ContentView.class)
-@RolesAllowed("USER")
-
+@AnonymousAllowed
 public class BookShapeContent extends HorizontalLayout {
     private final BookService bookService;
     private final BookBuilder bookBuilder;
