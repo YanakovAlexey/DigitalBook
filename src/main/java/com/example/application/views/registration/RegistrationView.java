@@ -8,6 +8,7 @@ import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
@@ -80,6 +81,7 @@ public class RegistrationView extends Div {
                 UI.getCurrent().getLocale()));
         repeatPasswordPF.setWidth("500px");
 
+
         Button submit = new Button(this.translationProvider.getTranslation("send",
                 UI.getCurrent().getLocale()), this::registrationButtonClicked);
         submit.setId("submit");
@@ -119,14 +121,14 @@ public class RegistrationView extends Div {
         }
 
         try {
+            usersService.emailVerificationAuth(emailTF.getValue());
             usersService.registration(new RegistrationViewModel(
                     userNameTF.getValue(),
                     emailTF.getValue(),
                     passwordPF.getValue()
-            ));
+                    ));
 
-            this.getUI().ifPresent(ui -> ui.navigate("/auth"));
-
+            this.getUI().ifPresent(ui -> ui.navigate("/success"));
         } catch (ResponseException e) {
             e.printStackTrace();
             NotificationComponent notification =

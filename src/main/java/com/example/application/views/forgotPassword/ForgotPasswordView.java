@@ -47,7 +47,7 @@ public class ForgotPasswordView extends Div {
                 UI.getCurrent().getLocale()));
         send.setWidth("170px");
         send.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
-            usersService.emailVerification(email.getValue());
+            usersService.emailVerificationRP(email.getValue());
             send.getUI().ifPresent(ui -> ui.navigate("/success"));
         });
 

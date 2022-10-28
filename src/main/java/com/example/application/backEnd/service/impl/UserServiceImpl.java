@@ -161,9 +161,8 @@ public class UserServiceImpl implements UsersService {
         userRepository.save(users);
     }
 
-
     @Override
-    public void emailVerification(String email) {
+    public void emailVerificationRP(String email) {
         CodeConfirmation codeConfirmation = CodeConfirmation.builder()
                 .confirmation(false)
                 .email(email)
@@ -182,6 +181,26 @@ public class UserServiceImpl implements UsersService {
         codeConfirmationRepository.save(codeConfirmation);
     }
 
+
+    @Override
+    public void emailVerificationAuth(String email) {
+        CodeConfirmation codeConfirmation = CodeConfirmation.builder()
+                .confirmation(false)
+                .email(email)
+                .code(GenerateCodeHelper.randomGenerateCode())
+                .dateOfCreation(new Date())
+                .build();
+        String text = String.format(
+                """
+                        Ниже Ваша ссылка на восстановление пароля
+                        http://localhost:782/auth?email=%s&code=%s
+                        """,
+                email,
+                codeConfirmation.getCode()
+        );
+        mailSenderService.sendSimpleMessage(email, "Восстановление пароля",text);
+        codeConfirmationRepository.save(codeConfirmation);
+    }
     @Override
     public boolean restorePassword(String email, String code, String password) {
         var codeOpt = codeConfirmationRepository.findByEmailAndCode(email, code);

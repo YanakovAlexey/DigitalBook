@@ -78,7 +78,6 @@ public class BookUploadForm extends Div {
         addClassNames("upload-view");
         add(container);
 
-
         container.addFormItem(bookFileUpload, this.translationProvider.getTranslation("bookFile",
                 UI.getCurrent().getLocale()));
         container.addFormItem(bookThumbnailUpload, this.translationProvider.getTranslation("coverFile",
