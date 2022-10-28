@@ -18,6 +18,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
@@ -38,6 +39,8 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
     private final BookBuilder bookBuilder;
     private BasketViewModel basketPositionGetBook = new BasketViewModel();
     private final BookService bookService;
+    private Button buyButton;
+    private Button deleteButton;
 
     public BasketView(BasketService basketService,
                       BasketPositionService basketPositionService,
@@ -46,12 +49,15 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
                       BasketRepository basketRepository1,
                       BookBuilder bookBuilder,
                       BookService bookService) {
+
         this.basketService = basketService;
         this.basketPositionService = basketPositionService;
         this.bookBuilder = bookBuilder;
         this.bookService = bookService;
         this.title.addClassNames("basket-title");
         this.buyAllButton.addClassNames("basket-button-buy-all");
+
+        this.buyAllButton.addClassNames("basket-content-view");
 
     }
 
@@ -66,18 +72,25 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         var bookList = bookService.getAll();
 
 
+
         for (BasketViewModel basketViewModel : listBasket) {
             if (basketViewModel.getId_user().equals(idUser)) {
                 getIdBasket = basketViewModel.getId();
             }
 
-
             for (BasketPositionViewModel basketPositionViewModel : listBasketPositionList) {
                 if (basketPositionViewModel.getIdBasket().equals(getIdBasket)) {
                     for (Book book : bookList) {
                         if (book.getId().equals(basketPositionViewModel.getIdBook())) {
+
+                            this.buyButton = new Button("Купить");
+
+                            this.deleteButton = new Button("Удалить");
+
+                            this.buyButton.addClassNames("basket-content-view");
+
                             layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-                            layout.add(new BookItem(bookBuilder.createBook(book)));
+                            layout.add(new BookItem(bookBuilder.createBook(book)), buyButton, deleteButton);
 
                         }
                     }
@@ -86,6 +99,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         }
 
         layout.addClassName("basket-book-item");
+
 
         div.add(title, buyAllButton, layout);
 

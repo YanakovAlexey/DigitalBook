@@ -10,6 +10,7 @@ import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.views.ContentView;
+import com.example.application.views.items.BookDetailsView;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -38,9 +39,6 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
 
     private final AuthenticatedUser authenticatedUser;
     private final BasketRepository basketRepository;
-
-
-
     List<BookViewModel> bookViewModelList = new ArrayList<>();
     private Div div = new Div();
 
@@ -79,7 +77,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
             bookViewModelList.add(bookBuilder.createBook(book));
         }
 
-        div.add(new com.example.application.views.items.BookContentView(getIdBook(bookId),
+        div.add(new BookDetailsView(getIdBook(bookId),
                 usersService,
                 basketService,
                 disciplineService,

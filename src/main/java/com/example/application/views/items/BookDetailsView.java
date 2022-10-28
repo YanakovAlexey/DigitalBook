@@ -21,7 +21,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookContentView extends Div {
+public class BookDetailsView extends Div {
     private Image image;
     private Label title;
     private Label author;
@@ -41,7 +41,7 @@ public class BookContentView extends Div {
     private BasketViewModel basket;
     Div div = new Div();
 
-    public BookContentView(BookViewModel bookViewModel, UsersService usersService,
+    public BookDetailsView(BookViewModel bookViewModel, UsersService usersService,
                            BasketService basketService, DisciplineService disciplineService,
                            BookService bookService, BookBuilder bookBuilder,
                            BasketPositionService basketPositionService, BasketPositionBuilder basketPositionBuilder, AuthenticatedUser authenticatedUser, BasketRepository basketRepository) {
@@ -240,10 +240,10 @@ public class BookContentView extends Div {
     }
 
     private void addToBasket(BookViewModel bookViewModel) {
-        var basketList = basketService.getAll();
+        var basketRep = basketRepository.findFirstById(authenticatedUser.get().get().getIdBasket());
 
         Basket localBasket = null;
-        if (basketList.isEmpty()) {
+        if (basketRep == null) {
             var basket = new Basket();
             basket.setId_user(authenticatedUser.get().get().getId());
             basket.setId_book(bookViewModel.getId());
@@ -252,19 +252,19 @@ public class BookContentView extends Div {
             localBasket = basket;
         }
 
-        basket = basketList.stream().findFirst().orElseThrow(() -> new RuntimeException("User not created"));
+        basket = basketRep;
 
         var basketPosition = new BasketPosition();
         basketPosition.setIdBook(bookViewModel.getId());
         basketPosition.setIdBasket(localBasket == null ? basket.getId() : localBasket.getId());
+
         basketPosition.setPrice(bookViewModel.getPricePay());
         basketPosition.setNumberOfBooks(2);
 
         basketPositionService.create(basketPosition);
 
         authenticatedUser.get().ifPresent(u ->
-                        getUI().ifPresent(ui -> ui.navigate("Basket/" + u.getId()))
-
+                getUI().ifPresent(ui -> ui.navigate("Basket/" + u.getId()))
 
         );
     }
