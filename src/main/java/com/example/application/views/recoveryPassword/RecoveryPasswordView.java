@@ -53,13 +53,13 @@ public class RecoveryPasswordView extends Div implements HasUrlParameter<String>
         saveButton.addClickListener(event -> {
 
             try {
-                if (newPasswordPF.getValue().length() > 6 &&
+                if (newPasswordPF.getValue().length() >= 6 &&
                         newPasswordPF.getValue().equals(repeatPasswordPF.getValue()) &&
                         usersService.restorePassword(email, verificationCode, newPasswordPF.getValue())
                 ) {
                     getUI().ifPresent(ui -> ui.navigate("/"));
                 } else {
-                    throw new ResponseException("1", "ss", 1);
+                    throw new ResponseException("Ошибка", "Длина пароля меньше 6 символов", 500);
                 }
             } catch (ResponseException e) {
                 e.printStackTrace();
