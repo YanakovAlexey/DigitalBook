@@ -9,7 +9,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -86,7 +85,7 @@ public class ProfileView extends Div {
         changePasswordButton = new Button(this.translationProvider.getTranslation("changePassword",
                 UI.getCurrent().getLocale()));
         changePasswordButton.addClickListener(event -> {
-            changePasswordButton.getUI().ifPresent(ui -> ui.navigate("changePassword"));
+            changePasswordButton.getUI().ifPresent(ui -> ui.navigate("change-password"));
         });
 
         exitButton = new Button(this.translationProvider.getTranslation("exit",

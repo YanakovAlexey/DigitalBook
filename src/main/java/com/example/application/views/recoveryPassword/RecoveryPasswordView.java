@@ -1,42 +1,44 @@
-package com.example.application.views.changePassword;
+package com.example.application.views.recoveryPassword;
 
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.backEnd.viewModel.account.CodeConfirmationViewModel;
+import com.example.application.models.ChangePasswordType;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
 import com.example.application.views.ContentView;
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-import javax.annotation.security.RolesAllowed;
-import java.util.Objects;
-
-@Route(value = "changePassword", layout = ContentView.class)
-@RolesAllowed("USER")
-public class ChangePasswordView extends Div {
+@Route(value = "recovery-password", layout = ContentView.class)
+@AnonymousAllowed
+public class RecoveryPasswordView extends Div implements HasUrlParameter<String> {
 
     private PasswordField oldPasswordPF;
     private PasswordField newPasswordPF;
     private PasswordField repeatPasswordPF;
     private Button saveButton;
 
+    private String verificationCode;
+    private String email;
+
     UsersService usersService;
     private final AuthenticatedUser authenticatedUser;
     private final TranslationProvider translationProvider = new TranslationProvider();
 
-    public ChangePasswordView(UsersService usersService, AuthenticatedUser authenticatedUser) {
+    public RecoveryPasswordView(UsersService usersService, AuthenticatedUser authenticatedUser) {
         this.usersService = usersService;
         this.authenticatedUser = authenticatedUser;
-        changePassword();
+        recoveryPassword();
     }
 
-    public void changePassword() {
+    public void recoveryPassword() {
 
         oldPasswordPF = new PasswordField(this.translationProvider.getTranslation("oldPassword",
                 UI.getCurrent().getLocale()));
@@ -46,16 +48,19 @@ public class ChangePasswordView extends Div {
                 UI.getCurrent().getLocale()));
 
         saveButton = new Button(this.translationProvider.getTranslation("savePassword",
-                UI.getCurrent().getLocale()), this::examinationPassword);
+                UI.getCurrent().getLocale()));
 
         saveButton.addClickListener(event -> {
 
             try {
-                usersService.changePassword(authenticatedUser.get().get(),
-                        oldPasswordPF.getValue(),
-                        newPasswordPF.getValue(),
-                        repeatPasswordPF.getValue());
-                saveButton.getUI().ifPresent(ui -> ui.navigate("/"));
+                if (newPasswordPF.getValue().length() > 6 &&
+                        newPasswordPF.getValue().equals(repeatPasswordPF.getValue()) &&
+                        usersService.restorePassword(email, verificationCode, newPasswordPF.getValue())
+                ) {
+                    getUI().ifPresent(ui -> ui.navigate("/"));
+                } else {
+                    throw new ResponseException("1", "ss", 1);
+                }
             } catch (ResponseException e) {
                 e.printStackTrace();
                 NotificationComponent notification =
@@ -65,38 +70,24 @@ public class ChangePasswordView extends Div {
         });
 
         Div container = new Div();
-        container.addClassNames("changePassword-container");
+        container.addClassNames("recovery-password-container");
 
         Div line = new Div();
         line.addClassNames("horizontal-line");
 
-        addClassNames("changePassword-view");
+        addClassNames("recovery-password-view");
         add(container);
         this.setWidth(String.valueOf(false));
-        container.add(oldPasswordPF, newPasswordPF, repeatPasswordPF, line, saveButton);
+        container.add(newPasswordPF, repeatPasswordPF, line, saveButton);
     }
 
-    private void examinationPassword(ClickEvent<Button> buttonClickEvent) {
-
-        if (oldPasswordPF.isInvalid()) {
-            oldPasswordPF.setInvalid(true);
-            oldPasswordPF.setErrorMessage(this.translationProvider.getTranslation("wrongOldPassword",
-                    UI.getCurrent().getLocale()));
-            return;
-        }
-
-        if (newPasswordPF.isInvalid()) {
-            newPasswordPF.setInvalid(true);
-            newPasswordPF.setErrorMessage(this.translationProvider.getTranslation("shortPassword",
-                    UI.getCurrent().getLocale()));
-            return;
-        }
-
-        if (!Objects.equals(newPasswordPF.getValue(), repeatPasswordPF.getValue())) {
-            repeatPasswordPF.setInvalid(true);
-            repeatPasswordPF.setErrorMessage(this.translationProvider.getTranslation("passwordsDoNotMatch",
-                    UI.getCurrent().getLocale()));
-            return;
+    @Override
+    public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
+        QueryParameters queryParameters = event.getLocation().getQueryParameters();
+        var parameters = queryParameters.getParameters();
+        if (parameters != null) {
+            this.verificationCode = parameters.get("code").get(0);
+            this.email = parameters.get("email").get(0);
         }
     }
 }
