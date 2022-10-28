@@ -29,7 +29,9 @@ public interface UsersService {
     void changePassword(Users users, String oldPassword, String newPassword, String repeatPassword,
                         ChangePasswordType type) throws ResponseException;
 
-    void emailVerification(String email);
+    void emailVerificationRP(String email);
+
+    void emailVerificationAuth(String email);
 
     boolean restorePassword(String email, String code, String password);
 }
