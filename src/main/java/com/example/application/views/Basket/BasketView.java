@@ -63,6 +63,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
+        var verticalLayout = new VerticalLayout();
         this.idUser = parameter;
         Long getIdBasket = null;
 
@@ -89,8 +90,10 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
 
                             this.buyButton.addClassNames("basket-content-view");
 
+                            verticalLayout.add(buyButton, deleteButton);
+
                             layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-                            layout.add(new BookItem(bookBuilder.createBook(book)), buyButton, deleteButton);
+                            layout.add(new BookItem(bookBuilder.createBook(book)), verticalLayout);
 
                         }
                     }
