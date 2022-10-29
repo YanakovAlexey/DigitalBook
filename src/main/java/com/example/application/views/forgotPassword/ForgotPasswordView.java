@@ -3,6 +3,7 @@ package com.example.application.views.forgotPassword;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.MailSenderService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.models.EnumType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.ClickEvent;
@@ -47,7 +48,7 @@ public class ForgotPasswordView extends Div {
                 UI.getCurrent().getLocale()));
         send.setWidth("170px");
         send.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
-            usersService.emailVerificationRP(email.getValue());
+            usersService.emailVerification(email.getValue(), EnumType.EDIT);
             send.getUI().ifPresent(ui -> ui.navigate("/success"));
         });
 

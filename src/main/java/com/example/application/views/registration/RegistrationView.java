@@ -3,12 +3,12 @@ package com.example.application.views.registration;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import com.example.application.models.EnumType;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
@@ -121,12 +121,12 @@ public class RegistrationView extends Div {
         }
 
         try {
-            usersService.emailVerificationAuth(emailTF.getValue());
+            usersService.emailVerification(emailTF.getValue(), EnumType.REG);
             usersService.registration(new RegistrationViewModel(
                     userNameTF.getValue(),
                     emailTF.getValue(),
                     passwordPF.getValue()
-                    ));
+            ));
 
             this.getUI().ifPresent(ui -> ui.navigate("/success"));
         } catch (ResponseException e) {
