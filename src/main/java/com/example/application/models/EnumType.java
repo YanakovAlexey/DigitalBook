@@ -1,7 +1,8 @@
 package com.example.application.models;
 
-public enum ChangePasswordType {
+public enum EnumType {
 
+    REG,
     RECOVER,
     EDIT
 }

@@ -3,7 +3,7 @@ package com.example.application.backEnd.utils.enums;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.example.application.models.ChangePasswordType;
+import com.example.application.models.EnumType;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
@@ -56,7 +56,7 @@ public class ChangePasswordView extends Div {
                         oldPasswordPF.getValue(),
                         newPasswordPF.getValue(),
                         repeatPasswordPF.getValue(),
-                        ChangePasswordType.EDIT
+                        EnumType.EDIT
                 );
                 saveButton.getUI().ifPresent(ui -> ui.navigate("/"));
             } catch (ResponseException e) {

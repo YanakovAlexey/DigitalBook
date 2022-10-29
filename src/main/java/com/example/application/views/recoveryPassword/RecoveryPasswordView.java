@@ -3,8 +3,6 @@ package com.example.application.views.recoveryPassword;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.example.application.backEnd.viewModel.account.CodeConfirmationViewModel;
-import com.example.application.models.ChangePasswordType;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
