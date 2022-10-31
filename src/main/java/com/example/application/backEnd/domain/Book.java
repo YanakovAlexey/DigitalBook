@@ -40,7 +40,7 @@ public class Book {
     Long idUsers;
 
     @Column(name = "id_discipline")
-    Integer idDiscipline;
+    Long idDiscipline;
 
     @Column(name = "extension")
     String extension;
@@ -59,5 +59,8 @@ public class Book {
 
     @Column(name = "data_info")
     Date dataInfo;
+
+    @Column(name = "file")
+    String file;
 
 }

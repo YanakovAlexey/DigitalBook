@@ -10,12 +10,12 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-
-
     password: 123456
-
     url: jdbc:postgresql://localhost:5432/DigitalBooks
     username: postgres
 
 module-name: DigitalBooks
 api-version: 1.0
+
+images-base-path: http://localhost:7070/images/
+files-base-path: http://localhost:7070/files/

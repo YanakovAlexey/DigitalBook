@@ -32,6 +32,7 @@ public class BookContentItem extends Div {
     private final BookService bookService;
     private final BookBuilder bookBuilder;
     Div div = new Div();
+    private final String BASE_PATH = "http://localhost:7070/images/";
 
     public BookContentItem(BookViewModel bookViewModel, UsersService usersService,
                            DisciplineService disciplineService, BookService bookService, BookBuilder bookBuilder) {
@@ -50,7 +51,7 @@ public class BookContentItem extends Div {
         var verticalLayout = new VerticalLayout();
         var horizontalLayout = new HorizontalLayout();
 
-        this.image = new Image(bookViewModel.getBookImg(), "");
+        this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "");
 
         this.image.addClassNames("book-content-item-image");
 
