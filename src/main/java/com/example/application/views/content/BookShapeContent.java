@@ -10,8 +10,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.security.RolesAllowed;
-
 @Route(value = "/", layout = ContentView.class)
 @AnonymousAllowed
 public class BookShapeContent extends HorizontalLayout {
@@ -25,7 +23,11 @@ public class BookShapeContent extends HorizontalLayout {
 
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
-        var books = bookService.getAll().stream().map(book -> bookBuilder.createBook(book));
+        var books = bookService
+                .getAll()
+                .stream()
+                .map(bookBuilder::createBook)
+                .toList();
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
