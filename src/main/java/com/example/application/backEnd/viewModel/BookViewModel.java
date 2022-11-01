@@ -20,7 +20,7 @@ public class BookViewModel {
     Integer pricePay;
     Integer numClass;
     Long idUsers;
-    Integer idDiscipline;
+    Long idDiscipline;
     String extension;
     String bookImg;
     Integer priceSubscription;
