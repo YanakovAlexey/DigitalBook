@@ -4,7 +4,6 @@ import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BookViewModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookService {
 
@@ -18,4 +17,5 @@ public interface BookService {
 
     void deleteById(Long id);
 
+    List<Book> getBySearch(String title);
 }

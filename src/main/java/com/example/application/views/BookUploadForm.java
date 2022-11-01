@@ -30,9 +30,7 @@ public class BookUploadForm extends Div {
     private Select<String> genresSelect;
     private TextField titleTF, descriptionTF, authorTF;
     private List<Discipline> disciplineList;
-
     private Button download;
-
     private UploadBookModel bookModel;
 
     public BookUploadForm() {

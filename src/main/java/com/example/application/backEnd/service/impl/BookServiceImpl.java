@@ -68,7 +68,6 @@ public class BookServiceImpl implements BookService {
         bookBuilder.update(book, request);
     }
 
-
     @Override
     public void deleteById(Long id) {
         Optional<Book> bookOpt = bookRepository.findById(id);
@@ -79,5 +78,12 @@ public class BookServiceImpl implements BookService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         bookRepository.delete(bookOpt.get());
+    }
+
+    public List<Book> getBySearch(String title) {
+        List<Book> book = bookRepository.findByTitleLike(title);
+//        List<BookViewModel> bookList = new ArrayList<>();
+
+        return book;
     }
 }
