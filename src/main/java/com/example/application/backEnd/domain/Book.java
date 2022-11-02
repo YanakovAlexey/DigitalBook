@@ -35,11 +35,11 @@ public class Book {
     @Column(name = "num_class")
     Integer numClass;
 
-    @Column(name = "id_users")
-    Long idUsers;
+    @Column(name = "UserId")
+    Long UserId;
 
-    @Column(name = "id_discipline")
-    Integer idDiscipline;
+    @Column(name = "IdDiscipline")
+    Long idDiscipline;
 
     @Column(name = "extension")
     String extension;

@@ -2,6 +2,7 @@ package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.views.ContentView;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;

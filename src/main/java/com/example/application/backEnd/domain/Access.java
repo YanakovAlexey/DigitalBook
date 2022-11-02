@@ -20,8 +20,8 @@ public class Access {
     @Column(name = "id", nullable = false)
     Long id;
 
-    @Column(name = "id_user")
-    Integer id_user;
+    @Column(name = "idUser")
+    Integer idUser;
 
     @Column(name = "id_role")
     Integer id_role;

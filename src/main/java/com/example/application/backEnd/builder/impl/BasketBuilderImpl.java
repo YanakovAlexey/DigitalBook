@@ -12,7 +12,7 @@ public class BasketBuilderImpl implements BasketBuilder {
     public BasketViewModel createBook(Basket basket) {
         return BasketViewModel.builder()
                 .id(basket.getId())
-                .id_user(basket.getId_user())
+                .id_user(basket.getIdUser())
                 .id_book(basket.getId_book())
                 .priceType(basket.getPriceType())
                 .price(basket.getPrice())
@@ -25,7 +25,7 @@ public class BasketBuilderImpl implements BasketBuilder {
     public BasketViewModel build(Basket request) {
         BasketViewModel basket = new BasketViewModel();
         basket.setId(request.getId());
-        basket.setId_user(request.getId_user());
+        basket.setId_user(request.getIdUser());
         basket.setId_book(request.getId_book());
         basket.setPriceType(request.getPriceType());
         basket.setPrice(request.getPrice());
@@ -35,7 +35,7 @@ public class BasketBuilderImpl implements BasketBuilder {
 
     @Override
     public void update(Basket basket, BasketViewModel request) {
-        basket.setId_user(request.getId_user());
+        basket.setIdUser(request.getId_user());
         basket.setId_book(request.getId_book());
     }
 }

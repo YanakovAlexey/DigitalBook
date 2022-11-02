@@ -45,10 +45,6 @@ public class BasketServiceImpl implements BasketService {
         basketRepository.save(request);
     }
 
-    @Override
-    public void addToBasket(BasketPositionViewModel request) {
-
-    }
 
 
     @Override

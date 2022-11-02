@@ -11,6 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    BookViewModel findFirstById(Long id);
+
+    List<Book> findAllByAuthor(String author);
+    List<Book> findAllByIdDiscipline(Long id);
+
 
 }
