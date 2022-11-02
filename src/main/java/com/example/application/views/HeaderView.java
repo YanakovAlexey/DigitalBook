@@ -36,6 +36,7 @@ public class HeaderView extends VerticalLayout {
     }
 
     private void screen() {
+
         Button aboutUs = new Button(new Icon(EXCLAMATION_CIRCLE_O));
         Button cartButton = new Button(new Icon(CART));
 
@@ -45,8 +46,13 @@ public class HeaderView extends VerticalLayout {
         secondaryButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         cartButton.addClickListener(event -> {
-            cartButton.getUI().ifPresent(ui -> ui.navigate("Basket/" + authenticatedUser.get().get().getId()));
+            if (authenticatedUser.get().isPresent()) {
+                cartButton.getUI().ifPresent(ui ->
+                        ui.navigate("Basket/" + authenticatedUser.get().get().getId()));
+            } else cartButton.getUI().ifPresent(ui ->
+                    ui.navigate("/auth"));
         });
+
         Button bookButton = new Button(new Icon(OPEN_BOOK));
         Button login = new Button();
         login.addClickListener(event -> loginOverlay.setOpened(true));
@@ -54,6 +60,7 @@ public class HeaderView extends VerticalLayout {
         bookButton.addClickListener(event -> {
             bookButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
+
         Button userButton = new Button(new Icon(USER));
         login.addClickListener(event -> loginOverlay.setOpened(true));
         login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -94,7 +101,6 @@ public class HeaderView extends VerticalLayout {
             userButton.addClickListener(event -> {
                 userButton.getUI().ifPresent(ui -> ui.navigate("profile"));
             });
-
         }
     }
 
@@ -109,19 +115,20 @@ public class HeaderView extends VerticalLayout {
 
     private Anchor createTabs() {
 
-        Anchor tab1 = new Anchor("upload", this.translationProvider.getTranslation("addABook",
+        Anchor addBook = new Anchor("upload", this.translationProvider.getTranslation("addABook",
                 UI.getCurrent().getLocale()));
 
-        tab1.addFocusListener(event -> {
-            tab1.getUI().ifPresent(ui -> ui.navigate("upload"));
+        addBook.addFocusListener(event -> {
+            addBook.getUI().ifPresent(ui -> ui.navigate("upload"));
         });
 
-        tab1.addClassNames("view-tabs");
+        addBook.addClassNames("view-tabs");
 
-        return tab1;
+        return addBook;
     }
 
     private MenuBar createMenuBar() {
+
         var menuBar = new MenuBar();
         menuBar.setOpenOnHover(true);
 
@@ -160,6 +167,8 @@ public class HeaderView extends VerticalLayout {
                 }
             });
         }
+
+        this.addClassNames("view-menu-bar");
 
         return menuBar;
     }

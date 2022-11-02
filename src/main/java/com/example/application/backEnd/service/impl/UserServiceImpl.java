@@ -11,7 +11,7 @@ import com.example.application.backEnd.utils.GenerateCodeHelper;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.backEnd.viewModel.account.AuthViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
-import com.example.application.models.ChangePasswordType;
+import com.example.application.models.EnumType;
 import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.UI;
 import lombok.AccessLevel;
@@ -145,40 +145,54 @@ public class UserServiceImpl implements UsersService {
 
     @Override
     public void changePassword(Users users, String oldPassword, String newPassword, String repeatPassword,
-                               ChangePasswordType type)
+                               EnumType type)
             throws ResponseException {
 
         String hashOldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
-        if (ChangePasswordType.EDIT.equals(type)) {
+        if (EnumType.EDIT.equals(type)) {
             if (!hashOldPassword.equals(users.getPassword()) || !newPassword.equals(repeatPassword)) {
                 throw new ResponseException("Ошибка", "Старый пароль неверный", 400);
             }
-        } else if (!hashOldPassword.equals(users.getPassword())) {
-            throw new ResponseException("Ошибка", "Старый пароль неверный", 400);
+        } else if (EnumType.RECOVER.equals(type)) {
+            if (!hashOldPassword.equals(users.getPassword())) {
+                throw new ResponseException("Ошибка", "Старый пароль неверный", 400);
+            }
         }
 
         users.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
         userRepository.save(users);
     }
 
-
     @Override
-    public void emailVerification(String email) {
+    public void emailVerification(String email, EnumType type) {
         CodeConfirmation codeConfirmation = CodeConfirmation.builder()
                 .confirmation(false)
                 .email(email)
                 .code(GenerateCodeHelper.randomGenerateCode())
                 .dateOfCreation(new Date())
                 .build();
-        String text = String.format(
-                """
-                        Ниже Ваша ссылка на восстановление пароля
-                        http://localhost:782/recovery-password?email=%s&code=%s
-                        """,
-                email,
-                codeConfirmation.getCode()
-        );
-        mailSenderService.sendSimpleMessage(email, "Восстановление пароля",text);
+
+        if (EnumType.REG.equals(type)) {
+            String text = String.format(
+                    """
+                            Ниже Ваша ссылка для регистрации
+                            http://localhost:782/auth?email=%s&code=%s
+                            """,
+                    email,
+                    codeConfirmation.getCode());
+            mailSenderService.sendSimpleMessage(email, "Регистрация", text);
+        } else {
+            String text = String.format(
+                    """
+                            Ниже Ваша ссылка на восстановление пароля
+                            http://localhost:782/recovery-password?email=%s&code=%s
+                            """,
+                    email,
+                    codeConfirmation.getCode()
+            );
+            mailSenderService.sendSimpleMessage(email, "Восстановление пароля", text);
+        }
+
         codeConfirmationRepository.save(codeConfirmation);
     }
 

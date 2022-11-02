@@ -1,19 +1,23 @@
-package com.example.application.backEnd.utils.enums;
+package com.example.application.views.changePassword;
 
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.example.application.backEnd.viewModel.account.CodeConfirmationViewModel;
-import com.example.application.models.ChangePasswordType;
+import com.example.application.models.EnumType;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.RolesAllowed;
@@ -23,6 +27,8 @@ import java.util.Objects;
 @RolesAllowed("USER")
 public class ChangePasswordView extends Div {
 
+    private Icon checkIcon;
+    private Span passwordStrengthText;
     private PasswordField oldPasswordPF;
     private PasswordField newPasswordPF;
     private PasswordField repeatPasswordPF;
@@ -30,14 +36,11 @@ public class ChangePasswordView extends Div {
 
     UsersService usersService;
     private final AuthenticatedUser authenticatedUser;
-    private final CodeConfirmationViewModel codeConfirmationViewModel;
     private final TranslationProvider translationProvider = new TranslationProvider();
 
-    public ChangePasswordView(UsersService usersService, AuthenticatedUser authenticatedUser,
-                              CodeConfirmationViewModel codeConfirmationViewModel) {
+    public ChangePasswordView(UsersService usersService, AuthenticatedUser authenticatedUser) {
         this.usersService = usersService;
         this.authenticatedUser = authenticatedUser;
-        this.codeConfirmationViewModel = codeConfirmationViewModel;
         changePassword();
     }
 
@@ -47,6 +50,22 @@ public class ChangePasswordView extends Div {
                 UI.getCurrent().getLocale()));
         newPasswordPF = new PasswordField(this.translationProvider.getTranslation("newPassword",
                 UI.getCurrent().getLocale()));
+        newPasswordPF.setRevealButtonVisible(true);
+        Div passwordStrength = new Div();
+        passwordStrengthText = new Span();
+        checkIcon = VaadinIcon.CHECK.create();
+        checkIcon.setVisible(false);
+        newPasswordPF.setSuffixComponent(checkIcon);
+        passwordStrength.add(new Text("Password strength: "),
+                passwordStrengthText);
+        newPasswordPF.setHelperComponent(passwordStrength);
+        newPasswordPF.setValueChangeMode(ValueChangeMode.EAGER);
+        newPasswordPF.addValueChangeListener(e -> {
+            String password = e.getValue();
+            updateHelper(password);
+        });
+
+        updateHelper("");
         repeatPasswordPF = new PasswordField(this.translationProvider.getTranslation("repeatNewPassword",
                 UI.getCurrent().getLocale()));
 
@@ -60,7 +79,7 @@ public class ChangePasswordView extends Div {
                         oldPasswordPF.getValue(),
                         newPasswordPF.getValue(),
                         repeatPasswordPF.getValue(),
-                        ChangePasswordType.EDIT
+                        EnumType.EDIT
                 );
                 saveButton.getUI().ifPresent(ui -> ui.navigate("/"));
             } catch (ResponseException e) {
@@ -104,6 +123,24 @@ public class ChangePasswordView extends Div {
             repeatPasswordPF.setErrorMessage(this.translationProvider.getTranslation("passwordsDoNotMatch",
                     UI.getCurrent().getLocale()));
             return;
+        }
+    }
+
+    private void updateHelper(String password) {
+        if (password.length() > 9) {
+            passwordStrengthText.setText("strong");
+            passwordStrengthText.getStyle().set("color",
+                    "var(--lumo-success-color)");
+            checkIcon.setVisible(true);
+        } else if (password.length() > 5) {
+            passwordStrengthText.setText("moderate");
+            passwordStrengthText.getStyle().set("color", "#e7c200");
+            checkIcon.setVisible(false);
+        } else {
+            passwordStrengthText.setText("weak");
+            passwordStrengthText.getStyle().set("color",
+                    "var(--lumo-error-color)");
+            checkIcon.setVisible(false);
         }
     }
 }

@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface CodeConfirmationRepository extends JpaRepository<CodeConfirmation, Long> {
 
-
     Optional<CodeConfirmation> findByEmailAndCode(String email, String code);
 }

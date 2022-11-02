@@ -44,6 +44,7 @@ public class BookDetailsView extends Div {
     private final UserRepository userRepository;
     private Basket localBasket = null;
     Div div = new Div();
+    private final String BASE_PATH = "http://localhost:7070/images/";
 
     public BookDetailsView(BookViewModel bookViewModel, UsersService usersService,
                            BasketService basketService, DisciplineService disciplineService,
@@ -74,7 +75,7 @@ public class BookDetailsView extends Div {
         var verticalLayout = new VerticalLayout();
         var horizontalLayout = new HorizontalLayout();
 
-        this.image = new Image(bookViewModel.getBookImg(), "");
+        this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "");
 
         this.image.addClassNames("book-content-item-image");
 

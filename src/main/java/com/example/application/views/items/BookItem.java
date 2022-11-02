@@ -5,15 +5,17 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.springframework.beans.factory.annotation.Value;
 
 public class BookItem extends Div {
 
+    private final String BASE_PATH = "http://localhost:7070/images/";
     private Image image;
     private Anchor titleLabel, authorLabel;
 
     public BookItem(BookViewModel bookViewModel) {
 
-        this.image = new Image(bookViewModel.getBookImg(), "");
+        this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "");
         this.image.addClickListener(event -> {
             image.getUI().ifPresent(ui -> ui.navigate("BookContent/" + bookViewModel.getId()));
 

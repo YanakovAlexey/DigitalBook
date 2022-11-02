@@ -3,8 +3,6 @@ package com.example.application.views.recoveryPassword;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.example.application.backEnd.viewModel.account.CodeConfirmationViewModel;
-import com.example.application.models.ChangePasswordType;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
@@ -53,13 +51,13 @@ public class RecoveryPasswordView extends Div implements HasUrlParameter<String>
         saveButton.addClickListener(event -> {
 
             try {
-                if (newPasswordPF.getValue().length() > 6 &&
+                if (newPasswordPF.getValue().length() >= 6 &&
                         newPasswordPF.getValue().equals(repeatPasswordPF.getValue()) &&
                         usersService.restorePassword(email, verificationCode, newPasswordPF.getValue())
                 ) {
                     getUI().ifPresent(ui -> ui.navigate("/"));
                 } else {
-                    throw new ResponseException("1", "ss", 1);
+                    throw new ResponseException("Ошибка", "Длина пароля меньше 6 символов", 500);
                 }
             } catch (ResponseException e) {
                 e.printStackTrace();

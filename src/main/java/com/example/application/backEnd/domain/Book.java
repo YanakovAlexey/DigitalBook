@@ -10,6 +10,7 @@ import java.util.Date;
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class Book {
 
     @Id
@@ -38,7 +39,6 @@ public class Book {
     @Column(name = "UserId")
     Long UserId;
 
-    @Column(name = "IdDiscipline")
     Long idDiscipline;
 
     @Column(name = "extension")
@@ -58,4 +58,8 @@ public class Book {
 
     @Column(name = "data_info")
     Date dataInfo;
+
+    @Column(name = "file")
+    String file;
+
 }
