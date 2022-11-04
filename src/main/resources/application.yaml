@@ -13,7 +13,7 @@ spring:
 
 
 
-    password: 123456
+    password: Ivan230691
 
     url: jdbc:postgresql://localhost:5432/DigitalBooks
     username: postgres
