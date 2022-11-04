@@ -127,7 +127,7 @@ public class BookUploadForm extends Div {
             book.setDescription(descriptionTF.getValue());
             book.setAuthor(authorTF.getValue());
             book.setIdDiscipline(selectedGenre.getId());
-            book.setIdUsers(user.getId());
+            book.setUserId(user.getId());
             book.setType(1);
             bookService.create(book, fileBuffer, imageBuffer);
         });

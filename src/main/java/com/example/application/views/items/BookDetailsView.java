@@ -212,8 +212,6 @@ public class BookDetailsView extends Div {
 
         if (basketPos == null) {
             basket.setIdUser(authenticatedUser.get().get().getId());
-            basket.setId_book(bookViewModel.getId());
-            basket.setPrice(bookViewModel.getPricePay());
             basketService.create(basket);
             localBasket = basket;
         }
@@ -221,9 +219,7 @@ public class BookDetailsView extends Div {
         var basketPosition = new BasketPosition();
         basketPosition.setIdBook(bookViewModel.getId());
         basketPosition.setIdBasket(basketPos.getId());
-
 //        localBasket == null ? basket.getId() :
-
         basketPosition.setPrice(bookViewModel.getPricePay());
         basketPosition.setNumberOfBooks(2);
 
