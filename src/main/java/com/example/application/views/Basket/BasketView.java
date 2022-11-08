@@ -10,6 +10,7 @@ import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.views.ContentView;
+import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -56,6 +57,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
     public void setParameter(BeforeEvent event, Long parameter) {
         this.idUser = parameter;
         var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         var basket = basketRepository.findFirstByIdUser(idUser);
 
         if (basket == null) {
@@ -74,7 +76,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         }
 
         this.buyAllButton.addClassNames("basket-button-buy-all");
-        div.add(title, layout, buyAllButton);
+        div.add(title,buyAllButton, layout);
         this.addClassNames("book-content-background");
         add(div);
     }

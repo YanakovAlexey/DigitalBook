@@ -23,7 +23,7 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Route(value = "upload", layout = ContentView.class)
-@RolesAllowed("USER")
+@RolesAllowed("USER") //publisher
 public class BookUploadForm extends Div {
     private final TranslationProvider translationProvider = new TranslationProvider();
     private final Binder<UploadBookModel> binder =

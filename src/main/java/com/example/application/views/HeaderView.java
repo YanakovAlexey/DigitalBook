@@ -1,6 +1,11 @@
 package com.example.application.views;
 
+import com.example.application.backEnd.domain.Publisher;
+import com.example.application.backEnd.service.DisciplineService;
+import com.example.application.backEnd.service.PublisherService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.backEnd.viewModel.DisciplineViewModel;
+import com.example.application.backEnd.viewModel.PublisherViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.ClickEvent;
@@ -14,6 +19,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
@@ -28,10 +34,15 @@ public class HeaderView extends VerticalLayout {
     private final Button langButtonGE = new Button("GE");
     private final Button langButtonRU = new Button("RU");
     private final AuthenticatedUser authenticatedUser;
+    private final DisciplineService disciplineService;
+    private final PublisherService publisherService;
 
 
-    public HeaderView(AuthenticatedUser authenticatedUser) {
+    public HeaderView(AuthenticatedUser authenticatedUser, DisciplineService disciplineService, PublisherService publisherService) {
         this.authenticatedUser = authenticatedUser;
+        this.disciplineService = disciplineService;
+        this.publisherService = publisherService;
+
         screen();
     }
 
@@ -135,41 +146,54 @@ public class HeaderView extends VerticalLayout {
         var genresMenuItem = menuBar.addItem(this.translationProvider.getTranslation("genre",
                 UI.getCurrent().getLocale()));
         var genresSubMenu = genresMenuItem.getSubMenu();
-        for (int i = 0; i < 10; i++) {
-            genresSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
-                @Override
-                public void onComponentEvent(ClickEvent<MenuItem> event) {
-                    System.out.println("CLicked item is " + event);
-                }
-            });
-        }
+
+        genresSubMenu.add(getGenres());
 
         var publisherMenuItem = menuBar.addItem(this.translationProvider.getTranslation("publishingHouse",
                 UI.getCurrent().getLocale()));
+
         var publisherSubMenu = publisherMenuItem.getSubMenu();
-        for (int i = 0; i < 10; i++) {
-            publisherSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
-                @Override
-                public void onComponentEvent(ClickEvent<MenuItem> event) {
-                    System.out.println("CLicked item is " + event);
-                }
-            });
-        }
+        publisherSubMenu.add(getAPublisher());
+
 
         var authorMenuItem = menuBar.addItem(this.translationProvider.getTranslation("author",
                 UI.getCurrent().getLocale()));
         var authorSubMenu = authorMenuItem.getSubMenu();
-        for (int i = 0; i < 10; i++) {
-            authorSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
-                @Override
-                public void onComponentEvent(ClickEvent<MenuItem> event) {
-                    System.out.println("CLicked item is " + event);
-                }
-            });
-        }
+        authorSubMenu.add();
+
 
         this.addClassNames("view-menu-bar");
 
         return menuBar;
+    }
+
+    private FlexLayout getGenres(){
+         Anchor anchor;
+         FlexLayout flexLayout = new FlexLayout();
+        flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        flexLayout.setWidth("800px");
+        flexLayout.setHeight("200px");
+
+        var allGenresList = disciplineService.getAll();
+        for(DisciplineViewModel discipline: allGenresList){
+            flexLayout.add(anchor = new Anchor("getByGenre/" + discipline.getId(), discipline.getTitle() ));
+            anchor.addClassName("tag-margin");
+        }
+        return flexLayout;
+    }
+
+    private FlexLayout getAPublisher(){
+        Anchor anchor;
+        FlexLayout flexLayout = new FlexLayout();
+        flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        flexLayout.setWidth("800px");
+        flexLayout.setHeight("200px");
+
+        var publisherList = publisherService.getAll();
+        for(Publisher publisher: publisherList){
+            flexLayout.add(anchor = new Anchor("getByGenre/" + publisher.getId(), publisher.getName() ));
+            anchor.addClassName("tag-margin");
+        }
+        return flexLayout;
     }
 }

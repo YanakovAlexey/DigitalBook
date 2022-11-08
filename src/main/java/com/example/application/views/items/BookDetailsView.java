@@ -39,7 +39,7 @@ public class BookDetailsView extends Div {
     private final AuthenticatedUser authenticatedUser;
     private final BasketRepository basketRepository;
     private Basket basket = new Basket();
-    private final BookRepository bookRepository;
+
     private final DisciplineRepository disciplineRepository;
     private final UserRepository userRepository;
     private Basket localBasket = null;
@@ -51,7 +51,7 @@ public class BookDetailsView extends Div {
                            BookService bookService, BookBuilder bookBuilder,
                            BasketPositionService basketPositionService,
                            AuthenticatedUser authenticatedUser,
-                           BasketRepository basketRepository, BookRepository bookRepository, DisciplineRepository disciplineRepository, UserRepository userRepository) {
+                           BasketRepository basketRepository, DisciplineRepository disciplineRepository, UserRepository userRepository) {
         this.usersService = usersService;
         this.basketService = basketService;
         this.disciplineService = disciplineService;
@@ -60,7 +60,7 @@ public class BookDetailsView extends Div {
         this.basketPositionService = basketPositionService;
         this.authenticatedUser = authenticatedUser;
         this.basketRepository = basketRepository;
-        this.bookRepository = bookRepository;
+
         this.disciplineRepository = disciplineRepository;
         this.userRepository = userRepository;
 
@@ -75,7 +75,7 @@ public class BookDetailsView extends Div {
         var verticalLayout = new VerticalLayout();
         var horizontalLayout = new HorizontalLayout();
 
-        this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "");
+        this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "OPs, not image)");
 
         this.image.addClassNames("book-content-item-image");
 
@@ -91,7 +91,7 @@ public class BookDetailsView extends Div {
 
         this.printedPages = new Label("Печатных страниц: " + bookViewModel.getPages());
 
-        this.genre = new Label("Жанр: ");
+        this.genre = new Label("Жанр: " + getAGenre(bookViewModel));
 
         this.basketButton = new Button("В корзину");
         this.basketButton.addClickListener(event ->
@@ -121,7 +121,7 @@ public class BookDetailsView extends Div {
         div.add(label, getAllAuthorButton);
         var horizontalLayout = new HorizontalLayout();
 
-        var authorList = bookRepository.findAllByAuthor(bookViewModel.getAuthor());
+        var authorList = bookService.findAllByAuthor(bookViewModel.getAuthor());
 
         for (Book book : authorList) {
             horizontalLayout.add(new BookItem(bookBuilder.createBook(book)));
@@ -181,7 +181,7 @@ public class BookDetailsView extends Div {
                         ui.navigate("GetAllGenre/" + bookViewModel.getIdDiscipline())));
         genreAllGenreButton.addClassName("book-content-anchor-getAll");
         var horizontalLayout = new HorizontalLayout();
-        var genreList = bookRepository.findAllByIdDiscipline(bookViewModel.getIdDiscipline());
+        var genreList = bookService.findAllByIdDiscipline(bookViewModel.getIdDiscipline());
         for (Book book : genreList) {
             horizontalLayout.add(new BookItem(bookBuilder.createBook(book)));
         }

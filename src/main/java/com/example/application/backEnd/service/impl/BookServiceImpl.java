@@ -87,6 +87,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> getAllByIdGenre(Long id) {
+        var booksList = bookRepository.findAllByIdDiscipline(id);
+        return booksList;
+    }
+
+    @Override
     public void update(Long id, Book book, BookViewModel request) {
         Optional<Book> bookOpt = bookRepository.findById(id);
         if (bookOpt.isEmpty()) {
@@ -115,5 +121,23 @@ public class BookServiceImpl implements BookService {
 //        List<BookViewModel> bookList = new ArrayList<>();
 
         return book;
+    }
+
+    @Override
+    public List<Book> findAllByAuthor(String author) {
+        var authorList = bookRepository.findAllByAuthor(author);
+        if(authorList.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return authorList;
+    }
+
+    @Override
+    public List<Book> findAllByIdDiscipline(Long idDiscipline) {
+        var genreList = bookRepository.findAllByIdDiscipline(idDiscipline);
+        if(genreList.isEmpty()){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return genreList;
     }
 }

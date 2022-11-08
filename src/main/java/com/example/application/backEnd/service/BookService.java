@@ -2,10 +2,10 @@ package com.example.application.backEnd.service;
 
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BookViewModel;
-import com.sun.jna.Memory;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
 
@@ -17,9 +17,15 @@ public interface BookService {
 
     BookViewModel getById(Long id);
 
+    List <Book> getAllByIdGenre(Long id);
+
     void update(Long id, Book book, BookViewModel request);
 
     void deleteById(Long id);
 
     List<Book> getBySearch(String title);
+
+    List<Book> findAllByAuthor(String author);
+
+    List<Book> findAllByIdDiscipline(Long idDiscipline);
 }

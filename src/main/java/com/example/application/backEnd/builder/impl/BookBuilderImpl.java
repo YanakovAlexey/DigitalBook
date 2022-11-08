@@ -33,6 +33,7 @@ public class BookBuilderImpl implements BookBuilder {
     @Override
     public BookViewModel build(Book request) {
         BookViewModel book = new BookViewModel();
+        book.setId(request.getId());
         book.setTitle(request.getTitle());
         book.setDescription(request.getDescription());
         book.setAuthor(request.getAuthor());

@@ -43,13 +43,13 @@ padding-left: 70px;
 
 }
 
-
-
 .book-content-background{
 background: #f2f2f2;
 }
 
-
+.tag-margin{
+margin-left: 10px
+}
 
 .book-label{
 font-weight: bold;

@@ -36,12 +36,10 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
     private final BasketPositionService basketPositionService;
-    private final BookRepository bookRepository;
     private final UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser;
     private final BasketRepository basketRepository;
     private final DisciplineRepository disciplineRepository;
-    List<BookViewModel> bookViewModelList = new ArrayList<>();
     private Div div = new Div();
 
     @Autowired
@@ -52,7 +50,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
                            BookBuilder bookBuilder,
                            BasketPositionService basketPositionService,
                            AuthenticatedUser authenticatedUser,
-                           BookRepository bookRepository, UserRepository userRepository, BasketRepository basketRepository, DisciplineRepository disciplineRepository) {
+                            UserRepository userRepository, BasketRepository basketRepository, DisciplineRepository disciplineRepository) {
 
         this.bookService = bookService;
         this.basketService = basketService;
@@ -60,7 +58,6 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
         this.disciplineService = disciplineService;
         this.bookBuilder = bookBuilder;
         this.basketPositionService = basketPositionService;
-        this.bookRepository = bookRepository;
         this.authenticatedUser = authenticatedUser;
         this.userRepository = userRepository;
         this.basketRepository = basketRepository;
@@ -74,13 +71,9 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     public void setParameter(BeforeEvent event, Long parameter) {
         this.bookId = parameter;
 
-        var bookList = bookService.getAll();
+        var book = bookService.getById(bookId);
 
-        for (Book book : bookList) {
-            bookViewModelList.add(bookBuilder.createBook(book));
-        }
-
-        div.add(new BookDetailsView(getIdBook(bookId),
+        div.add(new BookDetailsView(book,
                 usersService,
                 basketService,
                 disciplineService,
@@ -88,18 +81,9 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
                 bookBuilder,
                 basketPositionService,
                 authenticatedUser,
-                basketRepository, bookRepository, disciplineRepository, userRepository));
+                basketRepository, disciplineRepository, userRepository));
 
         add(div);
-    }
-
-    private BookViewModel getIdBook(Long id) {
-        for (BookViewModel bookViewModel : bookViewModelList) {
-            if (id.equals(bookViewModel.getId())) {
-                return bookViewModel;
-            }
-        }
-        return bookViewModelList.get(1);
     }
 }
 
@@ -124,20 +108,13 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
 
         this.title = new Label("Авторские книги " + bookViewModel);
 
-        var books = bookService.getAll();
-
-        List<BookViewModel> bookViewModelList = new ArrayList<>();
-
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getAuthor().equals(bookViewModel)) {
-                bookViewModelList.add(bookBuilder.createBook(books.get(i)));
-            }
-        }
+       var bookList = bookService.findAllByAuthor(bookViewModel);
+        System.out.println(bookList);
 
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        bookViewModelList.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookViewModel));
+        bookList.forEach(bookViewModel -> {
+            layout.add(new BookItem(bookBuilder.createBook(bookViewModel)));
         });
 
         add(title, layout);

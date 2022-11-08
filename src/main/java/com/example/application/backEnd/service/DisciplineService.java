@@ -15,6 +15,7 @@ public interface DisciplineService {
 
     List<DisciplineViewModel> getAll();
 
+
     DisciplineViewModel getById(Long id);
 
     void update(Long id, Discipline discipline, DisciplineViewModel request);
