@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BasketPosition {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,7 +23,7 @@ public class BasketPosition {
     Long idBasket;
 
     @Column(name = "idBook")
-    Long idBook;
+    Long IdBook;
 
     @Column(name = "price")
     Integer price;

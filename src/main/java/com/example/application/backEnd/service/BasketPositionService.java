@@ -7,9 +7,10 @@ import com.example.application.backEnd.viewModel.BasketViewModel;
 import java.util.List;
 
 public interface BasketPositionService {
-    void create(BasketPosition request);
-    List<BasketPositionViewModel> getAll();
-    BasketViewModel getById(Long id);
 
-    void deleteById(Long id);
+    void create(BasketPosition request);
+
+    List<BasketPositionViewModel> getAll();
+
+    BasketViewModel getById(Long id);
 }

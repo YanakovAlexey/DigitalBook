@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
+import java.util.Optional;
+
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Long> {
-    BasketViewModel findFirstById(Long id);
+    Basket findFirstByIdUser(Long id);
+
 }

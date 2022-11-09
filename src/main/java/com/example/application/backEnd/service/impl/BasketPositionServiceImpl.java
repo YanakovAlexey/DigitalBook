@@ -45,8 +45,5 @@ public class BasketPositionServiceImpl implements BasketPositionService {
         return null;
     }
 
-    @Override
-    public void deleteById(Long id) {
 
-    }
 }

@@ -9,7 +9,7 @@ public class AccessBuilderImpl implements AccessBuilder {
     public AccessViewModel createAccess(Access access) {
         return AccessViewModel.builder()
                 .id(access.getId())
-                .id_user(access.getId_user())
+                .id_user(access.getIdUser())
                 .id_role(access.getId_role())
                 .string(access.getString())
                 .date_out(access.getDate_out())
@@ -18,7 +18,7 @@ public class AccessBuilderImpl implements AccessBuilder {
 
     @Override
     public void update(Access access, AccessViewModel request) {
-        access.setId_user(request.getId_user());
+        access.setIdUser(request.getId_user());
         access.setId_role(request.getId_role());
         access.setString(request.getString());
         access.setDate_out(request.getDate_out());

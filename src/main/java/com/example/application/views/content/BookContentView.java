@@ -1,10 +1,11 @@
 package com.example.application.views.content;
 
-import com.example.application.backEnd.builder.BasketPositionBuilder;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.reporitory.BasketRepository;
 import com.example.application.backEnd.reporitory.BookRepository;
+import com.example.application.backEnd.reporitory.DisciplineRepository;
+import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.BookViewModel;
@@ -35,10 +36,11 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
     private final BasketPositionService basketPositionService;
-    private final BasketPositionBuilder basketPositionBuilder;
-
+    private final BookRepository bookRepository;
+    private final UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser;
     private final BasketRepository basketRepository;
+    private final DisciplineRepository disciplineRepository;
     List<BookViewModel> bookViewModelList = new ArrayList<>();
     private Div div = new Div();
 
@@ -49,9 +51,8 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
                            DisciplineService disciplineService,
                            BookBuilder bookBuilder,
                            BasketPositionService basketPositionService,
-                           BasketPositionBuilder basketPositionBuilder,
                            AuthenticatedUser authenticatedUser,
-                           BookRepository bookRepository, BasketRepository basketRepository) {
+                           BookRepository bookRepository, UserRepository userRepository, BasketRepository basketRepository, DisciplineRepository disciplineRepository) {
 
         this.bookService = bookService;
         this.basketService = basketService;
@@ -59,9 +60,11 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
         this.disciplineService = disciplineService;
         this.bookBuilder = bookBuilder;
         this.basketPositionService = basketPositionService;
-        this.basketPositionBuilder = basketPositionBuilder;
+        this.bookRepository = bookRepository;
         this.authenticatedUser = authenticatedUser;
+        this.userRepository = userRepository;
         this.basketRepository = basketRepository;
+        this.disciplineRepository = disciplineRepository;
 
 
         addClassName("book-content-background");
@@ -83,7 +86,9 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
                 disciplineService,
                 bookService,
                 bookBuilder,
-                basketPositionService, basketPositionBuilder, authenticatedUser, basketRepository));
+                basketPositionService,
+                authenticatedUser,
+                basketRepository, bookRepository, disciplineRepository, userRepository));
 
         add(div);
     }
@@ -166,7 +171,7 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
         List<BookViewModel> bookViewModelList = new ArrayList<>();
 
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getIdUsers().equals(idPublisher)) {
+            if (books.get(i).getUserId().equals(idPublisher)) {
                 bookViewModelList.add(bookBuilder.createBook(books.get(i)));
             }
         }
@@ -216,14 +221,14 @@ class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
     public void setParameter(BeforeEvent event, Long parameter) {
         this.idGenre = parameter;
 
-        this.title = new Label("Книги издательства " + getAGenre(idGenre));
+        this.title = new Label("В том же жанре " + getAGenre(idGenre));
 
         var books = bookService.getAll();
 
         List<BookViewModel> bookViewModelList = new ArrayList<>();
 
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getIdUsers().equals(idGenre)) {
+            if (books.get(i).getUserId().equals(idGenre)) {
                 bookViewModelList.add(bookBuilder.createBook(books.get(i)));
             }
         }

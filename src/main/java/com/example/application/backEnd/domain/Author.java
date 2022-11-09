@@ -6,31 +6,20 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.Date;
 
-@Table(name = "access")
-@Entity
+@Table(name = "authors")
 @Setter
 @Getter
+@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Access {
-
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    Long id;
+    private Long id;
 
-    @Column(name = "idUser")
-    Integer idUser;
-
-    @Column(name = "id_role")
-    Integer id_role;
-
-    @Column(name = "string")
-    String string;
-
-    @Column(name = "date_out")
-    Date date_out;
+    @Column(name = "name")
+    String name;
 
 
 }

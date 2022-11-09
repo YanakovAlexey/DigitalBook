@@ -1,22 +1,22 @@
 package com.example.application.views.Basket;
 
 import com.example.application.backEnd.builder.BookBuilder;
-import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.domain.Basket;
+import com.example.application.backEnd.domain.BasketPosition;
+import com.example.application.backEnd.reporitory.BasketPositionRepository;
+
 import com.example.application.backEnd.reporitory.BasketRepository;
-import com.example.application.backEnd.reporitory.BookRepository;
-import com.example.application.backEnd.service.BasketPositionService;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BasketPositionViewModel;
 import com.example.application.backEnd.viewModel.BasketViewModel;
+import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.views.ContentView;
-import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
@@ -25,80 +25,70 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @Route(value = "Basket", layout = ContentView.class)
 @AnonymousAllowed
 public class BasketView extends HorizontalLayout implements HasUrlParameter<Long> {
+
     Long idUser;
     Div div = new Div();
     Label title = new Label("КОРЗИНА");
     Button buyAllButton = new Button("КУПИТЬ ВСЕ");
-    private final BasketService basketService;
-    private final BasketPositionService basketPositionService;
-    private final BookBuilder bookBuilder;
-    private BasketViewModel basketPositionGetBook = new BasketViewModel();
+
+    private final BasketPositionRepository basketPositionRepository;
+    private final BasketRepository basketRepository;
     private final BookService bookService;
-    private Button buyButton;
-    private Button deleteButton;
+    private final BookBuilder bookBuilder;
+    private final AuthenticatedUser authenticatedUser;
+    private final BasketService basketService;
 
-    public BasketView(BasketService basketService,
-                      BasketPositionService basketPositionService,
+
+    public BasketView(BasketPositionRepository basketPositionRepository,
                       BasketRepository basketRepository,
-                      BookRepository bookRepository,
-                      BasketRepository basketRepository1,
+                      BookService bookService,
                       BookBuilder bookBuilder,
-                      BookService bookService) {
-
-        this.basketService = basketService;
-        this.basketPositionService = basketPositionService;
-        this.bookBuilder = bookBuilder;
+                      AuthenticatedUser authenticatedUser,
+                      BasketService basketService) {
+        this.basketPositionRepository = basketPositionRepository;
+        this.basketRepository = basketRepository;
         this.bookService = bookService;
+        this.bookBuilder = bookBuilder;
+        this.authenticatedUser = authenticatedUser;
+        this.basketService = basketService;
         this.title.addClassNames("basket-title");
         this.buyAllButton.addClassNames("basket-button-buy-all");
         this.buyAllButton.addClassNames("basket-content-view");
+
 
     }
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
-        var verticalLayout = new VerticalLayout();
         this.idUser = parameter;
-        Long getIdBasket = null;
-
-        var listBasket = basketService.getAll();
         var layout = new FlexLayout();
-        var listBasketPositionList = basketPositionService.getAll();
-        var bookList = bookService.getAll();
+        var basket = basketRepository.findFirstByIdUser(idUser);
 
+        if (basket == null) {
+            basket = new Basket();
+            basket.setIdUser(authenticatedUser.get().get().getId());
+            basketService.create(basket);
 
-        for (BasketViewModel basketViewModel : listBasket) {
-            if (basketViewModel.getId_user().equals(idUser)) {
-                getIdBasket = basketViewModel.getId();
-            }
-
-            for (BasketPositionViewModel basketPositionViewModel : listBasketPositionList) {
-                if (basketPositionViewModel.getIdBasket().equals(getIdBasket)) {
-                    for (Book book : bookList) {
-                        if (book.getId().equals(basketPositionViewModel.getIdBook())) {
-
-                            this.buyButton = new Button("Купить");
-
-                            this.deleteButton = new Button("Удалить");
-
-                            this.buyButton.addClassNames("basket-content-view");
-
-                            verticalLayout.add(buyButton, deleteButton);
-
-                            layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-                            layout.add(new BookItem(bookBuilder.createBook(book)), verticalLayout);
-
-                        }
-                    }
-                }
-            }
         }
 
-        layout.addClassName("basket-book-item");
+        var basketPositionList = basketPositionRepository.findAllByIdBasket(basket.getId());
+
 
         div.add(title, buyAllButton, layout);
 
-        add(div);
+        for (BasketPosition element : basketPositionList) {
+            var book = bookService.getById(element.getIdBook());
 
+            layout.add(new BookItemBasket(book));
+            layout.addClassName("basket-book-item");
+        }
+
+
+        this.buyAllButton.addClassNames("basket-button-buy-all");
+        div.add(title, layout, buyAllButton);
+        this.addClassNames("book-content-background");
+        add(div);
     }
 }
+
+

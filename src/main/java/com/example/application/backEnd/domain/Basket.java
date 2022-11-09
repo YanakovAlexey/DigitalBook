@@ -19,13 +19,13 @@ public class Basket {
     @Column(name = "id")
     Long id;
 
-    @Column(name = "id_user")
-    Long id_user;
+    @Column(name = "idUser")
+    Long idUser;
 
-    @Column(name = "id_book")
+    @Column(name = "idBook")
     Long id_book;
 
-    @Column(name = "price_type")
+    @Column(name = "priceType")
     Integer priceType;
 
     @Column(name = "price")
