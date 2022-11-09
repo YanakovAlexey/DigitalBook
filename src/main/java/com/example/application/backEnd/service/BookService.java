@@ -2,7 +2,6 @@ package com.example.application.backEnd.service;
 
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.viewModel.BookViewModel;
-import com.sun.jna.Memory;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 
 import java.util.List;
@@ -22,4 +21,6 @@ public interface BookService {
     void deleteById(Long id);
 
     List<Book> getBySearch(String title);
+
+
 }

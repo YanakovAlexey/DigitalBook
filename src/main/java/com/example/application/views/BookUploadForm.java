@@ -12,6 +12,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
@@ -32,7 +33,8 @@ public class BookUploadForm extends Div {
     private Upload bookFileUpload;
     private Upload bookThumbnailUpload;
     private Select<DisciplineViewModel> genresSelect;
-    private TextField titleTF, descriptionTF, authorTF;
+    private TextField titleTF, authorTF;
+    private TextArea descriptionTF;
     private List<DisciplineViewModel> disciplineList;
     private DisciplineViewModel selectedGenre;
     private Button download;
@@ -79,7 +81,7 @@ public class BookUploadForm extends Div {
             titleTF = new TextField();
         }
         if (descriptionTF == null) {
-            descriptionTF = new TextField();
+            descriptionTF = new TextArea();
         }
         if (authorTF == null) {
             authorTF = new TextField();

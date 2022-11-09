@@ -12,5 +12,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     BookViewModel findFirstById(Long id);
 
-    List<Book> findByTitleLike(String title);
+    List<Book> findByTitleContains(String title);
 }

@@ -1,2 +1,4 @@
-package com.example.application.components.appnav.impl;public class userServImpl {
+package com.example.application.components.appnav.impl;
+
+public class userServImpl {
 }

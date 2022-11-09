@@ -9,6 +9,7 @@ import com.example.application.backEnd.viewModel.BookViewModel;
 import java.util.List;
 
 public interface BasketService {
+
     void create(Basket request);
 
     void addToBasket(BasketPositionViewModel request);

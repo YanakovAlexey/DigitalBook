@@ -9,8 +9,6 @@ import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BasketPositionViewModel;
 import com.example.application.backEnd.viewModel.BasketViewModel;
-
-import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.views.ContentView;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.button.Button;
@@ -23,9 +21,6 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Route(value = "Basket", layout = ContentView.class)
 @AnonymousAllowed
@@ -56,7 +51,6 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         this.bookService = bookService;
         this.title.addClassNames("basket-title");
         this.buyAllButton.addClassNames("basket-button-buy-all");
-
         this.buyAllButton.addClassNames("basket-content-view");
 
     }
@@ -71,7 +65,6 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         var layout = new FlexLayout();
         var listBasketPositionList = basketPositionService.getAll();
         var bookList = bookService.getAll();
-
 
 
         for (BasketViewModel basketViewModel : listBasket) {
@@ -102,7 +95,6 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         }
 
         layout.addClassName("basket-book-item");
-
 
         div.add(title, buyAllButton, layout);
 

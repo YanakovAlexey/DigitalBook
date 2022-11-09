@@ -1,5 +1,6 @@
 package com.example.application.views;
 
+import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.search.SearchView;
@@ -28,10 +29,12 @@ public class HeaderView extends VerticalLayout {
     private final Button langButtonGE = new Button("GE");
     private final Button langButtonRU = new Button("RU");
     private final AuthenticatedUser authenticatedUser;
+    private final BookService bookService;
+    private SearchView searchView;
 
-
-    public HeaderView(AuthenticatedUser authenticatedUser) {
+    public HeaderView(AuthenticatedUser authenticatedUser, BookService bookService) {
         this.authenticatedUser = authenticatedUser;
+        this.bookService = bookService;
         screen();
     }
 
@@ -85,12 +88,12 @@ public class HeaderView extends VerticalLayout {
         });
 
         Button burgerButton = new Button(new Icon(MENU));
+        searchView = new SearchView(bookService);
 
         bookButton.addClassNames("view-icons");
         cartButton.addClassNames("view-icons");
         userButton.addClassNames("view-icons");
         burgerButton.addClassNames("view-burger");
-        SearchView searchView = new SearchView();
 
         this.addClassNames("view-header");
         this.add(topLine, bottomLine);
@@ -132,8 +135,9 @@ public class HeaderView extends VerticalLayout {
         var menuBar = new MenuBar();
         menuBar.setOpenOnHover(true);
 
-        var genresMenuItem = menuBar.addItem(this.translationProvider.getTranslation("genre",
-                UI.getCurrent().getLocale()));
+        var genresMenuItem = menuBar
+                .addItem(this.translationProvider.getTranslation("genre",
+                        UI.getCurrent().getLocale()));
         var genresSubMenu = genresMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             genresSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
@@ -144,8 +148,9 @@ public class HeaderView extends VerticalLayout {
             });
         }
 
-        var publisherMenuItem = menuBar.addItem(this.translationProvider.getTranslation("publishingHouse",
-                UI.getCurrent().getLocale()));
+        var publisherMenuItem = menuBar
+                .addItem(this.translationProvider.getTranslation("publishingHouse",
+                        UI.getCurrent().getLocale()));
         var publisherSubMenu = publisherMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             publisherSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
@@ -156,8 +161,9 @@ public class HeaderView extends VerticalLayout {
             });
         }
 
-        var authorMenuItem = menuBar.addItem(this.translationProvider.getTranslation("author",
-                UI.getCurrent().getLocale()));
+        var authorMenuItem = menuBar
+                .addItem(this.translationProvider.getTranslation("author",
+                        UI.getCurrent().getLocale()));
         var authorSubMenu = authorMenuItem.getSubMenu();
         for (int i = 0; i < 10; i++) {
             authorSubMenu.addItem("Item " + i, new ComponentEventListener<ClickEvent<MenuItem>>() {
@@ -171,5 +177,9 @@ public class HeaderView extends VerticalLayout {
         this.addClassNames("view-menu-bar");
 
         return menuBar;
+    }
+
+    public SearchView getSearchView() {
+        return searchView;
     }
 }
