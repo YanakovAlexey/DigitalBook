@@ -13,7 +13,6 @@ public class UsersBuilderImpl implements UsersBuilder {
     public UserViewModel create(Users users) {
         return UserViewModel.builder()
                 .id(users.getId())
-                .name(users.getName())
                 .surname(users.getSurname())
                 .patronymic(users.getPatronymic())
                 .inn(users.getInn())
@@ -36,7 +35,6 @@ public class UsersBuilderImpl implements UsersBuilder {
 
 
     public void update(Users users, UserViewModel request) {
-        users.setName(request.getName());
         users.setSurname(request.getSurname());
         users.setPatronymic(request.getPatronymic());
         users.setInn(request.getInn());
@@ -60,7 +58,6 @@ public class UsersBuilderImpl implements UsersBuilder {
     public UserViewModel build(Users item) {
         return UserViewModel.builder()
                 .id(item.getId())
-                .name(item.getName())
                 .surname(item.getSurname())
                 .patronymic(item.getPatronymic())
                 .inn(item.getInn())

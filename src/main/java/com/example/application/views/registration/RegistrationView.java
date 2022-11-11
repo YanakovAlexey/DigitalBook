@@ -146,7 +146,7 @@ public class RegistrationView extends Div {
         }
 
         try {
-            usersService.emailVerification(emailTF.getValue(), EnumType.REG);
+//            usersService.emailVerification(emailTF.getValue(), EnumType.REG);
             usersService.registration(new RegistrationViewModel(
                     userNameTF.getValue(),
                     emailTF.getValue(),

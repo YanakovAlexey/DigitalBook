@@ -20,4 +20,7 @@ public class Publisher {
 
     @Column(name = "name")
     String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    Users users;
 }

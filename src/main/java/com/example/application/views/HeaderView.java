@@ -189,6 +189,7 @@ public class HeaderView extends VerticalLayout {
         flexLayout.setWidth("800px");
         flexLayout.setHeight("200px");
 
+
         var publisherList = publisherService.getAll();
         for(Publisher publisher: publisherList){
             flexLayout.add(anchor = new Anchor("getByGenre/" + publisher.getId(), publisher.getName() ));

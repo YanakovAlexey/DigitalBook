@@ -30,8 +30,6 @@ public class ProfileView extends Div {
     private PasswordField passwordPF;
     private Button changePasswordButton;
     private Button exitButton;
-
-
     private final UsersService usersService;
     private final UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser;

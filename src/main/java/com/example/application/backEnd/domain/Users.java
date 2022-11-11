@@ -21,6 +21,10 @@ public class Users {
     @Column(name = "username")
     String username;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "publisherId")
+    Publisher publisher;
+
     @Column(name = "name")
     String name;
 
