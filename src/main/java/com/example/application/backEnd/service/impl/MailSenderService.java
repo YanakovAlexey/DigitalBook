@@ -15,7 +15,7 @@ public class MailSenderService implements EmailService {
     @Override
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("dgtlbks@gmail.com");
+        message.setFrom("digitalbook543534@mail.ru");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);

@@ -4,6 +4,7 @@ import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.items.BookItem;
+import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.HasValue;
@@ -26,6 +27,7 @@ public class BookShapeContent extends HorizontalLayout {
     private VerticalLayout verticalLayout = new VerticalLayout();
     private final BookService bookService;
     private final BookBuilder bookBuilder;
+    private final SearchView searchView;
 
     @Autowired
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
@@ -34,6 +36,7 @@ public class BookShapeContent extends HorizontalLayout {
         this.bookBuilder = bookBuilder;
         verticalLayout.add(allBooks(), youMayLike(), bestsellers(), mainBooks());
         add(verticalLayout);
+        searchView = new SearchView(bookService);
     }
 
     private Div allBooks() {
@@ -54,20 +57,10 @@ public class BookShapeContent extends HorizontalLayout {
             layout.add(new BookItem(bookViewModel));
         });
 
-
         add(layout);
 
-        var prent = layout.getParent();
-
-        System.out.println(prent);
         div.add(titleAll, layout);
         return div;
-    }
-
-
-
-    public void refresh() {
-
     }
 
     @Override
@@ -76,13 +69,18 @@ public class BookShapeContent extends HorizontalLayout {
         getParent().ifPresent((parent) -> {
             if (parent instanceof MainLayout) {
                 var searchView = ((MainLayout) parent).getHeaderView().getSearchView();
-                searchView.setTextChangeListener((HasValue.ValueChangeListener<AbstractField.ComponentValueChangeEvent<TextField, String>>) event -> {
+                searchView.setTextChangeListener((HasValue.ValueChangeListener<AbstractField
+                        .ComponentValueChangeEvent<TextField, String>>) event -> {
+
                     System.out.printf("Old %s new %s%n", event.getOldValue(), event.getValue());
+                    bookService.getBySearch(event.getValue());
+
                 });
             }
         });
     }
-    private Div youMayLike(){
+
+    private Div youMayLike() {
         Div div = new Div();
         Label titleMayLike = new Label("Вам может поравиться");
         titleMayLike.addClassNames("book-label");
@@ -102,7 +100,7 @@ public class BookShapeContent extends HorizontalLayout {
         return div;
     }
 
-    private Div bestsellers(){
+    private Div bestsellers() {
         Div div = new Div();
         Label titleBestSellers = new Label("Бестселлеры");
         titleBestSellers.addClassNames("book-label");
@@ -122,7 +120,8 @@ public class BookShapeContent extends HorizontalLayout {
         return div;
 
     }
-    private Div mainBooks(){
+
+    private Div mainBooks() {
         Div div = new Div();
         Label titleMain = new Label("Главные книги 2020 года");
         titleMain.addClassNames("book-label");

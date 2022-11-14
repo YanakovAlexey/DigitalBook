@@ -3,6 +3,7 @@ package com.example.application.views.search;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.translation.TranslationProvider;
+import com.example.application.views.content.BookShapeContent;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.Key;
@@ -22,6 +23,7 @@ public class SearchView extends Div {
     private BookBuilder bookBuilder;
     private final TextField textField;
 
+
     @Autowired
     public SearchView(BookService bookService) {
         this.bookService = bookService;
@@ -38,21 +40,18 @@ public class SearchView extends Div {
         textField.setClearButtonVisible(true);
         textField.setPrefixComponent(VaadinIcon.SEARCH.create());
         textField.setValueChangeMode(ValueChangeMode.EAGER);
-//        list.addClassNames("list-view");
-
-
-//        addClassNames("view-search");
         textField.addClassNames("view-search-input");
-        textField.addValueChangeListener(event -> {
-
-            bookService.getBySearch(textField.getValue());
-            enter.getKeys();
-        });
+//        textField.addValueChangeListener(event -> {
+//
+//            bookShapeContent.
+//            enter.getKeys();
+//        });
 
         add(textField);
     }
 
-    public void setTextChangeListener(HasValue.ValueChangeListener<? super AbstractField.ComponentValueChangeEvent<TextField, String>> listener) {
+    public void setTextChangeListener(HasValue.ValueChangeListener<?
+            super AbstractField.ComponentValueChangeEvent<TextField, String>> listener) {
         if (listener != null)
             this.textField.addValueChangeListener(listener);
     }
