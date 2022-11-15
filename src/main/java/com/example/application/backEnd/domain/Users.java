@@ -81,4 +81,5 @@ public class Users {
 
     @Column(name = "id_basket")
     Long idBasket;
+
 }

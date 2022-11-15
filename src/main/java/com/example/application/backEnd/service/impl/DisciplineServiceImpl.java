@@ -50,9 +50,6 @@ public class DisciplineServiceImpl implements DisciplineService {
         if (discOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        if (discOpt.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
         return disciplineBuilder.build(discOpt.get());
     }
 

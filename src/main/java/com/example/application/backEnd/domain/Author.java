@@ -16,10 +16,13 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
 
     @Column(name = "name")
     String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    Users users;
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.application.backEnd.viewModel;
 
+import com.example.application.backEnd.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

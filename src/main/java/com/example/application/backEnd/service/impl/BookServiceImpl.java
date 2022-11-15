@@ -136,7 +136,7 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAllByIdDiscipline(Long idDiscipline) {
         var genreList = bookRepository.findAllByIdDiscipline(idDiscipline);
         if(genreList.isEmpty()){
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return genreList;
     }

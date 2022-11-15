@@ -1,19 +1,17 @@
 package com.example.application.views;
 
 import com.example.application.backEnd.domain.Publisher;
+import com.example.application.backEnd.service.AuthorService;
 import com.example.application.backEnd.service.DisciplineService;
 import com.example.application.backEnd.service.PublisherService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.backEnd.viewModel.AuthorViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
-import com.example.application.backEnd.viewModel.PublisherViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.search.SearchView;
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
@@ -36,12 +34,17 @@ public class HeaderView extends VerticalLayout {
     private final AuthenticatedUser authenticatedUser;
     private final DisciplineService disciplineService;
     private final PublisherService publisherService;
+    private final AuthorService authorService;
 
 
-    public HeaderView(AuthenticatedUser authenticatedUser, DisciplineService disciplineService, PublisherService publisherService) {
+    public HeaderView(AuthenticatedUser authenticatedUser,
+                      DisciplineService disciplineService,
+                      PublisherService publisherService,
+                      AuthorService authorService) {
         this.authenticatedUser = authenticatedUser;
         this.disciplineService = disciplineService;
         this.publisherService = publisherService;
+        this.authorService = authorService;
 
         screen();
     }
@@ -159,7 +162,7 @@ public class HeaderView extends VerticalLayout {
         var authorMenuItem = menuBar.addItem(this.translationProvider.getTranslation("author",
                 UI.getCurrent().getLocale()));
         var authorSubMenu = authorMenuItem.getSubMenu();
-        authorSubMenu.add();
+        authorSubMenu.add(getAAuthor());
 
 
         this.addClassNames("view-menu-bar");
@@ -192,8 +195,23 @@ public class HeaderView extends VerticalLayout {
 
         var publisherList = publisherService.getAll();
         for(Publisher publisher: publisherList){
-            flexLayout.add(anchor = new Anchor("getByGenre/" + publisher.getId(), publisher.getName() ));
+            flexLayout.add(anchor = new Anchor("getByPublisher/" + publisher.getId(), publisher.getName() ));
             anchor.addClassName("tag-margin");
+        }
+        return flexLayout;
+    }
+    private FlexLayout getAAuthor(){
+        Anchor anchor;
+        FlexLayout flexLayout = new FlexLayout();
+        flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        flexLayout.setWidth("800px");
+        flexLayout.setHeight("200px");
+
+        var authorList = authorService.getAll();
+        for(AuthorViewModel a: authorList){
+            flexLayout.add(anchor = new Anchor("getByAuthor/" + a.getId(), a.getName() ));
+            anchor.addClassName("tag-margin");
+
         }
         return flexLayout;
     }

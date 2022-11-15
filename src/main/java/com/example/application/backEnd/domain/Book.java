@@ -36,7 +36,6 @@ public class Book {
     @Column(name = "num_class")
     Integer numClass;
 
-    @Column(name = "UserId")
     Long UserId;
 
     Long idDiscipline;

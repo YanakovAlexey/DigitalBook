@@ -7,8 +7,8 @@ import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -43,14 +43,19 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        var layout = new HorizontalLayout();
+
         layout.add(titleAll);
         books.forEach(bookViewModel -> {
+
             layout.add(new BookItem(bookViewModel));
         });
+        Scroller scroller = new Scroller(
+                new Div(layout));
 
-        div.add(titleAll, layout);
+        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
+        div.setWidth("100%");
+        div.add(titleAll, scroller);
         return div;
     }
     private Div youMayLike(){
@@ -65,13 +70,16 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new FlexLayout();
+        var layout = new HorizontalLayout();
 
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        div.add(titleMayLike,allButton, layout);
+        Scroller scroller = new Scroller(
+                new Div(layout));
+        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
+        div.setWidth("100%");
+        div.add(titleMayLike,allButton, scroller);
         return div;
     }
 
@@ -87,13 +95,18 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new FlexLayout();
+        var layout = new HorizontalLayout();
 
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        div.add(titleBestSellers,allButton, layout);
+        Scroller scroller = new Scroller(
+                new Div(layout));
+        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
+        scroller.setVisible(true);
+
+        div.setWidth("100%");
+        div.add(titleBestSellers,allButton, scroller);
         return div;
 
     }
@@ -109,13 +122,16 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new FlexLayout();
+        var layout = new HorizontalLayout();
 
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        div.add(titleMain,allButton, layout);
+        Scroller scroller = new Scroller(
+                new Div(layout));
+        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
+        div.setWidth("100%");
+        div.add(titleMain,allButton, scroller);
         return div;
     }
 
