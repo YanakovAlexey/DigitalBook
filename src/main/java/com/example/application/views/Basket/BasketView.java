@@ -8,6 +8,8 @@ import com.example.application.backEnd.reporitory.BasketPositionRepository;
 import com.example.application.backEnd.reporitory.BasketRepository;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.viewModel.BasketPositionViewModel;
+import com.example.application.backEnd.viewModel.BasketViewModel;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.button.Button;
@@ -25,6 +27,7 @@ import java.util.List;
 @Route(value = "Basket", layout = ContentView.class)
 @AnonymousAllowed
 public class BasketView extends HorizontalLayout implements HasUrlParameter<Long> {
+
     Long idUser;
     Div div = new Div();
     Label title = new Label("КОРЗИНА");
@@ -51,6 +54,9 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         this.authenticatedUser = authenticatedUser;
         this.basketService = basketService;
         this.title.addClassNames("basket-title");
+        this.buyAllButton.addClassNames("basket-button-buy-all");
+        this.buyAllButton.addClassNames("basket-content-view");
+
 
     }
 
@@ -65,9 +71,13 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
             basket = new Basket();
             basket.setIdUser(authenticatedUser.get().get().getId());
             basketService.create(basket);
+
         }
 
         var basketPositionList = basketPositionRepository.findAllByIdBasket(basket.getId());
+
+
+        div.add(title, buyAllButton, layout);
 
         for (BasketPosition element : basketPositionList) {
             var book = bookService.getById(element.getIdBook());
@@ -76,10 +86,12 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
             layout.addClassName("basket-book-item");
         }
 
+
         this.buyAllButton.addClassNames("basket-button-buy-all");
         div.add(title,buyAllButton, layout);
         this.addClassNames("book-content-background");
         add(div);
     }
 }
+
 

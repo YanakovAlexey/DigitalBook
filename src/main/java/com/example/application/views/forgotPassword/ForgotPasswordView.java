@@ -52,7 +52,6 @@ public class ForgotPasswordView extends Div {
             send.getUI().ifPresent(ui -> ui.navigate("/success"));
         });
 
-
         Div container = new Div();
         container.addClassNames("forgot-password-container");
 

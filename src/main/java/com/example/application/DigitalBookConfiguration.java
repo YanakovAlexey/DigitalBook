@@ -13,13 +13,13 @@ public class DigitalBookConfiguration {
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+        mailSender.setHost("smtp.mail.ru");
+        mailSender.setPort(465);
 
-        mailSender.setUsername("digitalbooksuper@gmail.com");
-        mailSender.setPassword("qazwsxedx");
-
+        mailSender.setUsername("digitalbook543534@mail.ru");
+        mailSender.setPassword("za9eGPHbVBWatQBLKTvE");
         Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.smtp.ssl.enable", "true");
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");

@@ -73,6 +73,18 @@
     width: 30vw;
 
 }
+
+.view-search {
+    width: min-content;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #a21818;
+    box-shadow: 0px 1px 8px #00000064;
+}
+
 @media (max-width: 525px){
     .view-search-input{
         width: 8vw;

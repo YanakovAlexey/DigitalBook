@@ -4,6 +4,7 @@ import com.example.application.backEnd.domain.Publisher;
 import com.example.application.backEnd.service.AuthorService;
 import com.example.application.backEnd.service.DisciplineService;
 import com.example.application.backEnd.service.PublisherService;
+import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.AuthorViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
@@ -35,16 +36,20 @@ public class HeaderView extends VerticalLayout {
     private final DisciplineService disciplineService;
     private final PublisherService publisherService;
     private final AuthorService authorService;
+    private final BookService bookService;
+    private SearchView searchView;
 
 
     public HeaderView(AuthenticatedUser authenticatedUser,
                       DisciplineService disciplineService,
                       PublisherService publisherService,
-                      AuthorService authorService) {
+                      AuthorService authorService, BookService bookService) {
         this.authenticatedUser = authenticatedUser;
         this.disciplineService = disciplineService;
         this.publisherService = publisherService;
         this.authorService = authorService;
+        this.bookService = bookService;
+
 
         screen();
     }
@@ -99,12 +104,12 @@ public class HeaderView extends VerticalLayout {
         });
 
         Button burgerButton = new Button(new Icon(MENU));
+        searchView = new SearchView(bookService);
 
         bookButton.addClassNames("view-icons");
         cartButton.addClassNames("view-icons");
         userButton.addClassNames("view-icons");
         burgerButton.addClassNames("view-burger");
-        SearchView searchView = new SearchView();
 
         this.addClassNames("view-header");
         this.add(topLine, bottomLine);
@@ -146,21 +151,24 @@ public class HeaderView extends VerticalLayout {
         var menuBar = new MenuBar();
         menuBar.setOpenOnHover(true);
 
-        var genresMenuItem = menuBar.addItem(this.translationProvider.getTranslation("genre",
-                UI.getCurrent().getLocale()));
+        var genresMenuItem = menuBar
+                .addItem(this.translationProvider.getTranslation("genre",
+                        UI.getCurrent().getLocale()));
         var genresSubMenu = genresMenuItem.getSubMenu();
 
         genresSubMenu.add(getGenres());
 
-        var publisherMenuItem = menuBar.addItem(this.translationProvider.getTranslation("publishingHouse",
-                UI.getCurrent().getLocale()));
+        var publisherMenuItem = menuBar
+                .addItem(this.translationProvider.getTranslation("publishingHouse",
+                        UI.getCurrent().getLocale()));
 
         var publisherSubMenu = publisherMenuItem.getSubMenu();
         publisherSubMenu.add(getAPublisher());
 
 
-        var authorMenuItem = menuBar.addItem(this.translationProvider.getTranslation("author",
-                UI.getCurrent().getLocale()));
+        var authorMenuItem = menuBar
+                .addItem(this.translationProvider.getTranslation("author",
+                        UI.getCurrent().getLocale()));
         var authorSubMenu = authorMenuItem.getSubMenu();
         authorSubMenu.add(getAAuthor());
 
@@ -200,7 +208,7 @@ public class HeaderView extends VerticalLayout {
         }
         return flexLayout;
     }
-    private FlexLayout getAAuthor(){
+    private FlexLayout getAAuthor() {
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
@@ -208,11 +216,16 @@ public class HeaderView extends VerticalLayout {
         flexLayout.setHeight("200px");
 
         var authorList = authorService.getAll();
-        for(AuthorViewModel a: authorList){
-            flexLayout.add(anchor = new Anchor("getByAuthor/" + a.getId(), a.getName() ));
+        for (AuthorViewModel a : authorList) {
+            flexLayout.add(anchor = new Anchor("getByAuthor/" + a.getId(), a.getName()));
             anchor.addClassName("tag-margin");
 
         }
         return flexLayout;
+    }
+
+    public SearchView getSearchView() {
+        return searchView;
+
     }
 }

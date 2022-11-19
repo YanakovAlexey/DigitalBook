@@ -23,11 +23,6 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService {
 
-    //ToDO Сгруппировать все поля класса - во всех классах по принципу.
-    // Сначала поля c типом View, после ссылки на все Service и после по смыслу оастальное.
-    // Публичные и статичные поля всегда выше.
-
-    //Todo везде проверить и по смыслу расставить модификаторы доступа.
     private final BookRepository bookRepository;
     private final BookBuilder bookBuilder;
 
@@ -46,7 +41,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book create(Book book, MemoryBuffer fileBuffer, MemoryBuffer imageBuffer) {
         var file = new File("C:\\BookContent\\" + fileBuffer.getFileName());
-        try(var fileWriter = new FileOutputStream(file))  {
+        try (var fileWriter = new FileOutputStream(file)) {
             var stream = fileBuffer.getInputStream();
             fileWriter.write(stream.readAllBytes());
             book.setFile(fileBuffer.getFileName());
@@ -54,7 +49,7 @@ public class BookServiceImpl implements BookService {
             return null; //обработать ошибку
         }
         var file2 = new File("C:\\Image\\" + imageBuffer.getFileName());
-        try(var coverWriter = new FileOutputStream(file2)) {
+        try (var coverWriter = new FileOutputStream(file2)) {
             var stream = imageBuffer.getInputStream();
             coverWriter.write(stream.readAllBytes());
             book.setBookImg(imageBuffer.getFileName());
@@ -117,8 +112,9 @@ public class BookServiceImpl implements BookService {
         bookRepository.delete(bookOpt.get());
     }
 
+    @Override
     public List<Book> getBySearch(String title) {
-        List<Book> book = bookRepository.findByTitleLike(title);
+        List<Book> book = bookRepository.findByTitleContains(title);
 //        List<BookViewModel> bookList = new ArrayList<>();
 
         return book;

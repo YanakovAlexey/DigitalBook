@@ -4,7 +4,6 @@ import com.example.application.backEnd.builder.BasketBuilder;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.domain.Book;
-import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.BasketRepository;
 import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.reporitory.UserRepository;
@@ -12,7 +11,6 @@ import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.BasketPositionViewModel;
 import com.example.application.backEnd.viewModel.BasketViewModel;
-import com.example.application.backEnd.viewModel.BookViewModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,7 +28,9 @@ public class BasketServiceImpl implements BasketService {
     final BookBuilder bookBuilder;
     final BasketBuilder basketBuilder;
 
-    public BasketServiceImpl(UsersService usersService, UserRepository userRepository, BookRepository bookRepository, BasketRepository basketRepository, BookBuilder bookBuilder, BasketBuilder basketBuilder) {
+    public BasketServiceImpl(UsersService usersService, UserRepository userRepository,
+                             BookRepository bookRepository, BasketRepository basketRepository,
+                             BookBuilder bookBuilder, BasketBuilder basketBuilder) {
         this.usersService = usersService;
         this.userRepository = userRepository;
         this.bookRepository = bookRepository;
@@ -51,7 +51,7 @@ public class BasketServiceImpl implements BasketService {
     public List<BasketViewModel> getAll() {
         List<Basket> bookList = basketRepository.findAll();
         List<BasketViewModel> basketViewModels = new ArrayList<>();
-        for(Basket item: bookList){
+        for (Basket item : bookList) {
             basketViewModels.add(basketBuilder.build(item));
         }
         return basketViewModels;

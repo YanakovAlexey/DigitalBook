@@ -181,6 +181,7 @@ public class UserServiceImpl implements UsersService {
                     email,
                     codeConfirmation.getCode());
             mailSenderService.sendSimpleMessage(email, "Регистрация", text);
+
         } else {
             String text = String.format(
                     """
@@ -188,8 +189,7 @@ public class UserServiceImpl implements UsersService {
                             http://localhost:782/recovery-password?email=%s&code=%s
                             """,
                     email,
-                    codeConfirmation.getCode()
-            );
+                    codeConfirmation.getCode());
             mailSenderService.sendSimpleMessage(email, "Восстановление пароля", text);
         }
 

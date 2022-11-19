@@ -5,7 +5,6 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import org.springframework.beans.factory.annotation.Value;
 
 public class BookItem extends Div {
 
@@ -17,8 +16,8 @@ public class BookItem extends Div {
 
         this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "");
         this.image.addClickListener(event -> {
-            image.getUI().ifPresent(ui -> ui.navigate("BookContent/" + bookViewModel.getId()));
 
+            image.getUI().ifPresent(ui -> ui.navigate("BookContent/" + bookViewModel.getId()));
         });
 
         this.image.addClassNames("book-item-image");
@@ -35,5 +34,4 @@ public class BookItem extends Div {
         verticalLayout.add(this.image, this.titleLabel, this.authorLabel);
         add(verticalLayout);
     }
-
 }
