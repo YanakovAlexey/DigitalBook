@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsersService {
 
@@ -16,7 +17,7 @@ public interface UsersService {
 
     List<UserViewModel> getAll();
 
-    UserViewModel getById(Long id);
+    Optional<Users> getById(Long id);
 
     void update(Long id, Users users, UserViewModel request);
 

@@ -75,9 +75,9 @@ public class BookShapeContent extends HorizontalLayout {
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        Scroller scroller = new Scroller(
-                new Div(layout));
+        Scroller scroller = new Scroller(new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
+        scroller.setVisible(true);
         div.setWidth("100%");
         div.add(titleMayLike,allButton, scroller);
         return div;

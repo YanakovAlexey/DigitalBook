@@ -1,7 +1,7 @@
 package com.example.application.views.menuBarView;
 
 import com.example.application.backEnd.builder.BookBuilder;
-import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.views.ContentView;
@@ -13,20 +13,23 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-import java.util.ArrayList;
-
 @Route(value = "getByPublisher", layout = ContentView.class)
 @AnonymousAllowed
 public class PublisherMenu extends FlexLayout implements HasUrlParameter<Long> {
     private final BookService bookService;
     private final BookBuilder bookBuilder;
     private final UsersService userService;
+    private final BookRepository bookRepository;
     private  Long userId;
 
-    public PublisherMenu(BookService bookService, BookBuilder bookBuilder, UsersService userService) {
+    public PublisherMenu(BookService bookService,
+                         BookBuilder bookBuilder,
+                         UsersService userService,
+                         BookRepository bookRepository) {
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
         this.userService = userService;
+        this.bookRepository = bookRepository;
     }
 
     @Override
@@ -35,27 +38,22 @@ public class PublisherMenu extends FlexLayout implements HasUrlParameter<Long> {
         userId = parameter;
 
         var layout = new FlexLayout();
-
-        ArrayList<Book> bookList = new ArrayList<>();
-
-        var list = bookService.getAll();
-
-        for(Book b: list ){
-            if (b.getUserId().equals(userId)){
-                bookList.add(b);
-            }
+        var userPol =  userService.getById(userId).orElse(null);
+        if(userPol == null){
+            throw new RuntimeException("userPol is null with id = " + userId);
         }
+
+        var bookList = bookService.findAllByIdIdUser(userPol);
         if (bookList.isEmpty()) {
             new EmptyView();
         }
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        bookList.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookBuilder.createBook(bookViewModel)));
+        bookList.forEach(book -> {
+            layout.add(new BookItem(bookBuilder.createBook(book)));
         });
-        var user = userService.getById(bookList.get(0).getId());
 
-
-        label.add("От издательства " + user.getName() );
+//        var user = userService.getById(bookList.get(0).getId());
+//        label.add("От издательства " + user.get().getName());
         add( layout);
     }
 }

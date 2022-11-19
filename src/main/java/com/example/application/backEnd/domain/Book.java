@@ -36,8 +36,6 @@ public class Book {
     @Column(name = "num_class")
     Integer numClass;
 
-    Long UserId;
-
     Long idDiscipline;
 
     @Column(name = "extension")
@@ -61,4 +59,7 @@ public class Book {
     @Column(name = "file")
     String file;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IdUser")
+    Users users;
 }

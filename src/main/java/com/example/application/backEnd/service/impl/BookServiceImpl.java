@@ -2,6 +2,7 @@ package com.example.application.backEnd.service.impl;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BookViewModel;
@@ -121,6 +122,16 @@ public class BookServiceImpl implements BookService {
 //        List<BookViewModel> bookList = new ArrayList<>();
 
         return book;
+    }
+
+    @Override
+    public List<Book> findAllByIdIdUser(Users users) {
+        var bookList = bookRepository.findAllByUsers(users);
+        if(bookList.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        return bookList;
     }
 
     @Override

@@ -82,4 +82,6 @@ public class Users {
     @Column(name = "id_basket")
     Long idBasket;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    Book book;
 }

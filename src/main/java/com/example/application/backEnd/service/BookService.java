@@ -1,11 +1,12 @@
 package com.example.application.backEnd.service;
 
 import com.example.application.backEnd.domain.Book;
+import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface BookService {
 
@@ -25,6 +26,7 @@ public interface BookService {
 
     List<Book> getBySearch(String title);
 
+    List<Book> findAllByIdIdUser(Users users);
     List<Book> findAllByAuthor(String author);
 
     List<Book> findAllByIdDiscipline(Long idDiscipline);

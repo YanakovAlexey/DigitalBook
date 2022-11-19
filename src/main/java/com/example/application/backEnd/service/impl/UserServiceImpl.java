@@ -82,11 +82,11 @@ public class UserServiceImpl implements UsersService {
         usersBuilder.update(users, request);
     }
 
-    public UserViewModel getById(Long id) {
-        return userRepository.findById(id)
-                .map(usersBuilder::build)
-                .orElseThrow(()
-                        -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+    public Optional<Users> getById(Long id) {
+        return userRepository.findById(id);
+//                .map(usersBuilder::build)
+//                .orElseThrow(()
+//                        -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
     }
 
     @Override
