@@ -61,7 +61,7 @@ public class BookShapeContent extends HorizontalLayout {
         Scroller scroller = new Scroller(
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setWidth("80%");
+        scroller.setWidth("70%");
         div.add(titleAll, scroller);
         return div;
     }
@@ -103,7 +103,7 @@ public class BookShapeContent extends HorizontalLayout {
         });
         Scroller scroller = new Scroller(new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setWidth("80%");
+        scroller.setWidth("70%");
         div.add(titleMayLike, allButton, scroller);
         return div;
     }
@@ -129,7 +129,7 @@ public class BookShapeContent extends HorizontalLayout {
         Scroller scroller = new Scroller(
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setWidth("80%");
+        scroller.setWidth("70%");
 
         div.add(titleBestSellers, allButton, scroller);
         return div;
@@ -156,7 +156,7 @@ public class BookShapeContent extends HorizontalLayout {
         Scroller scroller = new Scroller(
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setWidth("80%");
+        scroller.setWidth("70%");
 
         div.add(titleMain, allButton, scroller);
         return div;

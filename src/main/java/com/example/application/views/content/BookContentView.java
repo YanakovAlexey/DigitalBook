@@ -148,7 +148,7 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
         List<BookViewModel> bookViewModelList = new ArrayList<>();
 
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getUsers().getId().equals(idPublisher)) {
+            if (books.get(i).getUsers().equals(idPublisher)) {
                 bookViewModelList.add(bookBuilder.createBook(books.get(i)));
             }
         }
@@ -205,7 +205,7 @@ class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
         List<BookViewModel> bookViewModelList = new ArrayList<>();
 
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getUsers().getId().equals(idGenre)) {
+            if (books.get(i).getUsers().equals(idGenre)) {
                 bookViewModelList.add(bookBuilder.createBook(books.get(i)));
             }
         }

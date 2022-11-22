@@ -3,6 +3,7 @@ package com.example.application.views;
 import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.DisciplineService;
+import com.example.application.backEnd.service.PublisherService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.backEnd.viewModel.UploadBookModel;
@@ -44,14 +45,16 @@ public class BookUploadForm extends Div {
 
     private final BookService bookService;
     private final DisciplineService disciplineService;
+    private final PublisherService publisherService;
 
     private UploadBookModel bookModel;
     private final AuthenticatedUser authenticatedUser;
 
 
-    public BookUploadForm(BookService bookService, DisciplineService disciplineService, AuthenticatedUser authenticatedUser) {
+    public BookUploadForm(BookService bookService, DisciplineService disciplineService, PublisherService publisherService, AuthenticatedUser authenticatedUser) {
         this.bookService = bookService;
         this.disciplineService = disciplineService;
+        this.publisherService = publisherService;
         this.authenticatedUser = authenticatedUser;
         setupForm();
         bookModel = new UploadBookModel();
@@ -131,6 +134,8 @@ public class BookUploadForm extends Div {
             book.setIdDiscipline(selectedGenre.getId());
             book.setUsers(user);
             book.setType(1);
+
+
             bookService.create(book, fileBuffer, imageBuffer);
         });
     }

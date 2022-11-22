@@ -154,7 +154,7 @@ public class BookDetailsView extends Div {
         List<Book> listBooksAuthor = new ArrayList<>();
 
         for (Book book : books) {
-            if (book.getUsers().getId().equals(bookViewModel.getIdUsers())) {
+            if (book.getUsers().equals(bookViewModel.getIdUsers())) {
                 listBooksAuthor.add(book);
             }
         }

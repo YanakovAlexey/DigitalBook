@@ -60,6 +60,6 @@ public class Book {
     String file;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IdUser")
+    @JoinColumn(name = "users")
     Users users;
 }
