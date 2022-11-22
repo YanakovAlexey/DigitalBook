@@ -4,7 +4,6 @@ import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.items.BookItem;
-import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.HasValue;
@@ -12,6 +11,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -25,9 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BookShapeContent extends HorizontalLayout {
 
     private VerticalLayout verticalLayout = new VerticalLayout();
+    private FlexLayout allBooksLayout = new FlexLayout();
+
     private final BookService bookService;
     private final BookBuilder bookBuilder;
-    private final SearchView searchView;
+    private final Scroller scroller = new Scroller();
 
     @Autowired
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
@@ -36,10 +38,10 @@ public class BookShapeContent extends HorizontalLayout {
         this.bookBuilder = bookBuilder;
         verticalLayout.add(allBooks(), youMayLike(), bestsellers(), mainBooks());
         add(verticalLayout);
-        searchView = new SearchView(bookService);
     }
 
     private Div allBooks() {
+
         Div div = new Div();
         Label titleAll = new Label("Все");
         titleAll.addClassNames("book-label");
@@ -50,16 +52,22 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new FlexLayout();
-        layout.add(titleAll);
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
+        HorizontalLayout booksScroll = new HorizontalLayout();
+        allBooksLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookViewModel));
+
+            allBooksLayout.add(new BookItem(bookViewModel));
         });
 
-        add(layout);
 
-        div.add(titleAll, layout);
+        booksScroll.setPadding(true);
+        booksScroll.getStyle().set("display", "inline-flex");
+
+        scroller.setContent(allBooksLayout);
+        verticalLayout.setHeight(String.valueOf(false));
+        div.add(titleAll, allBooksLayout);
+        add(div);
         return div;
     }
 
@@ -72,9 +80,24 @@ public class BookShapeContent extends HorizontalLayout {
                 searchView.setTextChangeListener((HasValue.ValueChangeListener<AbstractField
                         .ComponentValueChangeEvent<TextField, String>>) event -> {
 
-                    System.out.printf("Old %s new %s%n", event.getOldValue(), event.getValue());
-                    bookService.getBySearch(event.getValue());
+                    Div div = new Div();
+                    Label titleAll = new Label("Все");
+                    titleAll.addClassNames("book-label");
+                    var books = bookService
+                            .getBySearch(event.getValue())
+                            .stream()
+                            .map(bookBuilder::createBook)
+                            .toList();
 
+                    var layout = new FlexLayout();
+                    layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+                    books.forEach(bookViewModel -> {
+                        layout.add(new BookItem(bookViewModel));
+                    });
+
+                    div.add(layout);
+                    allBooksLayout.removeAll();
+                    allBooksLayout.add(div);
                 });
             }
         });
@@ -82,7 +105,7 @@ public class BookShapeContent extends HorizontalLayout {
 
     private Div youMayLike() {
         Div div = new Div();
-        Label titleMayLike = new Label("Вам может поравиться");
+        Label titleMayLike = new Label("Вам может понравиться");
         titleMayLike.addClassNames("book-label");
         var books = bookService
                 .getAll()

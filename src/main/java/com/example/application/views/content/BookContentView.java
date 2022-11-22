@@ -106,6 +106,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
 @Route(value = "GetAllAuthors", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
+
     private String bookViewModel;
     private final BookService bookService;
     private Label title;

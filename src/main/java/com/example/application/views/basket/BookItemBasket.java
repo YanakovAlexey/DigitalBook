@@ -1,10 +1,9 @@
-package com.example.application.views.Basket;
+package com.example.application.views.basket;
 
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 
 
 public class BookItemBasket extends BookItem {

@@ -107,9 +107,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBySearch(String title) {
-        List<Book> book = bookRepository.findByTitleContains(title);
-//        List<BookViewModel> bookList = new ArrayList<>();
-
-        return book;
+        return bookRepository.findByTitleContains(title);
     }
 }

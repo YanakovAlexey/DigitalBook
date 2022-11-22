@@ -2,11 +2,7 @@ package com.example.application.views;
 
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.ParentLayout;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +22,7 @@ public class MainLayout extends VerticalLayout implements RouterLayout {
         this.authenticatedUser = authenticatedUser;
         this.bookService = bookService;
         this.setPadding(false);
-        this.setHeight("100%");
+        this.addClassNames("main-background");
         this.headerView = new HeaderView(authenticatedUser, bookService);
         add(headerView);
     }
