@@ -31,7 +31,6 @@ public class ProfileView extends Div {
     private Button changePasswordButton;
     private Button exitButton;
 
-
     private final UsersService usersService;
     private final UserRepository userRepository;
     private final AuthenticatedUser authenticatedUser;
@@ -97,7 +96,6 @@ public class ProfileView extends Div {
 
         Div line = new Div();
         line.addClassNames("horizontal-line");
-
 
         exitButton.addClassNames("bottom-buttons");
 

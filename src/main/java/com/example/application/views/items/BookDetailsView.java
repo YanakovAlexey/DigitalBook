@@ -64,7 +64,6 @@ public class BookDetailsView extends Div {
         this.disciplineRepository = disciplineRepository;
         this.userRepository = userRepository;
 
-
         add(content(bookViewModel), searchByAuthor(bookViewModel),
                 searchByPublishingHouse(bookViewModel), searchByGenre(bookViewModel));
     }
