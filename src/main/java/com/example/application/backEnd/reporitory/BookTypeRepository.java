@@ -5,6 +5,4 @@ import org.springframework.stereotype.Repository;
 import com.example.application.backEnd.domain.BookType;
 
 @Repository
-public interface BookTypeRepository extends JpaRepository<BookType, Long> {
-
-}
+public interface BookTypeRepository extends JpaRepository<BookType, Long> {}

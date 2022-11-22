@@ -61,7 +61,7 @@ public class BookShapeContent extends HorizontalLayout {
         Scroller scroller = new Scroller(
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        div.setWidth("100%");
+        scroller.setWidth("80%");
         div.add(titleAll, scroller);
         return div;
     }
@@ -82,15 +82,6 @@ public class BookShapeContent extends HorizontalLayout {
             }
         });
     }
-//    \
-//    private Div youMayLike(){
-//
-//        add(layout);
-//
-//        div.add(titleAll, layout);
-//        return div;
-//    }
-
 
 
     private Div youMayLike() {
@@ -112,14 +103,13 @@ public class BookShapeContent extends HorizontalLayout {
         });
         Scroller scroller = new Scroller(new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setVisible(true);
-        div.setWidth("100%");
-        div.add(titleMayLike,allButton, scroller);
+        scroller.setWidth("80%");
+        div.add(titleMayLike, allButton, scroller);
         return div;
     }
 
 
-    private Div bestsellers(){
+    private Div bestsellers() {
         Button allButton = new Button("Все");
         allButton.setHeight("20px");
         Div div = new Div();
@@ -139,14 +129,14 @@ public class BookShapeContent extends HorizontalLayout {
         Scroller scroller = new Scroller(
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setVisible(true);
+        scroller.setWidth("80%");
 
-        div.setWidth("100%");
-        div.add(titleBestSellers,allButton, scroller);
+        div.add(titleBestSellers, allButton, scroller);
         return div;
 
     }
-    private Div mainBooks(){
+
+    private Div mainBooks() {
         Button allButton = new Button("Все");
         allButton.setHeight("20px");
         Div div = new Div();
@@ -166,8 +156,9 @@ public class BookShapeContent extends HorizontalLayout {
         Scroller scroller = new Scroller(
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        div.setWidth("100%");
-        div.add(titleMain,allButton, scroller);
+        scroller.setWidth("80%");
+
+        div.add(titleMain, allButton, scroller);
         return div;
     }
 

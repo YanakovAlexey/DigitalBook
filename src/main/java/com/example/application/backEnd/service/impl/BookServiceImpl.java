@@ -34,6 +34,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book create(Book request) {
+        if(request == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         bookRepository.save(request);
         return request;
     }

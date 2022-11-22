@@ -52,8 +52,7 @@ public class PublisherMenu extends FlexLayout implements HasUrlParameter<Long> {
             layout.add(new BookItem(bookBuilder.createBook(book)));
         });
 
-//        var user = userService.getById(bookList.get(0).getId());
-//        label.add("От издательства " + user.get().getName());
-        add( layout);
+        label.add("От издательства " + userPol.getName());
+        add(label, layout);
     }
 }
