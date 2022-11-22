@@ -143,25 +143,14 @@ public class BookDetailsView extends Div {
                         ui.navigate("GetAllPublisher/" + bookViewModel.getIdUsers())));
 
         getAllPublisherButton.addClassName("book-content-anchor-getAll");
-        List<BookViewModel> bookViewModelList = new ArrayList<>();
-
-        var books = bookService.getAll();
         var horizontalLayout = new HorizontalLayout();
-        for (Book book : books) {
-            bookViewModelList.add(bookBuilder.createBook(book));
-        }
 
-        List<Book> listBooksAuthor = new ArrayList<>();
+//        var bookList = bookService.findAllByIdIdUser();
 
-        for (Book book : books) {
-            if (book.getUsers().equals(bookViewModel.getIdUsers())) {
-                listBooksAuthor.add(book);
-            }
-        }
-
-        for (int i = 0; i < listBooksAuthor.size(); i++) {
-            horizontalLayout.add(new BookItem(bookViewModelList.get(i)));
-        }
+//        for (Book b: bookList) {
+////            horizontalLayout.add(bookBuilder.createBook(b));
+//
+//        }
 
         div.add(label, getAllPublisherButton, horizontalLayout);
         div.addClassName("book-content-item-column-author");

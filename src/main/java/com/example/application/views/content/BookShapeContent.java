@@ -42,9 +42,6 @@ public class BookShapeContent extends HorizontalLayout {
 
     private Div allBooks() {
         Div div = new Div();
-        Label titleAll = new Label("Все");
-        titleAll.addClassNames("book-label");
-
         var books = bookService
                 .getAll()
                 .stream()
@@ -53,7 +50,6 @@ public class BookShapeContent extends HorizontalLayout {
 
         var layout = new HorizontalLayout();
 
-        layout.add(titleAll);
         books.forEach(bookViewModel -> {
 
             layout.add(new BookItem(bookViewModel));
@@ -62,7 +58,7 @@ public class BookShapeContent extends HorizontalLayout {
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
         scroller.setWidth("70%");
-        div.add(titleAll, scroller);
+        div.add(scroller);
         return div;
     }
 
@@ -110,8 +106,8 @@ public class BookShapeContent extends HorizontalLayout {
 
 
     private Div bestsellers() {
-        Button allButton = new Button("Все");
-        allButton.setHeight("20px");
+//        Button allButton = new Button("Все");
+//        allButton.setHeight("20px");
         Div div = new Div();
         Label titleBestSellers = new Label("Бестселлеры");
         titleBestSellers.addClassNames("book-label");
@@ -131,14 +127,14 @@ public class BookShapeContent extends HorizontalLayout {
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
         scroller.setWidth("70%");
 
-        div.add(titleBestSellers, allButton, scroller);
+        div.add(titleBestSellers, scroller);
         return div;
 
     }
 
     private Div mainBooks() {
-        Button allButton = new Button("Все");
-        allButton.setHeight("20px");
+//        Button allButton = new Button("Все");
+//        allButton.setHeight("20px");
         Div div = new Div();
         Label titleMain = new Label("Главные книги 2020 года");
         titleMain.addClassNames("book-label");
@@ -158,7 +154,7 @@ public class BookShapeContent extends HorizontalLayout {
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
         scroller.setWidth("70%");
 
-        div.add(titleMain, allButton, scroller);
+        div.add(titleMain, scroller);
         return div;
     }
 

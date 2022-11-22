@@ -1,9 +1,7 @@
 package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
-import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.reporitory.BasketRepository;
-import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.reporitory.DisciplineRepository;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.*;
@@ -50,7 +48,8 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
                            BookBuilder bookBuilder,
                            BasketPositionService basketPositionService,
                            AuthenticatedUser authenticatedUser,
-                            UserRepository userRepository, BasketRepository basketRepository, DisciplineRepository disciplineRepository) {
+                           UserRepository userRepository, BasketRepository basketRepository,
+                           DisciplineRepository disciplineRepository) {
 
         this.bookService = bookService;
         this.basketService = basketService;
@@ -125,38 +124,33 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
 @AnonymousAllowed
 class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
 
-    private Long idPublisher;
+    private Long idUser;
     private final BookService bookService;
     private final UsersService usersService;
+    private final PublisherService publisherService;
     private Label title;
     private final BookBuilder bookBuilder;
 
-    GetAllPublisher(BookService bookService, UsersService usersService, BookBuilder bookBuilder) {
+    GetAllPublisher(BookService bookService, UsersService usersService, PublisherService publisherService, BookBuilder bookBuilder) {
         this.bookService = bookService;
         this.usersService = usersService;
+        this.publisherService = publisherService;
         this.bookBuilder = bookBuilder;
     }
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
-        this.idPublisher = parameter;
+        this.idUser = parameter;
 
-        this.title = new Label("Книги издательства " + getAPublisher(idPublisher));
+        this.title = new Label("Книги издательства " + getAPublisher(idUser));
+        var user = usersService.getById(idUser);
 
-        var books = bookService.getAll();
-
-        List<BookViewModel> bookViewModelList = new ArrayList<>();
-
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getUsers().equals(idPublisher)) {
-                bookViewModelList.add(bookBuilder.createBook(books.get(i)));
-            }
-        }
+        var publisherList = bookService.findAllByIdIdUser(user.get());
 
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        bookViewModelList.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookViewModel));
+        publisherList.forEach(publisher -> {
+            layout.add(new BookItem(bookBuilder.createBook(publisher)));
         });
 
         add(title, layout);
