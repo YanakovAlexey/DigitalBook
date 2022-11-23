@@ -177,22 +177,22 @@ public class HeaderView extends VerticalLayout {
         return menuBar;
     }
 
-    private FlexLayout getGenres(){
-         Anchor anchor;
-         FlexLayout flexLayout = new FlexLayout();
+    private FlexLayout getGenres() {
+        Anchor anchor;
+        FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         flexLayout.setWidth("800px");
         flexLayout.setHeight("200px");
 
         var allGenresList = disciplineService.getAll();
-        for(DisciplineViewModel discipline: allGenresList){
-            flexLayout.add(anchor = new Anchor("getByGenre/" + discipline.getId(), discipline.getTitle() ));
+        for (DisciplineViewModel discipline : allGenresList) {
+                flexLayout.add(anchor = new Anchor("getByGenre/" + discipline.getId(), discipline.getTitle()));
             anchor.addClassName("tag-margin");
         }
         return flexLayout;
     }
 
-    private FlexLayout getAPublisher(){
+    private FlexLayout getAPublisher() {
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
@@ -201,22 +201,35 @@ public class HeaderView extends VerticalLayout {
 
 
         var publisherList = publisherService.getAll();
-        for(Publisher publisher: publisherList){
-            flexLayout.add(anchor = new Anchor("getByPublisher/" + publisher.getId(), publisher.getName() ));
+        int i = 0;
+        for (Publisher publisher : publisherList) {
+            if (i < 9) {
+                flexLayout.add(anchor = new Anchor("getByPublisher/" + publisher.getId(), publisher.getName()));
+            } else {
+                break;
+            }
+            i++;
             anchor.addClassName("tag-margin");
         }
         return flexLayout;
     }
+
     private FlexLayout getAAuthor() {
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         flexLayout.setWidth("800px");
         flexLayout.setHeight("200px");
-
         var authorList = authorService.getAll();
+        int i = 0;
         for (AuthorViewModel a : authorList) {
-            flexLayout.add(anchor = new Anchor("getByAuthor/" + a.getId(), a.getName()));
+            if(i < 9){
+                flexLayout.add(anchor = new Anchor("getByAuthor/" + a.getId(), a.getName()));
+            }
+            else {
+                break;
+            }
+            i++;
             anchor.addClassName("tag-margin");
 
         }

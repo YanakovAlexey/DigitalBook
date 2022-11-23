@@ -20,6 +20,8 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +108,7 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
 
         this.title = new Label("Авторские книги " + bookViewModel);
 
-       var bookList = bookService.findAllByAuthor(bookViewModel);
+        var bookList = bookService.findAllByAuthor(bookViewModel);
         System.out.println(bookList);
 
         var layout = new FlexLayout();
@@ -156,14 +158,11 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
     }
 
     private String getAPublisher(Long id) {
-        var usersList = usersService.getAll();
-
-        for (int i = 0; i < usersList.size(); i++) {
-            if (usersList.get(i).getId().equals(id)) {
-                return usersList.get(i).getName();
-            }
+        var user = usersService.getById(id).orElse(null);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return null;
+        return user.getUsername();
     }
 }
 

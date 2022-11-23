@@ -85,8 +85,7 @@ public class BookShapeContent extends HorizontalLayout {
         Div div = new Div();
         Label titleMayLike = new Label("Вам может поравиться");
         titleMayLike.addClassNames("book-label");
-        Button allButton = new Button("Все");
-        allButton.setHeight("20px");
+
         var books = bookService
                 .getAll()
                 .stream()
@@ -101,7 +100,7 @@ public class BookShapeContent extends HorizontalLayout {
         Scroller scroller = new Scroller(new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
         scroller.setWidth("70%");
-        div.add(titleMayLike, allButton, scroller);
+        div.add(titleMayLike, scroller);
         return div;
     }
 

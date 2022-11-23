@@ -18,6 +18,8 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +70,10 @@ public class BookDetailsView extends Div {
         this.disciplineRepository = disciplineRepository;
         this.userRepository = userRepository;
 
-
         add(content(bookViewModel), searchByAuthor(bookViewModel),
                 searchByPublishingHouse(bookViewModel), searchByGenre(bookViewModel));
-        updatePage();
+        removeAll();
+
 
     }
 
@@ -122,17 +124,21 @@ public class BookDetailsView extends Div {
                 getAllAuthorButton.getUI().ifPresent(ui ->
                         ui.navigate("GetAllAuthors/" + bookViewModel.getAuthor())));
 
-
-
         getAllAuthorButton.addClassName("book-content-anchor-getAll");
 
         div.add(label, getAllAuthorButton);
         var horizontalLayout = new HorizontalLayout();
 
         var authorList = bookService.findAllByAuthor(bookViewModel.getAuthor());
-
-        for (Book a: authorList ) {
+        int o = 0;
+        for (Book a : authorList) {
+            if (o < 8){
                 horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
+            }
+            else {
+                break;
+            }
+            o++;
         }
 
         div.add(horizontalLayout);
@@ -143,6 +149,7 @@ public class BookDetailsView extends Div {
     }
 
     private Div searchByPublishingHouse(BookViewModel bookViewModel) {
+        Book[] books = new Book[8];
         Button getAllPublisherButton = new Button("  все");
         getAllPublisherButton.addClickListener(event ->
                 getAllPublisherButton.getUI().ifPresent(ui ->
@@ -152,9 +159,16 @@ public class BookDetailsView extends Div {
         var flexLayout = new FlexLayout();
         var user = usersService.getById(bookViewModel.getIdUsers());
         var bookList = bookService.findAllByIdIdUser(user.get());
+        int o = 0;
 
-        for (Book a: bookList ) {
-            flexLayout.add(new BookItem(bookBuilder.createBook(a)));
+        for (Book b : bookList) {
+            if (o < 8) {
+            flexLayout.add(new BookItem(bookBuilder.createBook(b)));
+            }
+            else {
+                break;
+            }
+            o++;
         }
 
         Label label = new Label("Еще от издательства '" + getAPublisher(bookViewModel) + "'");
@@ -170,7 +184,6 @@ public class BookDetailsView extends Div {
         Div div = new Div();
         Label label = new Label("В том же жанре " + getAGenre(bookViewModel));
         label.addClassNames("book-label");
-        List<BookViewModel> bookViewModelList = new ArrayList<>();
         Button genreAllGenreButton = new Button("все");
         genreAllGenreButton.addClickListener(event ->
                 genreAllGenreButton.getUI().ifPresent(ui ->
@@ -178,8 +191,15 @@ public class BookDetailsView extends Div {
         genreAllGenreButton.addClassName("book-content-anchor-getAll");
         var horizontalLayout = new HorizontalLayout();
         var genreList = bookService.findAllByIdDiscipline(bookViewModel.getIdDiscipline());
-        for (Book a: genreList ) {
-            horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
+        int o = 0;
+        for (Book a : genreList) {
+            if(o < 8){
+                horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
+            }
+            else {
+                break;
+            }
+            o++;
         }
         div.add(label, genreAllGenreButton, horizontalLayout);
         div.addClassName("book-content-item-column-genre");
@@ -193,8 +213,11 @@ public class BookDetailsView extends Div {
     }
 
     private String getAGenre(BookViewModel bookViewModel) {
-        var genre = disciplineRepository.findById(bookViewModel.getIdDiscipline());
-        return genre.get().getTitle();
+        var genre = disciplineRepository.findById(bookViewModel.getIdDiscipline()).orElse(null);
+        if (genre == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return genre.getTitle();
     }
 
     private void addToBasket(BookViewModel bookViewModel) {
@@ -220,7 +243,8 @@ public class BookDetailsView extends Div {
 
         );
     }
-    private void updatePage(){
+
+    private void updatePage() {
         getUI().ifPresent(ui -> ui.getPage().reload());
 
     }
