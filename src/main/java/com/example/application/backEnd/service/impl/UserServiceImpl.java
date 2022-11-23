@@ -84,11 +84,8 @@ public class UserServiceImpl implements UsersService {
 
     public Optional<Users> getById(Long id) {
         return userRepository.findById(id);
-//                .map(usersBuilder::build)
-//                .orElseThrow(()
-//                        -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-    }
 
+    }
     @Override
     public Users registration(RegistrationViewModel request) throws ResponseException {
         if (request.getPassword().length() < 6) {

@@ -38,12 +38,12 @@ public class PublisherMenu extends FlexLayout implements HasUrlParameter<Long> {
         userId = parameter;
 
         var layout = new FlexLayout();
-        var userPol =  userService.getById(userId).orElse(null);
+        var userPol =  userService.getById(userId);
         if(userPol == null){
             throw new RuntimeException("userPol is null with id = " + userId);
         }
 
-        var bookList = bookService.findAllByIdIdUser(userPol);
+        var bookList = bookService.findAllByIdIdUser(userPol.get());
         if (bookList.isEmpty()) {
             new EmptyView();
         }
@@ -52,7 +52,7 @@ public class PublisherMenu extends FlexLayout implements HasUrlParameter<Long> {
             layout.add(new BookItem(bookBuilder.createBook(book)));
         });
 
-        label.add("От издательства " + userPol.getUsername());
+        label.add("От издательства " + userPol.get().getUsername());
         add(label, layout);
     }
 }

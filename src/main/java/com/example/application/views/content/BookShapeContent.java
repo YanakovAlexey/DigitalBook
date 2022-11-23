@@ -35,6 +35,7 @@ public class BookShapeContent extends HorizontalLayout {
         this.addClassNames("view-content");
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
+
         verticalLayout.add(allBooks(), youMayLike(), bestsellers(), mainBooks());
         add(verticalLayout);
         searchView = new SearchView(bookService);

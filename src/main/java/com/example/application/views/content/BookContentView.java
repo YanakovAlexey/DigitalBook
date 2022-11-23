@@ -95,7 +95,6 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
     private final BookBuilder bookBuilder;
 
     GetAllAuthors(BookService bookService, BookBuilder bookBuilder) {
-
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
 
@@ -174,7 +173,6 @@ class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
 
     private Long idGenre;
     private final BookService bookService;
-    private final UsersService usersService;
     private Label title;
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
@@ -183,7 +181,6 @@ class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
                 DisciplineService disciplineService,
                 BookBuilder bookBuilder) {
         this.bookService = bookService;
-        this.usersService = usersService;
         this.disciplineService = disciplineService;
         this.bookBuilder = bookBuilder;
     }

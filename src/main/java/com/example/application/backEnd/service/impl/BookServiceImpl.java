@@ -6,6 +6,7 @@ import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BookViewModel;
+import com.example.application.backEnd.viewModel.UserViewModel;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -129,7 +130,6 @@ public class BookServiceImpl implements BookService {
         if(bookList.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-
         return bookList;
     }
 

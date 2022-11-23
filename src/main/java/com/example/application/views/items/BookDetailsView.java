@@ -10,15 +10,18 @@ import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.BookViewModel;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BookDetailsView extends Div {
     private Image image;
@@ -50,7 +53,10 @@ public class BookDetailsView extends Div {
                            BookService bookService, BookBuilder bookBuilder,
                            BasketPositionService basketPositionService,
                            AuthenticatedUser authenticatedUser,
-                           BasketRepository basketRepository, DisciplineRepository disciplineRepository, UserRepository userRepository) {
+                           BasketRepository basketRepository,
+                           DisciplineRepository disciplineRepository,
+                           UserRepository userRepository) {
+
         this.usersService = usersService;
         this.basketService = basketService;
         this.disciplineService = disciplineService;
@@ -59,17 +65,17 @@ public class BookDetailsView extends Div {
         this.basketPositionService = basketPositionService;
         this.authenticatedUser = authenticatedUser;
         this.basketRepository = basketRepository;
-
         this.disciplineRepository = disciplineRepository;
         this.userRepository = userRepository;
 
 
         add(content(bookViewModel), searchByAuthor(bookViewModel),
                 searchByPublishingHouse(bookViewModel), searchByGenre(bookViewModel));
+        updatePage();
+
     }
 
     private HorizontalLayout content(BookViewModel bookViewModel) {
-
         var genrePagesButton = new VerticalLayout();
         var verticalLayout = new VerticalLayout();
         var horizontalLayout = new HorizontalLayout();
@@ -113,7 +119,10 @@ public class BookDetailsView extends Div {
         label.addClassNames("book-label");
         Button getAllAuthorButton = new Button("  все");
         getAllAuthorButton.addClickListener(event ->
-                getAllAuthorButton.getUI().ifPresent(ui -> ui.navigate("GetAllAuthors/" + bookViewModel.getAuthor())));
+                getAllAuthorButton.getUI().ifPresent(ui ->
+                        ui.navigate("GetAllAuthors/" + bookViewModel.getAuthor())));
+
+
 
         getAllAuthorButton.addClassName("book-content-anchor-getAll");
 
@@ -122,8 +131,8 @@ public class BookDetailsView extends Div {
 
         var authorList = bookService.findAllByAuthor(bookViewModel.getAuthor());
 
-        for (Book book : authorList) {
-            horizontalLayout.add(new BookItem(bookBuilder.createBook(book)));
+        for (Book a: authorList ) {
+                horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
         }
 
         div.add(horizontalLayout);
@@ -134,25 +143,24 @@ public class BookDetailsView extends Div {
     }
 
     private Div searchByPublishingHouse(BookViewModel bookViewModel) {
-        Label label = new Label("Еще от издательства '" + getAPublisher(bookViewModel) + "'");
-        label.addClassNames("book-label");
-
         Button getAllPublisherButton = new Button("  все");
         getAllPublisherButton.addClickListener(event ->
                 getAllPublisherButton.getUI().ifPresent(ui ->
                         ui.navigate("GetAllPublisher/" + bookViewModel.getIdUsers())));
 
         getAllPublisherButton.addClassName("book-content-anchor-getAll");
-        var horizontalLayout = new HorizontalLayout();
+        var flexLayout = new FlexLayout();
+        var user = usersService.getById(bookViewModel.getIdUsers());
+        var bookList = bookService.findAllByIdIdUser(user.get());
 
-//        var bookList = bookService.findAllByIdIdUser();
+        for (Book a: bookList ) {
+            flexLayout.add(new BookItem(bookBuilder.createBook(a)));
+        }
 
-//        for (Book b: bookList) {
-////            horizontalLayout.add(bookBuilder.createBook(b));
-//
-//        }
+        Label label = new Label("Еще от издательства '" + getAPublisher(bookViewModel) + "'");
+        label.addClassNames("book-label");
+        div.add(label, getAllPublisherButton, flexLayout);
 
-        div.add(label, getAllPublisherButton, horizontalLayout);
         div.addClassName("book-content-item-column-author");
 
         return div;
@@ -170,8 +178,8 @@ public class BookDetailsView extends Div {
         genreAllGenreButton.addClassName("book-content-anchor-getAll");
         var horizontalLayout = new HorizontalLayout();
         var genreList = bookService.findAllByIdDiscipline(bookViewModel.getIdDiscipline());
-        for (Book book : genreList) {
-            horizontalLayout.add(new BookItem(bookBuilder.createBook(book)));
+        for (Book a: genreList ) {
+            horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
         }
         div.add(label, genreAllGenreButton, horizontalLayout);
         div.addClassName("book-content-item-column-genre");
@@ -180,14 +188,8 @@ public class BookDetailsView extends Div {
     }
 
     private String getAPublisher(BookViewModel bookViewModel) {
-        var usersList = usersService.getAll();
-
-        for (int i = 0; i < usersList.size(); i++) {
-            if (usersList.get(i).getId().equals(bookViewModel.getIdUsers())) {
-                return usersList.get(i).getName();
-            }
-        }
-        return null;
+        var user = usersService.getById(bookViewModel.getIdUsers());
+        return user.get().getUsername();
     }
 
     private String getAGenre(BookViewModel bookViewModel) {
@@ -217,6 +219,10 @@ public class BookDetailsView extends Div {
                 getUI().ifPresent(ui -> ui.navigate("Basket/" + u.getId()))
 
         );
+    }
+    private void updatePage(){
+        getUI().ifPresent(ui -> ui.getPage().reload());
+
     }
 }
 
