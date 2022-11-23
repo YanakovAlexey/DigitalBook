@@ -58,7 +58,6 @@ public class BookDetailsView extends Div {
                            BasketRepository basketRepository,
                            DisciplineRepository disciplineRepository,
                            UserRepository userRepository) {
-
         this.usersService = usersService;
         this.basketService = basketService;
         this.disciplineService = disciplineService;
@@ -72,7 +71,7 @@ public class BookDetailsView extends Div {
 
         add(content(bookViewModel), searchByAuthor(bookViewModel),
                 searchByPublishingHouse(bookViewModel), searchByGenre(bookViewModel));
-        removeAll();
+
 
 
     }

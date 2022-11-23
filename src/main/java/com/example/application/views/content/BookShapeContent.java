@@ -29,7 +29,6 @@ public class BookShapeContent extends HorizontalLayout {
 
     private final BookService bookService;
     private final BookBuilder bookBuilder;
-    private final Scroller scroller = new Scroller();
 
     @Autowired
     public BookShapeContent(BookService bookService, BookBuilder bookBuilder) {
@@ -126,15 +125,14 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new HorizontalLayout();
+        var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        Scroller scroller = new Scroller(new Div(layout));
-        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setWidth("70%");
-        div.add(titleMayLike, scroller);
+
+        div.add(titleMayLike, layout);
         return div;
     }
 
@@ -151,17 +149,14 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new HorizontalLayout();
+        var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        Scroller scroller = new Scroller(
-                new Div(layout));
-        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setWidth("70%");
 
-        div.add(titleBestSellers, scroller);
+        div.add(titleBestSellers, layout);
         return div;
 
     }
@@ -178,17 +173,14 @@ public class BookShapeContent extends HorizontalLayout {
                 .map(bookBuilder::createBook)
                 .toList();
 
-        var layout = new HorizontalLayout();
+        var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
         });
-        Scroller scroller = new Scroller(
-                new Div(layout));
-        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
-        scroller.setWidth("70%");
 
-        div.add(titleMain, scroller);
+        div.add(titleMain, layout);
         return div;
     }
 
