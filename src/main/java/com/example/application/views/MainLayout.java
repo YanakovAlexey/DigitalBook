@@ -46,6 +46,7 @@ public class MainLayout extends VerticalLayout implements RouterLayout {
         this.setHeight("100%");
 //        this.headerView = new HeaderView(authenticatedUser, this.bookService);
 
+        this.addClassNames("main-background");
         add(headerView);
     }
 

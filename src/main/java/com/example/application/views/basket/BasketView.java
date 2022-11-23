@@ -1,4 +1,4 @@
-package com.example.application.views.Basket;
+package com.example.application.views.basket;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Basket;
@@ -8,8 +8,6 @@ import com.example.application.backEnd.reporitory.BasketPositionRepository;
 import com.example.application.backEnd.reporitory.BasketRepository;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
-import com.example.application.backEnd.viewModel.BasketPositionViewModel;
-import com.example.application.backEnd.viewModel.BasketViewModel;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.button.Button;

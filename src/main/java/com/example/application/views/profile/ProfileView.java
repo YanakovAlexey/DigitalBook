@@ -96,7 +96,6 @@ public class ProfileView extends Div {
         Div line = new Div();
         line.addClassNames("horizontal-line");
 
-
         exitButton.addClassNames("bottom-buttons");
 
         formLayout.add(
