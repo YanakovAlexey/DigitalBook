@@ -6,7 +6,9 @@ import com.example.application.backEnd.reporitory.BasketPositionRepository;
 import com.example.application.backEnd.service.BasketPositionService;
 import com.example.application.backEnd.viewModel.BasketPositionViewModel;
 import com.example.application.backEnd.viewModel.BasketViewModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,20 @@ public class BasketPositionServiceImpl implements BasketPositionService {
     @Override
     public BasketViewModel getById(Long id) {
         return null;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        basketPositionRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BasketPosition> findAllByIdBasket(Long id) {
+        var basketPosition = basketPositionRepository.findAllByIdBasket(id);
+        if (basketPosition.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return basketPosition;
     }
 
 

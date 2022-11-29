@@ -63,17 +63,13 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
         this.userRepository = userRepository;
         this.basketRepository = basketRepository;
         this.disciplineRepository = disciplineRepository;
-
-
         addClassName("book-content-background");
     }
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         this.bookId = parameter;
-
         var book = bookService.getById(bookId);
-
         div.add(new BookDetailsView(book,
                 usersService,
                 basketService,
@@ -90,34 +86,28 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
 
 @Route(value = "GetAllAuthors", layout = ContentView.class)
 @AnonymousAllowed
-class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
-
-    private String bookViewModel;
-    private final BookService bookService;
+class GetAllAuthors extends VerticalLayout implements HasUrlParameter<Long> {
     private Label title;
+    private final BookService bookService;
     private final BookBuilder bookBuilder;
 
-    GetAllAuthors(BookService bookService, BookBuilder bookBuilder) {
+    GetAllAuthors(BookService bookService,
+                  BookBuilder bookBuilder) {
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
-
     }
 
     @Override
-    public void setParameter(BeforeEvent event, String parameter) {
-        this.bookViewModel = parameter;
-
-        this.title = new Label("Авторские книги " + bookViewModel);
-
-        var bookList = bookService.findAllByAuthor(bookViewModel);
-        System.out.println(bookList);
-
+    public void setParameter(BeforeEvent event, Long parameter) {
+        var oldBook = bookService.getById(parameter);
+        this.title = new Label("Авторские книги  '" + oldBook.getAuthor() + "'");
+        this.title.addClassNames("book-label");
+        var bookList = bookService.findAllByAuthor(oldBook.getAuthor());
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         bookList.forEach(bookViewModel -> {
             layout.add(new BookItem(bookBuilder.createBook(bookViewModel)));
         });
-
         add(title, layout);
     }
 }
@@ -125,7 +115,6 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<String> {
 @Route(value = "GetAllPublisher", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
-
     private Long idUser;
     private final BookService bookService;
     private final UsersService usersService;
@@ -133,28 +122,28 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
     private Label title;
     private final BookBuilder bookBuilder;
 
-    GetAllPublisher(BookService bookService, UsersService usersService, PublisherService publisherService, BookBuilder bookBuilder) {
+    GetAllPublisher(BookService bookService,
+                    UsersService usersService,
+                    PublisherService publisherService,
+                    BookBuilder bookBuilder) {
         this.bookService = bookService;
         this.usersService = usersService;
         this.publisherService = publisherService;
         this.bookBuilder = bookBuilder;
     }
-
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         this.idUser = parameter;
+        this.title = new Label("Книги издательства  '" + getAPublisher(idUser) + "'");
+        this.title.addClassNames("book-label");
 
-        this.title = new Label("Книги издательства " + getAPublisher(idUser));
         var user = usersService.getById(idUser);
-
-        var publisherList = bookService.findAllByIdIdUser(user.get());
-
+        var publisherList = bookService.findAllByUserId(user.get().getId());
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         publisherList.forEach(publisher -> {
             layout.add(new BookItem(bookBuilder.createBook(publisher)));
         });
-
         add(title, layout);
     }
 
@@ -170,14 +159,12 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
 @Route(value = "GetAllGenre", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
-
     private Long idGenre;
     private final BookService bookService;
     private Label title;
     private final DisciplineService disciplineService;
     private final BookBuilder bookBuilder;
-
-    GetAllGenre(BookService bookService, UsersService usersService,
+    GetAllGenre(BookService bookService,
                 DisciplineService disciplineService,
                 BookBuilder bookBuilder) {
         this.bookService = bookService;
@@ -188,33 +175,21 @@ class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         this.idGenre = parameter;
+        this.title = new Label("В том же жанре '" + getAGenre(idGenre) + "'");
+        this.title.addClassNames("book-label");
 
-        this.title = new Label("В том же жанре " + getAGenre(idGenre));
-
-        var books = bookService.getAll();
-
-        List<BookViewModel> bookViewModelList = new ArrayList<>();
-
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getUsers().equals(idGenre)) {
-                bookViewModelList.add(bookBuilder.createBook(books.get(i)));
-            }
-        }
-
+        var genreList = bookService.getAllByIdGenre(idGenre);
 
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        bookViewModelList.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookViewModel));
+        genreList.forEach(book -> {
+            layout.add(new BookItem(bookBuilder.createBook(book)));
         });
-
-
         add(title, layout);
     }
 
     private String getAGenre(Long idGenre) {
         var listGenre = disciplineService.getAll();
-
         for (DisciplineViewModel disciplineViewModel : listGenre) {
             if (disciplineViewModel.getId().equals(idGenre)) {
                 return disciplineViewModel.getTitle();

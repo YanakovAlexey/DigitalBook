@@ -132,7 +132,7 @@ public class BookUploadForm extends Div {
             book.setDescription(descriptionTF.getValue());
             book.setAuthor(authorTF.getValue());
             book.setIdDiscipline(selectedGenre.getId());
-            book.setUsers(user);
+            book.setUserId(user.getId());
             book.setType(1);
 
 

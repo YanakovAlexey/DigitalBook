@@ -10,7 +10,6 @@ import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.BookViewModel;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -20,10 +19,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class BookDetailsView extends Div {
     private Image image;
@@ -121,7 +116,7 @@ public class BookDetailsView extends Div {
         Button getAllAuthorButton = new Button("  все");
         getAllAuthorButton.addClickListener(event ->
                 getAllAuthorButton.getUI().ifPresent(ui ->
-                        ui.navigate("GetAllAuthors/" + bookViewModel.getAuthor())));
+                        ui.navigate("GetAllAuthors/" + bookViewModel.getId())));
 
         getAllAuthorButton.addClassName("book-content-anchor-getAll");
 
@@ -148,8 +143,7 @@ public class BookDetailsView extends Div {
     }
 
     private Div searchByPublishingHouse(BookViewModel bookViewModel) {
-        Book[] books = new Book[8];
-        Button getAllPublisherButton = new Button("  все");
+        Button getAllPublisherButton = new Button("Все");
         getAllPublisherButton.addClickListener(event ->
                 getAllPublisherButton.getUI().ifPresent(ui ->
                         ui.navigate("GetAllPublisher/" + bookViewModel.getIdUsers())));
@@ -157,7 +151,7 @@ public class BookDetailsView extends Div {
         getAllPublisherButton.addClassName("book-content-anchor-getAll");
         var flexLayout = new FlexLayout();
         var user = usersService.getById(bookViewModel.getIdUsers());
-        var bookList = bookService.findAllByIdIdUser(user.get());
+        var bookList = bookService.findAllByUserId(user.get().getId());
         int o = 0;
 
         for (Book b : bookList) {
@@ -183,7 +177,7 @@ public class BookDetailsView extends Div {
         Div div = new Div();
         Label label = new Label("В том же жанре " + getAGenre(bookViewModel));
         label.addClassNames("book-label");
-        Button genreAllGenreButton = new Button("все");
+        Button genreAllGenreButton = new Button("Все");
         genreAllGenreButton.addClickListener(event ->
                 genreAllGenreButton.getUI().ifPresent(ui ->
                         ui.navigate("GetAllGenre/" + bookViewModel.getIdDiscipline())));

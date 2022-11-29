@@ -12,7 +12,6 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -59,7 +58,5 @@ public class Book {
     @Column(name = "file")
     String file;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "users")
-    Users users;
+    Long userId;
 }

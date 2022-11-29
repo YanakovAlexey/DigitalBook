@@ -122,8 +122,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAllByIdIdUser(Users users) {
-        var bookList = bookRepository.findAllByUsers(users);
+    public List<Book> findAllByUserId(Long users) {
+        var bookList = bookRepository.findAllByUserId(users);
         if(bookList.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -147,4 +147,33 @@ public class BookServiceImpl implements BookService {
         }
         return genreList;
     }
+
+    @Override
+    public List<String> allAuthors() {
+        var bookList = bookRepository.findAllAuthors();
+        if (bookList.isEmpty()){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        return bookList;
+    }
+
+    @Override
+    public List<Long> findPublishers() {
+        var bookList = bookRepository.findAllPublisher();
+        if(bookList.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return bookList;
+    }
+
+    @Override
+    public Book findBookByAuthor(String author) {
+        var book = bookRepository.findFirstBookByAuthor(author);
+        if (book == null){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return book;
+    }
+
 }

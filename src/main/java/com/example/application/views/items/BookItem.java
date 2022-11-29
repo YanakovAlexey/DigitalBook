@@ -18,12 +18,13 @@ public class BookItem extends Div {
         this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "");
         this.image.addClickListener(event -> {
             image.getUI().ifPresent(ui -> ui.navigate("BookContent/" + bookViewModel.getId()));
-        });
 
+        });
 
         this.image.addClassNames("book-item-image");
 
         this.titleLabel = new Anchor("BookContent/" + bookViewModel.getId(), bookViewModel.getTitle());
+
         this.titleLabel.addClassNames("view-color-title");
 
         this.authorLabel = new Anchor("BookContent/" + bookViewModel.getId(), bookViewModel.getAuthor());

@@ -1,12 +1,7 @@
 package com.example.application.views;
 
-import com.example.application.backEnd.domain.Publisher;
-import com.example.application.backEnd.service.AuthorService;
-import com.example.application.backEnd.service.DisciplineService;
-import com.example.application.backEnd.service.PublisherService;
-import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.example.application.backEnd.viewModel.AuthorViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.search.SearchView;
@@ -34,20 +29,18 @@ public class HeaderView extends VerticalLayout {
     private final Button langButtonRU = new Button("RU");
     private final AuthenticatedUser authenticatedUser;
     private final DisciplineService disciplineService;
-    private final PublisherService publisherService;
-    private final AuthorService authorService;
+    private final UsersService usersService;
     private final BookService bookService;
     private SearchView searchView;
 
 
     public HeaderView(AuthenticatedUser authenticatedUser,
                       DisciplineService disciplineService,
-                      PublisherService publisherService,
-                      AuthorService authorService, BookService bookService) {
+                      UsersService usersService, BookService bookService) {
         this.authenticatedUser = authenticatedUser;
         this.disciplineService = disciplineService;
-        this.publisherService = publisherService;
-        this.authorService = authorService;
+        this.usersService = usersService;
+
         this.bookService = bookService;
 
 
@@ -66,7 +59,9 @@ public class HeaderView extends VerticalLayout {
         cartButton.addClickListener(event -> {
             if (authenticatedUser.get().isPresent()) {
                 cartButton.getUI().ifPresent(ui ->
-                        ui.navigate("Basket/" + authenticatedUser.get().get().getId()));
+                        ui.navigate("Basket/" + authenticatedUser.get().get().getId())
+                );
+
             } else cartButton.getUI().ifPresent(ui ->
                     ui.navigate("/auth"));
         });
@@ -181,58 +176,67 @@ public class HeaderView extends VerticalLayout {
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        flexLayout.setWidth("800px");
-        flexLayout.setHeight("200px");
+        flexLayout.setWidth("750px");
+        flexLayout.setHeight("175px");
 
         var allGenresList = disciplineService.getAll();
         for (DisciplineViewModel discipline : allGenresList) {
-                flexLayout.add(anchor = new Anchor("getByGenre/" + discipline.getId(), discipline.getTitle()));
+            flexLayout.add(anchor = new Anchor("GetAllGenre/" + discipline.getId(), discipline.getTitle()));
             anchor.addClassName("tag-margin");
         }
         return flexLayout;
     }
 
     private FlexLayout getAPublisher() {
+        Anchor button = new Anchor("getAllPublisher", "Все");
+        button.addClassName("title-all");
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        flexLayout.setWidth("800px");
-        flexLayout.setHeight("200px");
+        flexLayout.setWidth("400px");
+        flexLayout.setHeight("150px");
 
-
-        var publisherList = publisherService.getAll();
+        var publisherList = bookService.findPublishers();
         int i = 0;
-        for (Publisher publisher : publisherList) {
+        for (Long aLong : publisherList) {
             if (i < 9) {
-                flexLayout.add(anchor = new Anchor("getByPublisher/" + publisher.getId(), publisher.getName()));
+                var user = usersService.getById(aLong);
+                flexLayout.add(anchor = new Anchor("GetAllPublisher/"
+                        + user.get().getId(), user.get().getUsername()));
             } else {
                 break;
             }
             i++;
             anchor.addClassName("tag-margin");
         }
+        flexLayout.add(button);
         return flexLayout;
     }
 
     private FlexLayout getAAuthor() {
+        Anchor button = new Anchor("getAllAuthors", "Все");
+        button.addClassName("title-all-two");
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        flexLayout.setWidth("800px");
-        flexLayout.setHeight("200px");
-        var authorList = authorService.getAll();
+        flexLayout.setWidth("400px");
+        flexLayout.setHeight("140px");
+        var authorList = bookService.allAuthors();
         int i = 0;
-        for (AuthorViewModel a : authorList) {
-            if(i < 9){
-                flexLayout.add(anchor = new Anchor("getByAuthor/" + a.getId(), a.getName()));
-            }
-            else {
+        for (String a : authorList) {
+            var book = bookService.findBookByAuthor(a);
+            if (i < 9) {
+                flexLayout.add(anchor = new Anchor("GetAllAuthors/" + book.getId(), book.getAuthor()));
+            } else {
                 break;
             }
             i++;
+
             anchor.addClassName("tag-margin");
 
         }
+        flexLayout.add(button);
+
         return flexLayout;
     }
 

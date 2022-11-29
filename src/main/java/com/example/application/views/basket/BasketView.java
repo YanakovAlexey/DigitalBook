@@ -4,12 +4,13 @@ import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.domain.BasketPosition;
 import com.example.application.backEnd.reporitory.BasketPositionRepository;
-
 import com.example.application.backEnd.reporitory.BasketRepository;
+import com.example.application.backEnd.service.BasketPositionService;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.views.ContentView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -20,18 +21,17 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-import java.util.List;
-
 @Route(value = "Basket", layout = ContentView.class)
 @AnonymousAllowed
 public class BasketView extends HorizontalLayout implements HasUrlParameter<Long> {
 
     Long idUser;
+    BookItemBasket bookItemBasket;
     Div div = new Div();
     Label title = new Label("КОРЗИНА");
     Button buyAllButton = new Button("КУПИТЬ ВСЕ");
 
-    private final BasketPositionRepository basketPositionRepository;
+    private final BasketPositionService basketPositionService;
     private final BasketRepository basketRepository;
     private final BookService bookService;
     private final BookBuilder bookBuilder;
@@ -40,12 +40,12 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
 
 
     public BasketView(BasketPositionRepository basketPositionRepository,
-                      BasketRepository basketRepository,
+                      BasketPositionService basketPositionService, BasketRepository basketRepository,
                       BookService bookService,
                       BookBuilder bookBuilder,
                       AuthenticatedUser authenticatedUser,
                       BasketService basketService) {
-        this.basketPositionRepository = basketPositionRepository;
+        this.basketPositionService = basketPositionService;
         this.basketRepository = basketRepository;
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
@@ -54,7 +54,6 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         this.title.addClassNames("basket-title");
         this.buyAllButton.addClassNames("basket-button-buy-all");
         this.buyAllButton.addClassNames("basket-content-view");
-
 
     }
 
@@ -69,24 +68,24 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
             basket = new Basket();
             basket.setIdUser(authenticatedUser.get().get().getId());
             basketService.create(basket);
-
         }
 
-        var basketPositionList = basketPositionRepository.findAllByIdBasket(basket.getId());
+        var basketPositionList = basketPositionService.findAllByIdBasket(basket.getId());
 
 
         div.add(title, buyAllButton, layout);
 
         for (BasketPosition element : basketPositionList) {
             var book = bookService.getById(element.getIdBook());
+            layout.add(bookItemBasket = new BookItemBasket(book, basketPositionService));
+            bookItemBasket.deleteButton.addClickListener(even ->
+                    basketPositionService.deleteById(element.getId()));
 
-            layout.add(new BookItemBasket(book));
             layout.addClassName("basket-book-item");
         }
 
-
         this.buyAllButton.addClassNames("basket-button-buy-all");
-        div.add(title,buyAllButton, layout);
+        div.add(title, buyAllButton, layout);
         this.addClassNames("book-content-background");
         add(div);
     }

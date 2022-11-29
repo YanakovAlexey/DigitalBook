@@ -83,7 +83,11 @@ public class UserServiceImpl implements UsersService {
     }
 
     public Optional<Users> getById(Long id) {
-        return userRepository.findById(id);
+        var user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return user;
 
     }
     @Override

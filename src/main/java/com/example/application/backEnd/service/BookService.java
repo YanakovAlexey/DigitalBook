@@ -18,9 +18,11 @@ public interface BookService {
     void update(Long id, Book book, BookViewModel request);
     void deleteById(Long id);
     List<Book> getBySearch(String title);
-    List<Book> findAllByIdIdUser(Users users);
+    List<Book> findAllByUserId(Long id);
     List<Book> findAllByAuthor(String author);
     List<Book> findAllByIdDiscipline(Long idDiscipline);
-
+    List<String> allAuthors();
+    List<Long> findPublishers();
+    Book findBookByAuthor(String author);
 
 }

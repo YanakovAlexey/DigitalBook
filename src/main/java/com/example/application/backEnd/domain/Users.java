@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "users")
 @Setter
@@ -20,10 +21,6 @@ public class Users {
 
     @Column(name = "username")
     String username;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "publisherId")
-    Publisher publisher;
 
     @Column(name = "name")
     String name;
@@ -82,6 +79,5 @@ public class Users {
     @Column(name = "id_basket")
     Long idBasket;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    Book book;
+
 }

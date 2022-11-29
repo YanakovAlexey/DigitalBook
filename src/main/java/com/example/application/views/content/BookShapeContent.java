@@ -41,7 +41,8 @@ public class BookShapeContent extends HorizontalLayout {
     }
 
     private Div allBooks() {
-
+        Label label = new Label("Все");
+        label.addClassNames("book-label");
         Div div = new Div();
         var books = bookService
                 .getAll()
@@ -75,7 +76,7 @@ public class BookShapeContent extends HorizontalLayout {
 
         scroller.setContent(allBooksLayout);
         verticalLayout.setHeight(String.valueOf(false));
-        div.add( allBooksLayout);
+        div.add( label, allBooksLayout);
         add(div);
 
         return div;
@@ -126,7 +127,7 @@ public class BookShapeContent extends HorizontalLayout {
                 .toList();
 
         var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP_REVERSE);
 
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
@@ -162,8 +163,7 @@ public class BookShapeContent extends HorizontalLayout {
     }
 
     private Div mainBooks() {
-//        Button allButton = new Button("Все");
-//        allButton.setHeight("20px");
+
         Div div = new Div();
         Label titleMain = new Label("Главные книги 2020 года");
         titleMain.addClassNames("book-label");
@@ -174,7 +174,7 @@ public class BookShapeContent extends HorizontalLayout {
                 .toList();
 
         var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP_REVERSE);
 
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));

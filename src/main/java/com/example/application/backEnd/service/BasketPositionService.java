@@ -13,4 +13,8 @@ public interface BasketPositionService {
     List<BasketPositionViewModel> getAll();
 
     BasketViewModel getById(Long id);
+
+    void deleteById(Long id);
+
+    List<BasketPosition> findAllByIdBasket(Long id);
 }
