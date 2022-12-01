@@ -4,5 +4,5 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 
 @Route("books")
-public class knkkBooksView extends Div {
+public class BooksView extends Div {
 }
