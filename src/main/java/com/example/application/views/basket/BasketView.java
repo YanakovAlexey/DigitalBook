@@ -3,14 +3,12 @@ package com.example.application.views.basket;
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.domain.BasketPosition;
-import com.example.application.backEnd.reporitory.BasketPositionRepository;
 import com.example.application.backEnd.reporitory.BasketRepository;
 import com.example.application.backEnd.service.BasketPositionService;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.views.ContentView;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -39,8 +37,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
     private final BasketService basketService;
 
 
-    public BasketView(BasketPositionRepository basketPositionRepository,
-                      BasketPositionService basketPositionService, BasketRepository basketRepository,
+    public BasketView(BasketPositionService basketPositionService, BasketRepository basketRepository,
                       BookService bookService,
                       BookBuilder bookBuilder,
                       AuthenticatedUser authenticatedUser,
@@ -79,8 +76,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
             var book = bookService.getById(element.getIdBook());
             layout.add(bookItemBasket = new BookItemBasket(book, basketPositionService));
             bookItemBasket.deleteButton.addClickListener(even ->
-                    basketPositionService.deleteById(element.getId()));
-
+            basketPositionService.deleteById(element.getId()));
             layout.addClassName("basket-book-item");
         }
 

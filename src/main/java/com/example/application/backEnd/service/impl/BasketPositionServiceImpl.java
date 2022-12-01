@@ -55,9 +55,7 @@ public class BasketPositionServiceImpl implements BasketPositionService {
     @Override
     public List<BasketPosition> findAllByIdBasket(Long id) {
         var basketPosition = basketPositionRepository.findAllByIdBasket(id);
-        if (basketPosition.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+       
         return basketPosition;
     }
 

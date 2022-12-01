@@ -2,27 +2,29 @@ package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.viewModel.BookViewModel;
+import com.example.application.views.HeaderView;
 import com.example.application.views.MainLayout;
 import com.example.application.views.items.BookItem;
-import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Route(value = "/", layout = MainLayout.class)
 @RouteAlias(value = "/", layout = MainLayout.class)
 @AnonymousAllowed
-public class BookShapeContent extends HorizontalLayout {
+public class BookShapeContent extends HorizontalLayout implements HeaderView.Delegate {
 
     private VerticalLayout verticalLayout = new VerticalLayout();
     private FlexLayout allBooksLayout = new FlexLayout();
@@ -76,40 +78,36 @@ public class BookShapeContent extends HorizontalLayout {
 
         scroller.setContent(allBooksLayout);
         verticalLayout.setHeight(String.valueOf(false));
-        div.add( label, allBooksLayout);
+        div.add(label, allBooksLayout);
         add(div);
 
         return div;
     }
+
+    protected void refreshView(String header, List<BookViewModel> books) {
+        Div div = new Div();
+        Label titleAll = new Label(header);
+        titleAll.addClassNames("book-label");
+
+        var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        books.forEach(bookViewModel -> {
+            layout.add(new BookItem(bookViewModel));
+        });
+
+        div.add(layout);
+        allBooksLayout.removeAll();
+        allBooksLayout.add(div);
+    }
+
 
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
         getParent().ifPresent((parent) -> {
             if (parent instanceof MainLayout) {
-                var searchView = ((MainLayout) parent).getHeaderView().getSearchView();
-                searchView.setTextChangeListener((HasValue.ValueChangeListener<AbstractField
-                        .ComponentValueChangeEvent<TextField, String>>) event -> {
-
-                    Div div = new Div();
-                    Label titleAll = new Label("Все");
-                    titleAll.addClassNames("book-label");
-                    var books = bookService
-                            .getBySearch(event.getValue())
-                            .stream()
-                            .map(bookBuilder::createBook)
-                            .toList();
-
-                    var layout = new FlexLayout();
-                    layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-                    books.forEach(bookViewModel -> {
-                        layout.add(new BookItem(bookViewModel));
-                    });
-
-                    div.add(layout);
-                    allBooksLayout.removeAll();
-                    allBooksLayout.add(div);
-                });
+                var headerView = ((MainLayout) parent).getHeaderView();
+                headerView.subscribe(this);
             }
         });
     }
@@ -127,7 +125,7 @@ public class BookShapeContent extends HorizontalLayout {
                 .toList();
 
         var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP_REVERSE);
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
@@ -159,11 +157,9 @@ public class BookShapeContent extends HorizontalLayout {
 
         div.add(titleBestSellers, layout);
         return div;
-
     }
 
     private Div mainBooks() {
-
         Div div = new Div();
         Label titleMain = new Label("Главные книги 2020 года");
         titleMain.addClassNames("book-label");
@@ -174,7 +170,7 @@ public class BookShapeContent extends HorizontalLayout {
                 .toList();
 
         var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP_REVERSE);
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
@@ -184,4 +180,44 @@ public class BookShapeContent extends HorizontalLayout {
         return div;
     }
 
+    @Override
+    public void onGenreChange(long id, long oldId) {
+        var books = bookService
+                .getAllByIdGenre(id)
+                .stream()
+                .map(bookBuilder::createBook)
+                .toList();
+        refreshView("По жанрам", books);
+    }
+
+    @Override
+    public void onSearchChange(String text, String oldText) {
+        var books = bookService
+                .getBySearch(text)
+                .stream()
+                .map(bookBuilder::createBook)
+                .toList();
+        refreshView("Все", books);
+    }
+
+    @Override
+    public void onPublisherChange(long id, long oldId) {
+        var books = bookService
+                .findAllByUserId(id)
+                .stream()
+                .map(bookBuilder::createBook)
+                .toList();
+        refreshView("От издательства ", books);
+    }
+
+    @Override
+    public void onAuthorChange(long id, long oldId) {
+        var book = bookService.getById(id);
+        var books = bookService
+                .findAllByAuthor(book.getAuthor())
+                .stream()
+                .map(bookBuilder::createBook)
+                .toList();
+        refreshView("От автора ", books);
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.application.views;
 
-import com.example.application.backEnd.service.*;
+import com.example.application.backEnd.service.BookService;
+import com.example.application.backEnd.service.DisciplineService;
+import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.translation.TranslationProvider;
@@ -18,9 +20,19 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.VaadinSession;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static com.vaadin.flow.component.icon.VaadinIcon.*;
 
 public class HeaderView extends VerticalLayout {
+
+    public interface Delegate {
+        default void onGenreChange(long id, long oldId) {};
+        default void onPublisherChange(long id, long oldId) {};
+        default void onAuthorChange(long id, long oldId) {};
+        default void onSearchChange(String text, String oldText) {};
+    }
 
     private HorizontalLayout topLine = new HorizontalLayout();
     private HorizontalLayout bottomLine = new HorizontalLayout();
@@ -33,6 +45,7 @@ public class HeaderView extends VerticalLayout {
     private final BookService bookService;
     private SearchView searchView;
 
+    private final Set<Delegate> delegates = new HashSet<>();
 
     public HeaderView(AuthenticatedUser authenticatedUser,
                       DisciplineService disciplineService,
@@ -43,8 +56,16 @@ public class HeaderView extends VerticalLayout {
 
         this.bookService = bookService;
 
-
         screen();
+    }
+
+    public void subscribe(Delegate delegate) {
+        if (delegate == null)
+            throw new RuntimeException("Delegate is null");
+
+        synchronized (delegates) {
+            delegates.add(delegate);
+        }
     }
 
     private void screen() {
@@ -99,6 +120,13 @@ public class HeaderView extends VerticalLayout {
 
         Button burgerButton = new Button(new Icon(MENU));
         searchView = new SearchView(bookService);
+        searchView.setTextChangeListener(event -> {
+            delegates.forEach(d -> {
+                if (d != null) {
+                    d.onSearchChange(event.getValue(), event.getOldValue());
+                }
+            });
+        });
 
         bookButton.addClassNames("view-icons");
         cartButton.addClassNames("view-icons");
@@ -164,7 +192,7 @@ public class HeaderView extends VerticalLayout {
                 .addItem(this.translationProvider.getTranslation("author",
                         UI.getCurrent().getLocale()));
         var authorSubMenu = authorMenuItem.getSubMenu();
-        authorSubMenu.add(getAAuthor());
+        authorSubMenu.add(createAllAuthorsLayout());
 
 
         this.addClassNames("view-menu-bar");
@@ -181,8 +209,15 @@ public class HeaderView extends VerticalLayout {
 
         var allGenresList = disciplineService.getAll();
         for (DisciplineViewModel discipline : allGenresList) {
-            flexLayout.add(anchor = new Anchor("GetAllGenre/" + discipline.getId(), discipline.getTitle()));
+            flexLayout.add(anchor = new Anchor("", discipline.getTitle()));
             anchor.addClassName("tag-margin");
+            anchor.getElement().addEventListener("click", event -> {
+                delegates.forEach(d -> {
+                    if (d != null) {
+                        d.onGenreChange(discipline.getId(), 0);//todo
+                    }
+                });
+            });
         }
         return flexLayout;
     }
@@ -199,21 +234,28 @@ public class HeaderView extends VerticalLayout {
         var publisherList = bookService.findPublishers();
         int i = 0;
         for (Long aLong : publisherList) {
+            var user = usersService.getById(aLong);
+
             if (i < 9) {
-                var user = usersService.getById(aLong);
-                flexLayout.add(anchor = new Anchor("GetAllPublisher/"
-                        + user.get().getId(), user.get().getUsername()));
+                flexLayout.add(anchor = new Anchor("", user.get().getUsername()));
             } else {
                 break;
             }
             i++;
             anchor.addClassName("tag-margin");
+            anchor.getElement().addEventListener("click", event -> {
+                delegates.forEach(d -> {
+                    if (d != null) {
+                        d.onPublisherChange(user.get().getId(), 0);//todo
+                    }
+                });
+            });
         }
         flexLayout.add(button);
         return flexLayout;
     }
 
-    private FlexLayout getAAuthor() {
+    public FlexLayout createAllAuthorsLayout() {
         Anchor button = new Anchor("getAllAuthors", "Все");
         button.addClassName("title-all-two");
         Anchor anchor;
@@ -226,14 +268,19 @@ public class HeaderView extends VerticalLayout {
         for (String a : authorList) {
             var book = bookService.findBookByAuthor(a);
             if (i < 9) {
-                flexLayout.add(anchor = new Anchor("GetAllAuthors/" + book.getId(), book.getAuthor()));
+                flexLayout.add(anchor = new Anchor("", book.getAuthor()));
             } else {
                 break;
             }
             i++;
-
             anchor.addClassName("tag-margin");
-
+            anchor.getElement().addEventListener("click", event -> {
+                delegates.forEach(d -> {
+                    if (d != null) {
+                        d.onAuthorChange(book.getId(), 0);//todo
+                    }
+                });
+            });
         }
         flexLayout.add(button);
 
@@ -242,6 +289,7 @@ public class HeaderView extends VerticalLayout {
 
     public SearchView getSearchView() {
         return searchView;
-
     }
+
+
 }
