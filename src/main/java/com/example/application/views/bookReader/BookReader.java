@@ -8,6 +8,7 @@ import javax.annotation.security.RolesAllowed;
 @Route(value = "reader")
 @RolesAllowed("USER")
 public class BookReader extends VerticalLayout implements PaginationDelegate, TextSettingsDelegate {
+
     private final Pagination pagination;
     private final TextSettings textSettings;
     private final PageReader pageReader;
@@ -38,12 +39,27 @@ public class BookReader extends VerticalLayout implements PaginationDelegate, Te
     }
 
     @Override
-    public void onFontWillChange(String newFont, String oldFont) {
-
+    public void onFontWillChange(TextSettings.TextSettingsState.ThemeFont newFont,
+                                 TextSettings.TextSettingsState.ThemeFont oldFont) {
+        switch (newFont) {
+            case GIGI -> {
+                this.getStyle().set("font-family", "Gigi");
+            }
+            case ROBOTO -> {
+                this.getStyle().set("font-family", "Roboto");
+            }
+            case VERDANA -> {
+                this.getStyle().set("font-family", "Verdana");
+            }
+            case ARIAL -> {
+                this.getStyle().set("font-family", "ARIAL");
+            }
+        }
     }
 
     @Override
     public void onFontSizeWillChange(int size, int oldSize) {
+
 
     }
 

@@ -14,14 +14,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.example.application.views.bookReader.TextSettings.TextSettingsState.ThemeColor.*;
+import static com.example.application.views.bookReader.TextSettings.TextSettingsState.ThemeFont.*;
 
 interface TextSettingsDelegate {
-    default void onFontWillChange(String newFont, String oldFont) {};
 
-    default void onFontSizeWillChange(int size, int oldSize) {};
+    default void onFontWillChange(TextSettings.TextSettingsState.ThemeFont newFont,
+                                  TextSettings.TextSettingsState.ThemeFont oldFont) {
+
+    }
+
+    default void onFontSizeWillChange(int size, int oldSize) {
+    }
+
+    ;
+
 
     default void onThemeWillChange(TextSettings.TextSettingsState.ThemeColor newColor,
-                           TextSettings.TextSettingsState.ThemeColor oldColor) {};
+                                   TextSettings.TextSettingsState.ThemeColor oldColor) {
+    }
+
+    ;
 }
 
 public class TextSettings extends Div {
@@ -29,11 +41,14 @@ public class TextSettings extends Div {
     public final static int MIN_FONT_SIZE = 8;
     public final static int MAX_FONT_SIZE = 28;
 
-    public final static String[] fonts = new String[]{
-            "Calibri", "Cambria", "Candara", "Corbel"
+    public final static TextSettingsState.ThemeFont[] fonts = new TextSettingsState.ThemeFont[]{
+            GIGI,
+            ROBOTO,
+            VERDANA,
+            ARIAL
     };
 
-    public final static TextSettingsState.ThemeColor[] colors = new TextSettingsState.ThemeColor[] {
+    public final static TextSettingsState.ThemeColor[] colors = new TextSettingsState.ThemeColor[]{
             LIGHT,
             GREY,
             BEIGE,
@@ -43,7 +58,7 @@ public class TextSettings extends Div {
     private final Button minFontButton;
     private final Button maxFontButton;
     private final Label currentFontSize;
-    private final Select<String> fontSelect;
+    private final Select<TextSettingsState.ThemeFont> fontSelect;
     private final Select<TextSettingsState.ThemeColor> colorSelect;
 
     private final TextSettingsState state;
@@ -61,7 +76,7 @@ public class TextSettings extends Div {
         this(fontSize, color, TextSettingsState.DEFAULT_FONT_NAME);
     }
 
-    public TextSettings(int fontSize, TextSettingsState.ThemeColor color, String fontName) {
+    public TextSettings(int fontSize, TextSettingsState.ThemeColor color, TextSettingsState.ThemeFont fontName) {
         state = new TextSettingsState(fontSize, color, fontName);
 
         currentFontSize = new Label();
@@ -88,21 +103,17 @@ public class TextSettings extends Div {
         this.colorSelect.addValueChangeListener(this::onColorSelected);
         this.colorSelect.setWidth("100px");
 
-        colorSelect.addValueChangeListener(buttonClickEvent -> {
-
-                }
-        );
 
         this.addClassNames("text-settings");
 
         HorizontalLayout upButton = new HorizontalLayout(minFontButton, currentFontSize, maxFontButton,
                 fontSelect, colorSelect);
 
-
         add(upButton);
     }
 
-    private void onFontSelected(AbstractField.ComponentValueChangeEvent<Select<String>, String> event) {
+    private void onFontSelected(AbstractField.ComponentValueChangeEvent<Select<TextSettingsState.ThemeFont>,
+            TextSettingsState.ThemeFont> event) {
         this.state.setFontName(event.getValue());
         System.out.println("Current font is " + this.state.getFontName());
 
@@ -174,11 +185,11 @@ public class TextSettings extends Div {
     @Setter
     static class TextSettingsState {
         private final static int DEFAULT_FONT_SIZE = 14;
-        private final static ThemeColor DEFAULT_COLOR = ThemeColor.LIGHT;
-        private final static String DEFAULT_FONT_NAME = "Arial";
+        private final static ThemeColor DEFAULT_COLOR = LIGHT;
+        private final static ThemeFont DEFAULT_FONT_NAME = GIGI;
         private int size;
         private ThemeColor color;
-        private String fontName;
+        private ThemeFont fontName;
 
         public TextSettingsState() {
             this(DEFAULT_FONT_SIZE);
@@ -192,7 +203,7 @@ public class TextSettings extends Div {
             this(size, color, DEFAULT_FONT_NAME);
         }
 
-        public TextSettingsState(int size, ThemeColor color, String fontName) {
+        public TextSettingsState(int size, ThemeColor color, ThemeFont fontName) {
             this.size = size;
             this.color = color;
             this.fontName = fontName;
@@ -204,5 +215,13 @@ public class TextSettings extends Div {
             BEIGE,
             NIGHT
         }
+
+        enum ThemeFont {
+            GIGI,
+            ROBOTO,
+            VERDANA,
+            ARIAL
+        }
+
     }
 }

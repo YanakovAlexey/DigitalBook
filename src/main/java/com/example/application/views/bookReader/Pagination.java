@@ -4,7 +4,6 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyUpEvent;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -49,6 +48,8 @@ public class Pagination extends HorizontalLayout {
         this.toStart = new Button("К началу");
         toStart.addClassNames("to-start");
         this.previous = new Button(new Icon(VaadinIcon.ARROW_LEFT));
+        if (currentPage == 1)
+            this.previous.setEnabled(false);
         this.pageNumber = new TextField();
         pageNumber.addClassNames("page-number");
         this.pageNumber.setValue(String.valueOf(currentPage));
@@ -75,7 +76,6 @@ public class Pagination extends HorizontalLayout {
         addClassNames("pagination");
 
         add(toStart, previous, pageNumber, next, tableOfContents);
-
     }
 
     /**

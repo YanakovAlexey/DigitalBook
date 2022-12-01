@@ -20,7 +20,11 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
 
     private Registration windowResizeRegistration;
 
-    private int currentLeftPage = 0;
+    private int skipCharsCount = 0;
+    private int lastWidth = 300;
+    private int lastHeight = 300;
+    private int fontSize = 13;
+    private TextSettings.TextSettingsState.ThemeFont themeFont = TextSettings.TextSettingsState.ThemeFont.GIGI;
 
     public PageReader() {
         this.addClassNames("page-container");
@@ -45,7 +49,7 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
     }
 
     private int countCharsInRect(Rectangle2D.Double rect) {
-        Font font = new Font("Arial", Font.PLAIN, 7);
+        Font font = new Font(themeFont.name(), Font.PLAIN, (int) (fontSize * 0.85));
         var charSize = font.getMaxCharBounds(
                 new FontRenderContext(null, false, false));
         var square = rect.width * rect.height;
@@ -82,24 +86,27 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
 
     @ClientCallable
     public void sizedLeftPage(int width, int height) {
+        lastWidth = width;
+        lastHeight = height;
         var countChars = countCharsInRect(new Rectangle2D.Double(0, 0, width, height));
-        this.leftPage.setText(getPageText(this.currentLeftPage, countChars));
+        this.leftPage.setText(getPageText(this.skipCharsCount, countChars));
     }
 
     @ClientCallable
     public void sizedRightPage(int width, int height) {
+        lastWidth = width;
+        lastHeight = height;
         var countChars = countCharsInRect(new Rectangle2D.Double(0, 0, width, height));
-        this.rightPage.setText(getPageText(this.currentLeftPage + 1, countChars));
+        this.rightPage.setText(getPageText(skipCharsCount + countChars, countChars));
     }
 
-    private String getPageText(int pageNumber, int countCharsOnPage) {
+    private String getPageText(int skip, final int countCharsOnPage) {
         StringBuilder textBuilder = new StringBuilder();
-        int skipCharsCount = pageNumber * countCharsOnPage;
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\zherd\\Documents\\test.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\user\\Documents\\test.txt"))) {
             String line;
             while ((line = br.readLine()) != null && textBuilder.length() <= countCharsOnPage) {
-                if (skipCharsCount > 0) {
-                    skipCharsCount -= line.length();
+                if (skip > 0) {
+                    skip -= line.length();
                     continue;
                 }
                 textBuilder.append(line);
@@ -112,10 +119,15 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
 
     public void changePage(int currentPage, int oldPage) {
         System.out.println("From " + oldPage + " to " + currentPage + " page");
-        if (currentPage >= 0) {
-            this.currentLeftPage = currentPage;
-            update();
-        }
+        var countChars = countCharsInRect(new Rectangle2D.Double(0, 0, lastWidth, lastHeight));
+        if (currentPage < 0 || currentPage == oldPage)
+            return;
+        this.skipCharsCount = currentPage == 1 ?
+                0 :
+                currentPage > oldPage ?
+                        this.skipCharsCount + (2 * countChars) :
+                        this.skipCharsCount - (2 * countChars);
+        update();
     }
 
     private void update() {
@@ -125,13 +137,32 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
     }
 
     @Override
-    public void onFontWillChange(String newFont, String oldFont) {
-
+    public void onFontWillChange(TextSettings.TextSettingsState.ThemeFont newFont,
+                                 TextSettings.TextSettingsState.ThemeFont oldFont) {
+        themeFont = newFont;
+        switch (newFont) {
+            case GIGI -> {
+                this.getStyle().set("font-family", "Gigi");
+            }
+            case ROBOTO -> {
+                this.getStyle().set("font-family", "Roboto");
+            }
+            case VERDANA -> {
+                this.getStyle().set("font-family", "Verdana");
+            }
+            case ARIAL -> {
+                this.getStyle().set("font-family", "ARIAL");
+            }
+        }
+        update();
     }
 
     @Override
     public void onFontSizeWillChange(int size, int oldSize) {
-
+        fontSize = size;
+        leftPage.getElement().getStyle().set("font-size", size + "px");
+        rightPage.getElement().getStyle().set("font-size", size + "px");
+        update();
     }
 
     @Override
