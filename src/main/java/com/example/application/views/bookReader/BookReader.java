@@ -1,5 +1,6 @@
 package com.example.application.views.bookReader;
 
+import com.example.application.backEnd.service.BookService;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
@@ -13,13 +14,14 @@ public class BookReader extends VerticalLayout implements PaginationDelegate, Te
     private final TextSettings textSettings;
     private final PageReader pageReader;
 
-    public BookReader() {
+
+    public BookReader(String file) {
         this.pagination = new Pagination(10);
         this.pagination.setDelegate(this);
         this.textSettings = new TextSettings();
         this.textSettings.addDelegate(this);
 
-        this.pageReader = new PageReader();
+        this.pageReader = new PageReader(file);
         this.setPadding(false);
         this.addClassNames("main-reader");
         this.textSettings.addDelegate(pageReader);

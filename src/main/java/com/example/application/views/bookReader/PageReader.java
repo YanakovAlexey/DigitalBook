@@ -1,6 +1,7 @@
 package com.example.application.views.bookReader;
 
 import com.example.application.Test;
+import com.example.application.backEnd.service.BookService;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.html.Paragraph;
@@ -25,8 +26,9 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
     private int lastHeight = 300;
     private int fontSize = 13;
     private TextSettings.TextSettingsState.ThemeFont themeFont = TextSettings.TextSettingsState.ThemeFont.GIGI;
+    private String fileGlobal;
 
-    public PageReader() {
+    public PageReader(String fileLocal) {
         this.addClassNames("page-container");
 
         this.leftPage = new Paragraph();
@@ -44,7 +46,7 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
         leftPage.addClassNames("style-page");
         rightPage.addClassNames("style-page");
         addClassNames("page-view");
-
+        fileGlobal = fileLocal;
         this.add(leftPage, rightPage);
     }
 
@@ -102,7 +104,7 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
 
     private String getPageText(int skip, final int countCharsOnPage) {
         StringBuilder textBuilder = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\user\\Documents\\test.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\BookContent\\" + fileGlobal))) {
             String line;
             while ((line = br.readLine()) != null && textBuilder.length() <= countCharsOnPage) {
                 if (skip > 0) {

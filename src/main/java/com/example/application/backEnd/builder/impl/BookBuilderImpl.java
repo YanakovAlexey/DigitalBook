@@ -18,6 +18,7 @@ public class BookBuilderImpl implements BookBuilder {
                 .author(book.getAuthor())
                 .link(book.getLink())
                 .pricePay(book.getPricePay())
+                .file(book.getFile())
                 .numClass(book.getNumClass())
                 .idUsers(book.getUserId())
                 .idDiscipline(book.getIdDiscipline())
@@ -38,6 +39,7 @@ public class BookBuilderImpl implements BookBuilder {
         book.setDescription(request.getDescription());
         book.setAuthor(request.getAuthor());
         book.setLink(request.getLink());
+        book.setFile(request.getFile());
         book.setPricePay(request.getPricePay());
         book.setNumClass(request.getNumClass());
         book.setIdUsers(request.getUserId());
@@ -57,6 +59,7 @@ public class BookBuilderImpl implements BookBuilder {
         book.setDescription(request.getDescription());
         book.setAuthor(request.getAuthor());
         book.setLink(request.getLink());
+        book.setFile(request.getFile());
         book.setPricePay(request.getPricePay());
         book.setNumClass(request.getNumClass());
         book.setIdDiscipline(request.getIdDiscipline());
