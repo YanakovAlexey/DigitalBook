@@ -28,10 +28,25 @@ import static com.vaadin.flow.component.icon.VaadinIcon.*;
 public class HeaderView extends VerticalLayout {
 
     public interface Delegate {
-        default void onGenreChange(long id, long oldId) {};
-        default void onPublisherChange(long id, long oldId) {};
-        default void onAuthorChange(long id, long oldId) {};
-        default void onSearchChange(String text, String oldText) {};
+        default void onGenreChange(long id, long oldId) {
+        }
+
+        ;
+
+        default void onPublisherChange(long id, long oldId) {
+        }
+
+        ;
+
+        default void onAuthorChange(long id, long oldId) {
+        }
+
+        ;
+
+        default void onSearchChange(String text, String oldText) {
+        }
+
+        ;
     }
 
     private HorizontalLayout topLine = new HorizontalLayout();
@@ -137,6 +152,13 @@ public class HeaderView extends VerticalLayout {
         this.add(topLine, bottomLine);
         this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
                 cartButton, userButton, langButtonRU, langButtonGE);
+        
+        if (authenticatedUser.get().isPresent()) {
+            bookButton.addClickListener(event -> {
+                bookButton.getUI().ifPresent(ui -> ui.navigate("reader"));
+            });
+        }
+
         if (authenticatedUser.get().isPresent()) {
             this.bottomLine.add(createMenuBar(), createTabs());
             userButton.addClickListener(event -> {
