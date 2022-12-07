@@ -2,8 +2,10 @@ package com.example.application.backEnd.service;
 
 import com.example.application.backEnd.domain.Basket;
 import com.example.application.backEnd.viewModel.BasketViewModel;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+@Service
 public interface BasketService {
 
     void create(Basket request);

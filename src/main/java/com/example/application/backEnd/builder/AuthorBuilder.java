@@ -5,7 +5,9 @@ import com.example.application.backEnd.domain.Users;
 import com.example.application.backEnd.viewModel.AuthorViewModel;
 import com.example.application.backEnd.viewModel.UserViewModel;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface AuthorBuilder {
     AuthorViewModel create(Author author);
 

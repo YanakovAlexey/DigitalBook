@@ -17,7 +17,12 @@ position: absolute;
 }
 
 .basket-content-view{
-background: red;
+background: #830303;
+color: white;
+}
+
+.basket-delete-button{
+background: #434343;
 color: white;
 }
 
