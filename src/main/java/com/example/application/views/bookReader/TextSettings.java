@@ -1,7 +1,9 @@
 package com.example.application.views.bookReader;
 
+import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -61,6 +63,8 @@ public class TextSettings extends Div {
     private final Select<TextSettingsState.ThemeFont> fontSelect;
     private final Select<TextSettingsState.ThemeColor> colorSelect;
 
+    private final TranslationProvider translationProvider = new TranslationProvider();
+
     private final TextSettingsState state;
     private final Set<TextSettingsDelegate> textSettingsDelegates = new HashSet<>();
 
@@ -83,10 +87,12 @@ public class TextSettings extends Div {
         currentFontSize.setText(String.valueOf(TextSettingsState.DEFAULT_FONT_SIZE));
         currentFontSize.addClassNames("current-font-size");
 
-        this.minFontButton = new Button("Уменьшить ");
+        this.minFontButton = new Button(this.translationProvider.getTranslation("decrease",
+                UI.getCurrent().getLocale()));
         minFontButton.addClickListener(this::minFontButtonClick);
 
-        this.maxFontButton = new Button("Увеличить");
+        this.maxFontButton = new Button(this.translationProvider.getTranslation("increase",
+                UI.getCurrent().getLocale()));
         maxFontButton.addClickListener(this::maxFontButtonClick);
 
         this.fontSelect = new Select<>();

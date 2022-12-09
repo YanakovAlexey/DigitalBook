@@ -8,7 +8,9 @@ import com.example.application.backEnd.service.BasketPositionService;
 import com.example.application.backEnd.service.BasketService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
+import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -23,11 +25,15 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @AnonymousAllowed
 public class BasketView extends HorizontalLayout implements HasUrlParameter<Long> {
 
+    private final TranslationProvider translationProvider = new TranslationProvider();
+
     Long idUser;
     BookItemBasket bookItemBasket;
     Div div = new Div();
-    Label title = new Label("КОРЗИНА");
-    Button buyAllButton = new Button("КУПИТЬ ВСЕ");
+    Label title = new Label(this.translationProvider.getTranslation("basket",
+            UI.getCurrent().getLocale()));
+    Button buyAllButton = new Button(this.translationProvider.getTranslation("buyEverything",
+            UI.getCurrent().getLocale()));
 
     private final BasketPositionService basketPositionService;
     private final BasketRepository basketRepository;
@@ -69,14 +75,13 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
 
         var basketPositionList = basketPositionService.findAllByIdBasket(basket.getId());
 
-
         div.add(title, buyAllButton, layout);
 
         for (BasketPosition element : basketPositionList) {
             var book = bookService.getById(element.getIdBook());
             layout.add(bookItemBasket = new BookItemBasket(book, basketPositionService));
             bookItemBasket.deleteButton.addClickListener(even ->
-            basketPositionService.deleteById(element.getId()));
+                    basketPositionService.deleteById(element.getId()));
             layout.addClassName("basket-book-item");
         }
 

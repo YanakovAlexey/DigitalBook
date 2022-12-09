@@ -1,6 +1,5 @@
 package com.example.application.views.bookReader;
 
-import com.example.application.backEnd.service.BookService;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
