@@ -1,8 +1,10 @@
 package com.example.application.views.bookReader;
 
+import com.example.application.translation.TranslationProvider;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyUpEvent;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -23,6 +25,8 @@ public class Pagination extends HorizontalLayout {
     private final Button tableOfContents;
     private  int maxPages;
     private int currentPage;
+
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     private PaginationDelegate paginationDelegate;
 
@@ -45,7 +49,8 @@ public class Pagination extends HorizontalLayout {
         this.maxPages = maxPages;
         this.currentPage = currentPage;
 
-        this.toStart = new Button("К началу");
+        this.toStart = new Button(this.translationProvider.getTranslation("backToTop",
+                UI.getCurrent().getLocale()));
         toStart.addClassNames("to-start");
         this.previous = new Button(new Icon(VaadinIcon.ARROW_LEFT));
         if (currentPage == 1)
@@ -54,7 +59,8 @@ public class Pagination extends HorizontalLayout {
         pageNumber.addClassNames("page-number");
         this.pageNumber.setValue(String.valueOf(currentPage));
         this.next = new Button(new Icon(VaadinIcon.ARROW_RIGHT));
-        this.tableOfContents = new Button("содержание");
+        this.tableOfContents = new Button(this.translationProvider.getTranslation("content",
+                UI.getCurrent().getLocale()));
         tableOfContents.addClassNames("table-of-contents");
 
         toStart.addClickListener(buttonClickEvent -> {

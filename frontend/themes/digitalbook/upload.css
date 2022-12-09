@@ -3,7 +3,6 @@
     width: 100%;
     max-width: 450px;
     padding: 15px;
-    margin: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -15,7 +14,7 @@
 
 .upload-view {
 
-    padding: 30px 0px 0px 0px;
+    padding: 20px 0px 0px 0px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -23,5 +22,7 @@
 }
 
 .button-download {
-    margin-left: 170px;
+    margin-left: 150px;
+    margin-right: 150px;
+    
 }

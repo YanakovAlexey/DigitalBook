@@ -67,7 +67,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAll() {
-
         List<Book> book = bookRepository.findAll();
         List<BookViewModel> bookList = new ArrayList<>();
         for (Book item : book) {

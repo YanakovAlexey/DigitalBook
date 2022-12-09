@@ -6,7 +6,6 @@ import com.example.application.backEnd.reporitory.DisciplineRepository;
 import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
-import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.views.ContentView;
 import com.example.application.views.items.BookDetailsView;
@@ -22,9 +21,6 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Route(value = "BookContent", layout = ContentView.class)
 @AnonymousAllowed

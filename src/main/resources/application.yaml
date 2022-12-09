@@ -1,5 +1,4 @@
 server:
-  port: 9999
   servlet:
     encoding:
       charset: UTF-8
@@ -11,7 +10,7 @@ spring:
       ddl-auto: update
   datasource:
 
-    password: Ivan230191
+    password: Ivan230691
 
     url: jdbc:postgresql://localhost:5432/DigitalBooks
     username: postgres
