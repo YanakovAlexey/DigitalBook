@@ -1,19 +1,20 @@
 package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
+import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BookViewModel;
 import com.example.application.views.HeaderView;
 import com.example.application.views.MainLayout;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -24,11 +25,11 @@ import java.util.List;
 @Route(value = "/", layout = MainLayout.class)
 @RouteAlias(value = "/", layout = MainLayout.class)
 @AnonymousAllowed
-public class BookShapeContent extends HorizontalLayout implements HeaderView.Delegate {
+
+public class BookShapeContent extends FlexLayout implements HeaderView.Delegate {
 
     private VerticalLayout verticalLayout = new VerticalLayout();
     private FlexLayout allBooksLayout = new FlexLayout();
-
     private final BookService bookService;
     private final BookBuilder bookBuilder;
 
@@ -112,8 +113,8 @@ public class BookShapeContent extends HorizontalLayout implements HeaderView.Del
         });
     }
 
-
     private Div youMayLike() {
+        Button allButton = new Button("Все");
         Div div = new Div();
         Label titleMayLike = new Label("Вам может понравиться");
         titleMayLike.addClassNames("book-label");
@@ -126,10 +127,24 @@ public class BookShapeContent extends HorizontalLayout implements HeaderView.Del
 
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        int i = 0;
+        for(BookViewModel b: books){
+            if (i < 13){
+                layout.add(new BookItem(b));
+                i++;
+            }
+            else {
+                break;
+            }
+        }
 
-        books.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookViewModel));
-        });
+        allButton.addClickListener(event ->
+                onShowAllYouMayLike()
+        );
+        allButton.addClassNames("button-padding");
+        allButton.setHeight("215px");
+        allButton.setWidth("150px");
+        layout.add(allButton);
 
         div.add(titleMayLike, layout);
         return div;
@@ -137,8 +152,7 @@ public class BookShapeContent extends HorizontalLayout implements HeaderView.Del
 
 
     private Div bestsellers() {
-//        Button allButton = new Button("Все");
-//        allButton.setHeight("20px");
+        Button allButton = new Button("Все");
         Div div = new Div();
         Label titleBestSellers = new Label("Бестселлеры");
         titleBestSellers.addClassNames("book-label");
@@ -151,15 +165,32 @@ public class BookShapeContent extends HorizontalLayout implements HeaderView.Del
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
-        books.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookViewModel));
-        });
+        int i = 0;
+        for(BookViewModel b: books){
+            if (i < 13){
+                layout.add(new BookItem(b));
+                i++;
+            }
+            else {
+                break;
+            }
+        }
+        allButton.addClickListener(event ->
+                onShowAllBestsellers()
+        );
+
+        allButton.addClassNames("button-padding");
+        allButton.setHeight("215px");
+        allButton.setWidth("150px");
+
+        layout.add(allButton);
 
         div.add(titleBestSellers, layout);
         return div;
     }
 
     private Div mainBooks() {
+        Button allButton = new Button("Все");
         Div div = new Div();
         Label titleMain = new Label("Главные книги 2020 года");
         titleMain.addClassNames("book-label");
@@ -172,9 +203,24 @@ public class BookShapeContent extends HorizontalLayout implements HeaderView.Del
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
-        books.forEach(bookViewModel -> {
-            layout.add(new BookItem(bookViewModel));
-        });
+        int i = 0;
+        for(BookViewModel b: books){
+            if (i < 13){
+                layout.add(new BookItem(b));
+                i++;
+            }
+            else {
+                break;
+            }
+        }
+        allButton.addClickListener(event ->
+                onShowAllMainBooks()
+        );
+        allButton.addClassNames("button-padding");
+        allButton.setHeight("215px");
+        allButton.setWidth("150px");
+
+        layout.add(allButton);
 
         div.add(titleMain, layout);
         return div;
@@ -219,5 +265,49 @@ public class BookShapeContent extends HorizontalLayout implements HeaderView.Del
                 .map(bookBuilder::createBook)
                 .toList();
         refreshView("От автора ", books);
+    }
+
+    public void onShowAllBestsellers() {
+        Label label = new Label("По запрсосу 'бестселлер'");
+        label.setHeight("15px");
+        label.addClassNames("book-label");
+        removeAll();
+        var bookList = bookService.getAll();
+        var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        bookList.forEach(book -> {
+            layout.add(new BookItem(bookBuilder.createBook(book)));
+        });
+        this.add(label,layout);
+    }
+    public void onShowAllYouMayLike(){
+        Label label = new Label("По запросу 'Вам может понравиться'");
+        label.setHeight("15px");
+        label.addClassNames("book-label");
+
+        removeAll();
+        var bookList = bookService.getAll();
+        var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        bookList.forEach(book -> {
+            layout.add(new BookItem(bookBuilder.createBook(book)));
+        });
+        this.add(label,layout);
+    }
+    public void onShowAllMainBooks(){
+        Label label = new Label("По запросу 'Главные книги 2020 года'");
+        label.setHeight("100px");
+        label.setWidth("250px");
+
+
+        removeAll();
+        var bookList = bookService.getAll();
+        var layout = new FlexLayout();
+        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        bookList.forEach(book -> {
+            layout.add(new BookItem(bookBuilder.createBook(book)));
+        });
+        label.addClassNames("book-label");
+        this.add(label,layout);
     }
 }

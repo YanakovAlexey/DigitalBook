@@ -31,22 +31,18 @@ public class HeaderView extends VerticalLayout {
         default void onGenreChange(long id, long oldId) {
         }
 
-        ;
 
         default void onPublisherChange(long id, long oldId) {
         }
 
-        ;
 
         default void onAuthorChange(long id, long oldId) {
         }
 
-        ;
 
         default void onSearchChange(String text, String oldText) {
         }
 
-        ;
     }
 
     private HorizontalLayout topLine = new HorizontalLayout();
@@ -177,7 +173,6 @@ public class HeaderView extends VerticalLayout {
     }
 
     private Anchor createTabs() {
-
         Anchor addBook = new Anchor("upload", this.translationProvider.getTranslation("addABook",
                 UI.getCurrent().getLocale()));
 
@@ -191,7 +186,6 @@ public class HeaderView extends VerticalLayout {
     }
 
     private MenuBar createMenuBar() {
-
         var menuBar = new MenuBar();
         menuBar.setOpenOnHover(true);
 
@@ -199,15 +193,14 @@ public class HeaderView extends VerticalLayout {
                 .addItem(this.translationProvider.getTranslation("genre",
                         UI.getCurrent().getLocale()));
         var genresSubMenu = genresMenuItem.getSubMenu();
-
-        genresSubMenu.add(getGenres());
+        genresSubMenu.add(createAllGenresLayout());
 
         var publisherMenuItem = menuBar
                 .addItem(this.translationProvider.getTranslation("publishingHouse",
                         UI.getCurrent().getLocale()));
 
         var publisherSubMenu = publisherMenuItem.getSubMenu();
-        publisherSubMenu.add(getAPublisher());
+        publisherSubMenu.add(createAllPublishersLayout());
 
 
         var authorMenuItem = menuBar
@@ -222,7 +215,7 @@ public class HeaderView extends VerticalLayout {
         return menuBar;
     }
 
-    private FlexLayout getGenres() {
+    private FlexLayout createAllGenresLayout() {
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
         flexLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
@@ -244,7 +237,7 @@ public class HeaderView extends VerticalLayout {
         return flexLayout;
     }
 
-    private FlexLayout getAPublisher() {
+    private FlexLayout createAllPublishersLayout() {
         Anchor button = new Anchor("getAllPublisher", "Все");
         button.addClassName("title-all");
         Anchor anchor;
@@ -299,7 +292,7 @@ public class HeaderView extends VerticalLayout {
             anchor.getElement().addEventListener("click", event -> {
                 delegates.forEach(d -> {
                     if (d != null) {
-                        d.onAuthorChange(book.getId(), 0);//todo
+                        d.onAuthorChange(book.getId(), 0);
                     }
                 });
             });

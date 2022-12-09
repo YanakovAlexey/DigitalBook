@@ -26,7 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route(value = "BookContent", layout = ContentView.class)
+@Route(value = "book-content", layout = ContentView.class)
 @AnonymousAllowed
 public class BookContentView extends VerticalLayout implements HasUrlParameter<Long> {
     private long bookId;
@@ -84,7 +84,7 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
     }
 }
 
-@Route(value = "GetAllAuthors", layout = ContentView.class)
+@Route(value = "get-all-authors", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllAuthors extends VerticalLayout implements HasUrlParameter<Long> {
     private Label title;
@@ -112,7 +112,7 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<Long> {
     }
 }
 
-@Route(value = "GetAllPublisher", layout = ContentView.class)
+@Route(value = "get-all-publisher", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
     private Long idUser;
@@ -156,7 +156,7 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
     }
 }
 
-@Route(value = "GetAllGenre", layout = ContentView.class)
+@Route(value = "get-all-genre", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
     private Long idGenre;

@@ -29,7 +29,7 @@ public class Publishers extends FlexLayout {
         var publisherList = this.bookService.findPublishers();
         for (Long aLong : publisherList) {
             var user = usersService.getById(aLong);
-            flexLayout.add(anchor = new Anchor("GetAllPublisher/"
+            flexLayout.add(anchor = new Anchor("get-all-publisher/"
                     + user.get().getId(), user.get().getUsername()));
             anchor.addClassName("all-book");
         }

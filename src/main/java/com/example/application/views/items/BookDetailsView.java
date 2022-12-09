@@ -38,7 +38,6 @@ public class BookDetailsView extends Div {
     private final AuthenticatedUser authenticatedUser;
     private final BasketRepository basketRepository;
     private Basket basket = new Basket();
-
     private final DisciplineRepository disciplineRepository;
     private final UserRepository userRepository;
     private Basket localBasket = null;
@@ -66,7 +65,6 @@ public class BookDetailsView extends Div {
 
         add(content(bookViewModel), searchByAuthor(bookViewModel),
                 searchByPublishingHouse(bookViewModel), searchByGenre(bookViewModel));
-
 
 
     }
@@ -116,7 +114,7 @@ public class BookDetailsView extends Div {
         Button getAllAuthorButton = new Button("  все");
         getAllAuthorButton.addClickListener(event ->
                 getAllAuthorButton.getUI().ifPresent(ui ->
-                        ui.navigate("GetAllAuthors/" + bookViewModel.getId())));
+                        ui.navigate("get-all-authors/" + bookViewModel.getId())));
 
         getAllAuthorButton.addClassName("book-content-anchor-getAll");
 
@@ -126,10 +124,9 @@ public class BookDetailsView extends Div {
         var authorList = bookService.findAllByAuthor(bookViewModel.getAuthor());
         int o = 0;
         for (Book a : authorList) {
-            if (o < 8){
+            if (o < 8) {
                 horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
-            }
-            else {
+            } else {
                 break;
             }
             o++;
@@ -146,7 +143,7 @@ public class BookDetailsView extends Div {
         Button getAllPublisherButton = new Button("Все");
         getAllPublisherButton.addClickListener(event ->
                 getAllPublisherButton.getUI().ifPresent(ui ->
-                        ui.navigate("GetAllPublisher/" + bookViewModel.getIdUsers())));
+                        ui.navigate("get-all-publisher/" + bookViewModel.getIdUsers())));
 
         getAllPublisherButton.addClassName("book-content-anchor-getAll");
         var flexLayout = new FlexLayout();
@@ -156,9 +153,8 @@ public class BookDetailsView extends Div {
 
         for (Book b : bookList) {
             if (o < 8) {
-            flexLayout.add(new BookItem(bookBuilder.createBook(b)));
-            }
-            else {
+                flexLayout.add(new BookItem(bookBuilder.createBook(b)));
+            } else {
                 break;
             }
             o++;
@@ -180,16 +176,15 @@ public class BookDetailsView extends Div {
         Button genreAllGenreButton = new Button("Все");
         genreAllGenreButton.addClickListener(event ->
                 genreAllGenreButton.getUI().ifPresent(ui ->
-                        ui.navigate("GetAllGenre/" + bookViewModel.getIdDiscipline())));
+                        ui.navigate("get-all-genre/" + bookViewModel.getIdDiscipline())));
         genreAllGenreButton.addClassName("book-content-anchor-getAll");
         var horizontalLayout = new HorizontalLayout();
         var genreList = bookService.findAllByIdDiscipline(bookViewModel.getIdDiscipline());
         int o = 0;
         for (Book a : genreList) {
-            if(o < 8){
+            if (o < 8) {
                 horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
-            }
-            else {
+            } else {
                 break;
             }
             o++;

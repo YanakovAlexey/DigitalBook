@@ -24,7 +24,8 @@ public class Authors extends FlexLayout {
         var authorList = bookService.allAuthors();
 
         for (String a : authorList) {
-            flexLayout.add(anchor = new Anchor("GetAllAuthors/" + a, a));
+            var book = bookService.findBookByAuthor(a);
+            flexLayout.add(anchor = new Anchor("get-all-authors/" + book.getId(), a));
             anchor.addClassName("all-book");
         }
 
