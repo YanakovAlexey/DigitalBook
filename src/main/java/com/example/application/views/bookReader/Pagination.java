@@ -21,7 +21,7 @@ public class Pagination extends HorizontalLayout {
     private final TextField pageNumber;
     private final Button next;
     private final Button tableOfContents;
-    private final int maxPages;
+    private  int maxPages;
     private int currentPage;
 
     private PaginationDelegate paginationDelegate;
@@ -160,5 +160,9 @@ public class Pagination extends HorizontalLayout {
         if (paginationDelegate != null) {
             paginationDelegate.toTableOfContents();
         }
+    }
+
+    public void setMaxPages(int maxPages) {
+        this.maxPages = maxPages;
     }
 }

@@ -57,8 +57,6 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
         int count = (int) (square / charSquare);
         return count;
     }
-
-
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         if (windowResizeRegistration == null) {
@@ -102,7 +100,7 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
 
     private String getPageText(int skip, final int countCharsOnPage) {
         StringBuilder textBuilder = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\user\\Documents\\test.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\zherd\\Documents\\test.txt"))) {
             String line;
             while ((line = br.readLine()) != null && textBuilder.length() <= countCharsOnPage) {
                 if (skip > 0) {
