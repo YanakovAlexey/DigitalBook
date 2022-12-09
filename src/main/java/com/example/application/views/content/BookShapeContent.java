@@ -1,14 +1,15 @@
 package com.example.application.views.content;
 
 import com.example.application.backEnd.builder.BookBuilder;
-import com.example.application.backEnd.domain.Book;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.backEnd.viewModel.BookViewModel;
+import com.example.application.translation.TranslationProvider;
 import com.example.application.views.HeaderView;
 import com.example.application.views.MainLayout;
 import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -30,6 +31,7 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
 
     private VerticalLayout verticalLayout = new VerticalLayout();
     private FlexLayout allBooksLayout = new FlexLayout();
+    private final TranslationProvider translationProvider = new TranslationProvider();
     private final BookService bookService;
     private final BookBuilder bookBuilder;
 
@@ -44,7 +46,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     }
 
     private Div allBooks() {
-        Label label = new Label("Все");
+        Label label = new Label(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         label.addClassNames("book-label");
         Div div = new Div();
         var books = bookService
@@ -116,7 +119,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     private Div youMayLike() {
         Button allButton = new Button("Все");
         Div div = new Div();
-        Label titleMayLike = new Label("Вам может понравиться");
+        Label titleMayLike = new Label(this.translationProvider.getTranslation("youMayLike",
+                UI.getCurrent().getLocale()));
         titleMayLike.addClassNames("book-label");
 
         var books = bookService
@@ -154,7 +158,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     private Div bestsellers() {
         Button allButton = new Button("Все");
         Div div = new Div();
-        Label titleBestSellers = new Label("Бестселлеры");
+        Label titleBestSellers = new Label(this.translationProvider.getTranslation("bestsellers",
+                UI.getCurrent().getLocale()));
         titleBestSellers.addClassNames("book-label");
         var books = bookService
                 .getAll()
@@ -192,7 +197,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     private Div mainBooks() {
         Button allButton = new Button("Все");
         Div div = new Div();
-        Label titleMain = new Label("Главные книги 2020 года");
+        Label titleMain = new Label(this.translationProvider.getTranslation("topBooksOf",
+                UI.getCurrent().getLocale()));
         titleMain.addClassNames("book-label");
         var books = bookService
                 .getAll()
@@ -233,7 +239,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
                 .stream()
                 .map(bookBuilder::createBook)
                 .toList();
-        refreshView("По жанрам", books);
+        refreshView(this.translationProvider.getTranslation("byGenre",
+                UI.getCurrent().getLocale()), books);
     }
 
     @Override
@@ -243,7 +250,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
                 .stream()
                 .map(bookBuilder::createBook)
                 .toList();
-        refreshView("Все", books);
+        refreshView(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()), books);
     }
 
     @Override
@@ -253,7 +261,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
                 .stream()
                 .map(bookBuilder::createBook)
                 .toList();
-        refreshView("От издательства ", books);
+        refreshView(this.translationProvider.getTranslation("fromThePublisher",
+                UI.getCurrent().getLocale()), books);
     }
 
     @Override
@@ -264,7 +273,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
                 .stream()
                 .map(bookBuilder::createBook)
                 .toList();
-        refreshView("От автора ", books);
+        refreshView(this.translationProvider.getTranslation("fromTheAuthor",
+                UI.getCurrent().getLocale()), books);
     }
 
     public void onShowAllBestsellers() {

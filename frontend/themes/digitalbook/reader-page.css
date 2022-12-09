@@ -14,8 +14,8 @@
     justify-content: center;
 }
 
-.black-main-reader{
-background:#161515;
+.black-main-reader {
+    background: #161515;
 }
 
 .main-reader {
@@ -27,11 +27,11 @@ background:#161515;
     background: #161515;
 }
 
-.black-page{
+.black-page {
     background: #161515;
 }
 
-.grey-reader{
+.grey-reader {
     background: #585858;
 }
 
