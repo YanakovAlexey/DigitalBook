@@ -3,6 +3,7 @@ package com.example.application.views.registration;
 import com.example.application.backEnd.service.ResponseException;
 import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.viewModel.account.RegistrationViewModel;
+import com.example.application.models.EnumType;
 import com.example.application.models.NotificationType;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.ui.NotificationComponent;
@@ -145,7 +146,7 @@ public class RegistrationView extends Div {
         }
 
         try {
-//            usersService.emailVerification(emailTF.getValue(), EnumType.REG);
+            usersService.emailVerification(emailTF.getValue(), EnumType.REG);
             usersService.registration(new RegistrationViewModel(
                     userNameTF.getValue(),
                     emailTF.getValue(),
