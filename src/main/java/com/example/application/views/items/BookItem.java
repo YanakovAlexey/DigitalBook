@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 public class BookItem extends Div {
 
-    private final String BASE_PATH = "http://91.239.26.196:789/images/";
+    private final String BASE_PATH = "http://91.239.26.196:7070/images/";
     private Image image;
     private Anchor titleLabel, authorLabel;
 
