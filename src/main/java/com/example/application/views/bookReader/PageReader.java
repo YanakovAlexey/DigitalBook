@@ -26,7 +26,7 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
     private int fontSize = 13;
     private TextSettings.TextSettingsState.ThemeFont themeFont = TextSettings.TextSettingsState.ThemeFont.GIGI;
 
-    public PageReader() {
+    public PageReader(String file) {
         this.addClassNames("page-container");
 
         this.leftPage = new Paragraph();
