@@ -43,7 +43,7 @@ public class BookDetailsView extends Div {
     private final UserRepository userRepository;
     private Basket localBasket = null;
     Div div = new Div();
-    private final String BASE_PATH = "http://91.239.26.196:789/var/Folder-Image/";
+    private final String BASE_PATH = "http://91.239.26.196:7070/images/";
 
     public BookDetailsView(BookViewModel bookViewModel, UsersService usersService,
                            BasketService basketService, DisciplineService disciplineService,
