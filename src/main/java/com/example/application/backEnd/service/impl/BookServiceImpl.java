@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book create(Book book, MemoryBuffer fileBuffer, MemoryBuffer imageBuffer) {
-        var file = new File("C:\\BookContent\\" + fileBuffer.getFileName());
+        var file = new File("/var/Folder-Content/" + fileBuffer.getFileName());
         try (var fileWriter = new FileOutputStream(file)) {
             var stream = fileBuffer.getInputStream();
             fileWriter.write(stream.readAllBytes());
@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
         } catch (IOException ignore) {
             return null; //обработать ошибку
         }
-        var file2 = new File("C:\\Image\\" + imageBuffer.getFileName());
+        var file2 = new File("/var/Folder-Image/" + imageBuffer.getFileName());
         try (var coverWriter = new FileOutputStream(file2)) {
             var stream = imageBuffer.getInputStream();
             coverWriter.write(stream.readAllBytes());
