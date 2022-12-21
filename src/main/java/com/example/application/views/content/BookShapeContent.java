@@ -46,6 +46,7 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     }
 
     private Div allBooks() {
+        Button allButton = new Button("Все");
         Label label = new Label(this.translationProvider.getTranslation("all",
                 UI.getCurrent().getLocale()));
         label.addClassNames("book-label");

@@ -32,15 +32,15 @@ public class BasketPositionServiceImpl implements BasketPositionService {
     }
 
 
-
     @Override
     public List<BasketPositionViewModel> getAll() {
         List<BasketPosition> bookList = basketPositionRepository.findAll();
         List<BasketPositionViewModel> bookViewModels = new ArrayList<>();
-        for(BasketPosition item: bookList){
+        for (BasketPosition item : bookList) {
             bookViewModels.add(basketPositionBuilder.build(item));
         }
-        return bookViewModels;    }
+        return bookViewModels;
+    }
 
     @Override
     public BasketViewModel getById(Long id) {
@@ -55,7 +55,16 @@ public class BasketPositionServiceImpl implements BasketPositionService {
     @Override
     public List<BasketPosition> findAllByIdBasket(Long id) {
         var basketPosition = basketPositionRepository.findAllByIdBasket(id);
-       
+
+        return basketPosition;
+    }
+
+    @Override
+    public List<BasketPosition> findAllByIsPaid() {
+        var basketPosition = basketPositionRepository.findAllByIsPaidTrue();
+        if (basketPosition == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         return basketPosition;
     }
 

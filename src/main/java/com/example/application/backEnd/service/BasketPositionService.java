@@ -17,4 +17,6 @@ public interface BasketPositionService {
     void deleteById(Long id);
 
     List<BasketPosition> findAllByIdBasket(Long id);
+
+    List<BasketPosition> findAllByIsPaid();
 }

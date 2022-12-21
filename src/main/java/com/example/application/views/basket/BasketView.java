@@ -81,7 +81,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
             var book = bookService.getById(element.getIdBook());
             layout.add(bookItemBasket = new BookItemBasket(book, basketPositionService));
             bookItemBasket.deleteButton.addClickListener(even ->
-                    basketPositionService.deleteById(element.getId()));
+            basketPositionService.deleteById(element.getId()));
             layout.addClassName("basket-book-item");
         }
 

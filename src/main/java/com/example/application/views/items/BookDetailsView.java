@@ -42,6 +42,7 @@ public class BookDetailsView extends Div {
     private final UserRepository userRepository;
     private Basket localBasket = null;
     Div div = new Div();
+    private BookItem bookItem;
     private final String BASE_PATH = "http://localhost:7070/images/";
 
     public BookDetailsView(BookViewModel bookViewModel, UsersService usersService,
@@ -125,7 +126,9 @@ public class BookDetailsView extends Div {
         int o = 0;
         for (Book a : authorList) {
             if (o < 8) {
-                horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
+                horizontalLayout.add(bookItem = new BookItem(bookBuilder.createBook(a)));
+                bookItem.addClickListener(event ->
+                        removeAll());
             } else {
                 break;
             }
@@ -153,7 +156,8 @@ public class BookDetailsView extends Div {
 
         for (Book b : bookList) {
             if (o < 8) {
-                flexLayout.add(new BookItem(bookBuilder.createBook(b)));
+                flexLayout.add(bookItem = new BookItem(bookBuilder.createBook(b)));
+                bookItem.addClickListener(event -> removeAll());
             } else {
                 break;
             }
@@ -183,7 +187,8 @@ public class BookDetailsView extends Div {
         int o = 0;
         for (Book a : genreList) {
             if (o < 8) {
-                horizontalLayout.add(new BookItem(bookBuilder.createBook(a)));
+                horizontalLayout.add(bookItem = new BookItem(bookBuilder.createBook(a)));
+                bookItem.addClickListener(event -> removeAll());
             } else {
                 break;
             }

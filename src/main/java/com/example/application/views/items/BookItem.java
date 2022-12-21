@@ -24,13 +24,6 @@ public class BookItem extends Div {
         this.image.addClassNames("book-item-image");
 
         this.titleLabel = new Anchor("book-content/" + bookViewModel.getId(), bookViewModel.getTitle());
-        titleLabel.getElement().addEventListener("click", event -> {
-            image.removeAll();
-        });
-
-
-
-
         this.titleLabel.addClassNames("view-color-title");
 
         this.authorLabel = new Anchor("book-content/" + bookViewModel.getId(), bookViewModel.getAuthor());

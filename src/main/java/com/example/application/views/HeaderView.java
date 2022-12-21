@@ -6,6 +6,7 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.translation.TranslationProvider;
+import com.example.application.views.content.BookShapeContent;
 import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -94,6 +95,7 @@ public class HeaderView extends VerticalLayout {
                         ui.navigate("Basket/" + authenticatedUser.get().get().getId())
                 );
 
+
             } else cartButton.getUI().ifPresent(ui ->
                     ui.navigate("/auth"));
         });
@@ -151,7 +153,7 @@ public class HeaderView extends VerticalLayout {
 
         if (authenticatedUser.get().isPresent()) {
             bookButton.addClickListener(event -> {
-                bookButton.getUI().ifPresent(ui -> ui.navigate("reader/1"));
+                bookButton.getUI().ifPresent(ui -> ui.navigate("get-all-purchased-books"));
             });
         }
 
