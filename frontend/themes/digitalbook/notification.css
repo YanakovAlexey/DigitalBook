@@ -1,8 +1,17 @@
 .notification-container {
 
     position: fixed;
-    top: calc(50vh - 75px);
-    left: calc(50vw - 100px);
+    border-radius: 10px;
+    padding: 20px;
     box-shadow: 0px 1px 8px #00000064;
     background: #f7f7f7;
+}
+
+.notification-view{
+
+    position: fixed;
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
