@@ -49,7 +49,8 @@ public class BookUploadForm extends Div {
     private final AuthenticatedUser authenticatedUser;
 
 
-    public BookUploadForm(BookService bookService, DisciplineService disciplineService,  AuthenticatedUser authenticatedUser) {
+    public BookUploadForm(BookService bookService, DisciplineService disciplineService,
+                           AuthenticatedUser authenticatedUser) {
         this.bookService = bookService;
         this.disciplineService = disciplineService;
         this.authenticatedUser = authenticatedUser;

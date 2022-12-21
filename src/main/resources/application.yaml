@@ -18,5 +18,5 @@ spring:
 module-name: DigitalBooks
 api-version: 1.0
 
-images-base-path: http://localhost:7070/images/
-files-base-path: http://localhost:7070/files/
+images-base-path: http://91.239.26.196:789/images/
+files-base-path: http://91.239.26.196:789/files/

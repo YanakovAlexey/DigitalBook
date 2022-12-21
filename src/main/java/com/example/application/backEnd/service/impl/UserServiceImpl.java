@@ -177,7 +177,7 @@ public class UserServiceImpl implements UsersService {
             String text = String.format(
                     """
                             Ниже Ваша ссылка для регистрации
-                            http://localhost:782/auth?email=%s&code=%s
+                            http://91.239.26.196:789/auth?email=%s&code=%s
                             """,
                     email,
                     codeConfirmation.getCode());
@@ -187,7 +187,7 @@ public class UserServiceImpl implements UsersService {
             String text = String.format(
                     """
                             Ниже Ваша ссылка на восстановление пароля
-                            http://localhost:782/recovery-password?email=%s&code=%s
+                            http://91.239.26.196:789/recovery-password?email=%s&code=%s
                             """,
                     email,
                     codeConfirmation.getCode());

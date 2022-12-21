@@ -50,7 +50,7 @@ dependencies {
 group = 'com.example.application'
 version = '1.0-SNAPSHOT'
 description = 'DigitalBookBackEnd'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = '17'
 
 publishing {
     publications {

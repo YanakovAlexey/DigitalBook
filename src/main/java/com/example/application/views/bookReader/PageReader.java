@@ -103,7 +103,7 @@ public class PageReader extends HorizontalLayout implements TextSettingsDelegate
 
     private String getPageText(int skip, final int countCharsOnPage) {
         StringBuilder textBuilder = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\BookContent\\" + fileGlobal))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("/var/Folder-Content/" + fileGlobal))) {
             String line;
             while ((line = br.readLine()) != null && textBuilder.length() <= countCharsOnPage) {
                 if (skip > 0) {
