@@ -22,7 +22,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import javax.annotation.security.RolesAllowed;
-
 @Route(value = "Basket", layout = ContentView.class)
 @RolesAllowed("USER")
 public class BasketView extends HorizontalLayout implements HasUrlParameter<Long> {
@@ -92,6 +91,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         this.buyAllButton.addClassNames("basket-button-buy-all");
         div.add(title, buyAllButton, layout);
         this.addClassNames("book-content-background");
+        getUI().ifPresent(ui -> ui.getPage().reload());
         add(div);
     }
 }

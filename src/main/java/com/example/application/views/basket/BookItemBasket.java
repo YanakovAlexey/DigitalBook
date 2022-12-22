@@ -6,7 +6,6 @@ import com.example.application.views.items.BookItem;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-
 public class BookItemBasket extends BookItem {
     private final BasketPositionService basketPositionService;
     VerticalLayout layout = new VerticalLayout();
@@ -19,6 +18,7 @@ public class BookItemBasket extends BookItem {
         this.basketPositionService = basketPositionService;
         buyButton.setWidth("155px");
         deleteButton.setWidth("155px");
+
         buyButton.addClassNames("basket-content-view");
         deleteButton.addClassNames("basket-delete-button");
 
