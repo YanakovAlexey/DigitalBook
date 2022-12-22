@@ -1,6 +1,7 @@
 .upload-container {
 
     width: 100%;
+    border-radius: 10px;
     max-width: 450px;
     padding: 15px;
     display: flex;

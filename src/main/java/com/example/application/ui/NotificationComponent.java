@@ -17,8 +17,13 @@ public class NotificationComponent extends Div {
         this.message.setText(description);
         this.type = type;
 
-        this.addClassNames("notification-container");
-        this.add(heading, message);
+        Div container = new Div();
+
+        container.addClassNames("notification-container");
+        add(container);
+        addClassNames("notification-view");
+
+        container.add(heading, message);
     }
 
 }
