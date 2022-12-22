@@ -98,6 +98,14 @@ padding-top: 9%
     padding-left: 50px
 }
 
+.get-all-books{
+ font-weight: bold;
+color: #000000;
+padding-top: 10px;
+padding-left: 50px
+
+}
+
 .book-label {
     font-weight: bold;
     color: #000000;

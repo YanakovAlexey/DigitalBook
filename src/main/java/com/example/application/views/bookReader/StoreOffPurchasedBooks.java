@@ -29,6 +29,7 @@ public class StoreOffPurchasedBooks extends FlexLayout {
 
         var div = new Div();
         Label label = new Label("Мои книги");
+        label.addClassNames("book-label");
         var layout = new FlexLayout();
         var basketPositionList = basketPositionService.findAllByIsPaid();
 

@@ -240,7 +240,7 @@ public class HeaderView extends VerticalLayout {
     }
 
     private FlexLayout createAllPublishersLayout() {
-        Anchor button = new Anchor("getAllPublisher", "Все");
+        Anchor button = new Anchor("get-all-publisher", "Все");
         button.addClassName("title-all");
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
@@ -273,7 +273,7 @@ public class HeaderView extends VerticalLayout {
     }
 
     public FlexLayout createAllAuthorsLayout() {
-        Anchor button = new Anchor("getAllAuthors", "Все");
+        Anchor button = new Anchor("get-all-authors", "Все");
         button.addClassName("title-all-two");
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();

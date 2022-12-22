@@ -17,7 +17,6 @@ public class BookItemBasket extends BookItem {
                           BasketPositionService basketPositionService) {
         super(bookViewModel);
         this.basketPositionService = basketPositionService;
-
         buyButton.setWidth("155px");
         deleteButton.setWidth("155px");
         buyButton.addClassNames("basket-content-view");

@@ -8,7 +8,7 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-@Route(value = "getAllPublisher", layout = ContentView.class)
+@Route(value = "get-all-publisher", layout = ContentView.class)
 @AnonymousAllowed
 public class Publishers extends FlexLayout {
     Anchor anchor;

@@ -40,6 +40,7 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
         this.addClassNames("view-content");
         this.bookService = bookService;
         this.bookBuilder = bookBuilder;
+        this.setFlexWrap(FlexWrap.WRAP);
 
         verticalLayout.add(allBooks(), youMayLike(), bestsellers(), mainBooks());
         add(verticalLayout);
@@ -60,10 +61,17 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
 
         var layout = new HorizontalLayout();
 
-        books.forEach(bookViewModel -> {
+        int i = 0;
+        for (BookViewModel bookViewModel : books) {
+            if (i < 13) {
+                layout.add(new BookItem(bookViewModel));
+                i++;
+            }
+            else {
+                break;
+            }
 
-            layout.add(new BookItem(bookViewModel));
-        });
+        }
         Scroller scroller = new Scroller(
                 new Div(layout));
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
@@ -73,10 +81,17 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
         HorizontalLayout booksScroll = new HorizontalLayout();
         allBooksLayout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
-
             allBooksLayout.add(new BookItem(bookViewModel));
         });
 
+        allButton.addClickListener(event ->
+                getUI().ifPresent(ui -> ui.navigate("get-all/" + 3))
+        );
+
+        allBooksLayout.add(allButton);
+        allButton.addClassNames("button-padding");
+        allButton.setHeight("215px");
+        allButton.setWidth("150px");
 
         booksScroll.setPadding(true);
         booksScroll.getStyle().set("display", "inline-flex");
@@ -98,6 +113,7 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         books.forEach(bookViewModel -> {
             layout.add(new BookItem(bookViewModel));
+
         });
 
         div.add(layout);
@@ -133,18 +149,17 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
         var layout = new FlexLayout();
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
         int i = 0;
-        for(BookViewModel b: books){
-            if (i < 13){
+        for (BookViewModel b : books) {
+            if (i < 13) {
                 layout.add(new BookItem(b));
                 i++;
-            }
-            else {
+            } else {
                 break;
             }
         }
 
         allButton.addClickListener(event ->
-                onShowAllYouMayLike()
+                getUI().ifPresent(ui -> ui.navigate("get-all/" + 1))
         );
         allButton.addClassNames("button-padding");
         allButton.setHeight("215px");
@@ -172,17 +187,16 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
         int i = 0;
-        for(BookViewModel b: books){
-            if (i < 13){
+        for (BookViewModel b : books) {
+            if (i < 13) {
                 layout.add(new BookItem(b));
                 i++;
-            }
-            else {
+            } else {
                 break;
             }
         }
         allButton.addClickListener(event ->
-                onShowAllBestsellers()
+                getUI().ifPresent(ui -> ui.navigate("get-all/" + 0))
         );
 
         allButton.addClassNames("button-padding");
@@ -211,17 +225,16 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
         layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
 
         int i = 0;
-        for(BookViewModel b: books){
-            if (i < 13){
+        for (BookViewModel b : books) {
+            if (i < 13) {
                 layout.add(new BookItem(b));
                 i++;
-            }
-            else {
+            } else {
                 break;
             }
         }
         allButton.addClickListener(event ->
-                onShowAllMainBooks()
+                getUI().ifPresent(ui -> ui.navigate("get-all/" + 2))
         );
         allButton.addClassNames("button-padding");
         allButton.setHeight("215px");
@@ -278,47 +291,14 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
                 UI.getCurrent().getLocale()), books);
     }
 
-    public void onShowAllBestsellers() {
-        Label label = new Label("По запрсосу 'бестселлер'");
-        label.setHeight("15px");
-        label.addClassNames("book-label");
-        removeAll();
-        var bookList = bookService.getAll();
-        var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        bookList.forEach(book -> {
-            layout.add(new BookItem(bookBuilder.createBook(book)));
-        });
-        this.add(label,layout);
-    }
-    public void onShowAllYouMayLike(){
-        Label label = new Label("По запросу 'Вам может понравиться'");
-        label.setHeight("15px");
-        label.addClassNames("book-label");
-
-        removeAll();
-        var bookList = bookService.getAll();
-        var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        bookList.forEach(book -> {
-            layout.add(new BookItem(bookBuilder.createBook(book)));
-        });
-        this.add(label,layout);
-    }
-    public void onShowAllMainBooks(){
-        Label label = new Label("По запросу 'Главные книги 2020 года'");
-        label.setHeight("100px");
-        label.setWidth("250px");
-
-
-        removeAll();
-        var bookList = bookService.getAll();
-        var layout = new FlexLayout();
-        layout.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        bookList.forEach(book -> {
-            layout.add(new BookItem(bookBuilder.createBook(book)));
-        });
-        label.addClassNames("book-label");
-        this.add(label,layout);
-    }
+//    public void onShowAllBestsellers() {
+//
+//    }
+//
+//    public void onShowAllYouMayLike() {
+//
+//    }
+//
+//    public void onShowAllMainBooks() {
+//    }
 }

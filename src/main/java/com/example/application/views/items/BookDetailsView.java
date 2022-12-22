@@ -20,6 +20,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
+
 public class BookDetailsView extends Div {
     private Image image;
     private Label title;
@@ -76,7 +78,7 @@ public class BookDetailsView extends Div {
         var verticalLayout = new VerticalLayout();
         var horizontalLayout = new HorizontalLayout();
 
-        this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "OPs, not image)");
+        this.image = new Image(BASE_PATH + bookViewModel.getBookImg(), "Ops, not image)");
 
         this.image.addClassNames("book-content-item-image");
 
@@ -111,6 +113,7 @@ public class BookDetailsView extends Div {
 
     private Div searchByAuthor(BookViewModel bookViewModel) {
         Div div = new Div();
+
         Label label = new Label("Еще от автора '" + bookViewModel.getAuthor() + "'");
         label.addClassNames("book-label");
         Button getAllAuthorButton = new Button("  все");

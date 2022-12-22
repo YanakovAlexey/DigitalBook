@@ -25,9 +25,11 @@ public class BookItem extends Div {
 
         this.titleLabel = new Anchor("book-content/" + bookViewModel.getId(), bookViewModel.getTitle());
         this.titleLabel.addClassNames("view-color-title");
+        this.titleLabel.setWidth("155px");
 
         this.authorLabel = new Anchor("book-content/" + bookViewModel.getId(), bookViewModel.getAuthor());
         this.authorLabel.addClassNames("view-color-title");
+        this.authorLabel.setWidth("155px");
 
         var verticalLayout = new VerticalLayout();
 

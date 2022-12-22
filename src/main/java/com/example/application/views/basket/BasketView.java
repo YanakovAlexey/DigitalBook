@@ -21,15 +21,15 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
+import javax.annotation.security.RolesAllowed;
+
 @Route(value = "Basket", layout = ContentView.class)
-@AnonymousAllowed
+@RolesAllowed("USER")
 public class BasketView extends HorizontalLayout implements HasUrlParameter<Long> {
-
-    private final TranslationProvider translationProvider = new TranslationProvider();
-
     Long idUser;
-    BookItemBasket bookItemBasket;
     Div div = new Div();
+    BookItemBasket bookItemBasket;
+    private final TranslationProvider translationProvider = new TranslationProvider();
     Label title = new Label(this.translationProvider.getTranslation("basket",
             UI.getCurrent().getLocale()));
     Button buyAllButton = new Button(this.translationProvider.getTranslation("buyEverything",
@@ -43,7 +43,8 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
     private final BasketService basketService;
 
 
-    public BasketView(BasketPositionService basketPositionService, BasketRepository basketRepository,
+    public BasketView(BasketPositionService basketPositionService,
+                      BasketRepository basketRepository,
                       BookService bookService,
                       BookBuilder bookBuilder,
                       AuthenticatedUser authenticatedUser,
@@ -57,6 +58,8 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         this.title.addClassNames("basket-title");
         this.buyAllButton.addClassNames("basket-button-buy-all");
         this.buyAllButton.addClassNames("basket-content-view");
+        ;
+
 
     }
 
@@ -71,6 +74,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
             basket = new Basket();
             basket.setIdUser(authenticatedUser.get().get().getId());
             basketService.create(basket);
+
         }
 
         var basketPositionList = basketPositionService.findAllByIdBasket(basket.getId());
@@ -81,7 +85,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
             var book = bookService.getById(element.getIdBook());
             layout.add(bookItemBasket = new BookItemBasket(book, basketPositionService));
             bookItemBasket.deleteButton.addClickListener(even ->
-            basketPositionService.deleteById(element.getId()));
+                    basketPositionService.deleteById(element.getId()));
             layout.addClassName("basket-book-item");
         }
 

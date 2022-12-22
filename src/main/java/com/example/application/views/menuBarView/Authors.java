@@ -7,7 +7,7 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-@Route(value = "getAllAuthors", layout = ContentView.class)
+@Route(value = "get-all-authors", layout = ContentView.class)
 @AnonymousAllowed
 public class Authors extends FlexLayout {
     private final BookService bookService;
