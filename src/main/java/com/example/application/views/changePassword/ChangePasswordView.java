@@ -128,16 +128,19 @@ public class ChangePasswordView extends Div {
 
     private void updateHelper(String password) {
         if (password.length() > 9) {
-            passwordStrengthText.setText("strong");
+            passwordStrengthText.setText(this.translationProvider.getTranslation("strong",
+                    UI.getCurrent().getLocale()));
             passwordStrengthText.getStyle().set("color",
                     "var(--lumo-success-color)");
             checkIcon.setVisible(true);
         } else if (password.length() > 5) {
-            passwordStrengthText.setText("moderate");
+            passwordStrengthText.setText(this.translationProvider.getTranslation("moderate",
+                    UI.getCurrent().getLocale()));
             passwordStrengthText.getStyle().set("color", "#e7c200");
             checkIcon.setVisible(false);
         } else {
-            passwordStrengthText.setText("weak");
+            passwordStrengthText.setText(this.translationProvider.getTranslation("weak",
+                    UI.getCurrent().getLocale()));
             passwordStrengthText.getStyle().set("color",
                     "var(--lumo-error-color)");
             checkIcon.setVisible(false);
