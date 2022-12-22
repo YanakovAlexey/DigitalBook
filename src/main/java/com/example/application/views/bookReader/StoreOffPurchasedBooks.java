@@ -6,7 +6,9 @@ import com.example.application.backEnd.reporitory.BasketPositionRepository;
 import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.service.BasketPositionService;
 import com.example.application.backEnd.service.BookService;
+import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -16,9 +18,13 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @Route(value = "get-all-purchased-books", layout = ContentView.class)
 @AnonymousAllowed
 public class StoreOffPurchasedBooks extends FlexLayout {
+
     private final BookService bookService;
     private final BasketPositionService basketPositionService;
     private final BookBuilder bookBuilder;
+
+    private final TranslationProvider translationProvider = new TranslationProvider();
+
     BookItemCustom bookItemCustom;
 
     public StoreOffPurchasedBooks(BookService bookService,
@@ -28,7 +34,8 @@ public class StoreOffPurchasedBooks extends FlexLayout {
         this.bookService = bookService;
 
         var div = new Div();
-        Label label = new Label("Мои книги");
+        Label label = new Label(this.translationProvider.getTranslation("myBooks",
+                UI.getCurrent().getLocale()));
         label.addClassNames("book-label");
         var layout = new FlexLayout();
         var basketPositionList = basketPositionService.findAllByIsPaid();
