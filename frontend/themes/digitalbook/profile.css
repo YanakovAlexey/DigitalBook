@@ -1,6 +1,7 @@
 .profile-container {
 
     width: min-content;
+    border-radius: 10px;
     padding: 25px 25px 10px 25px;
     display: flex;
     flex-direction: column;
@@ -30,8 +31,11 @@
 
 .bottom-buttons {
 
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    background: #0065E9;
+    color: white;
 }

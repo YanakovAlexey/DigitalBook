@@ -23,7 +23,7 @@ public class NotificationComponent extends Div {
         Button exit = new Button(new Icon(VaadinIcon.CLOSE));
 
         Div container = new Div();
-        container.add(heading, exit, message);
+        container.add(exit, heading, message);
 
         exit.addClassNames("exit-message");
 
