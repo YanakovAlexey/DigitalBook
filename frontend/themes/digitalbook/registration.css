@@ -12,6 +12,12 @@
 
 }
 
+.submit-button{
+    background: #0065E9;
+    color: #FFFFFF; 
+    margin: 15px;
+}
+
 @media(max-width: 1200px) {
 
     .registration-container {

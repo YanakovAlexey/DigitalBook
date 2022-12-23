@@ -56,7 +56,8 @@ public class ChangePasswordView extends Div {
         checkIcon = VaadinIcon.CHECK.create();
         checkIcon.setVisible(false);
         newPasswordPF.setSuffixComponent(checkIcon);
-        passwordStrength.add(new Text("Password strength: "),
+        passwordStrength.add(new Text(this.translationProvider.getTranslation("passwordStrength",
+                        UI.getCurrent().getLocale())),
                 passwordStrengthText);
         newPasswordPF.setHelperComponent(passwordStrength);
         newPasswordPF.setValueChangeMode(ValueChangeMode.EAGER);

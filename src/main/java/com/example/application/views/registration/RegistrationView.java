@@ -90,7 +90,8 @@ public class RegistrationView extends Div {
         checkIcon = VaadinIcon.CHECK.create();
         checkIcon.setVisible(false);
         passwordPF.setSuffixComponent(checkIcon);
-        passwordStrength.add(new Text("Password strength: "),
+        passwordStrength.add(new Text(this.translationProvider.getTranslation("passwordStrength",
+                        UI.getCurrent().getLocale())),
                 passwordStrengthText);
         passwordPF.setHelperComponent(passwordStrength);
         passwordPF.setValueChangeMode(ValueChangeMode.EAGER);
@@ -119,6 +120,8 @@ public class RegistrationView extends Div {
         container.addClassNames("registration-container");
 
         addClassNames("registration-view");
+        submit.addClassNames("submit-button");
+
         add(container);
         this.setWidth(String.valueOf(false));
         container.add(avatarName, userNameTF, emailTF, passwordPF, repeatPasswordPF, submit, regLink);
@@ -171,16 +174,19 @@ public class RegistrationView extends Div {
 
     private void updateHelper(String password) {
         if (password.length() > 9) {
-            passwordStrengthText.setText("strong");
+            passwordStrengthText.setText(this.translationProvider.getTranslation("strong",
+                    UI.getCurrent().getLocale()));
             passwordStrengthText.getStyle().set("color",
                     "var(--lumo-success-color)");
             checkIcon.setVisible(true);
         } else if (password.length() > 5) {
-            passwordStrengthText.setText("moderate");
+            passwordStrengthText.setText(this.translationProvider.getTranslation("moderate",
+                    UI.getCurrent().getLocale()));
             passwordStrengthText.getStyle().set("color", "#e7c200");
             checkIcon.setVisible(false);
         } else {
-            passwordStrengthText.setText("weak");
+            passwordStrengthText.setText(this.translationProvider.getTranslation("weak",
+                    UI.getCurrent().getLocale()));
             passwordStrengthText.getStyle().set("color",
                     "var(--lumo-error-color)");
             checkIcon.setVisible(false);
