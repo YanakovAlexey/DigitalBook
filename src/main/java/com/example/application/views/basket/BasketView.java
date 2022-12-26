@@ -34,6 +34,7 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
     Button buyAllButton = new Button(this.translationProvider.getTranslation("buyEverything",
             UI.getCurrent().getLocale()));
 
+
     private final BasketPositionService basketPositionService;
     private final BasketRepository basketRepository;
     private final BookService bookService;
@@ -57,7 +58,9 @@ public class BasketView extends HorizontalLayout implements HasUrlParameter<Long
         this.title.addClassNames("basket-title");
         this.buyAllButton.addClassNames("basket-button-buy-all");
         this.buyAllButton.addClassNames("basket-content-view");
-        ;
+
+        buyAllButton.addClickListener(event ->
+                getUI().ifPresent(ui -> ui.navigate("book-payment")));
 
 
     }
