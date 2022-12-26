@@ -36,9 +36,12 @@ public class RegistrationView extends Div {
 
     private TextField userNameTF;
     private TextField emailTF;
+
     private PasswordField passwordPF;
     private PasswordField repeatPasswordPF;
+
     private Icon checkIcon;
+
     private Span passwordStrengthText;
 
     private final UsersService usersService;

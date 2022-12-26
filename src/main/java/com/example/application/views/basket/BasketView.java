@@ -19,28 +19,33 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import javax.annotation.security.RolesAllowed;
+
 @Route(value = "Basket", layout = ContentView.class)
 @RolesAllowed("USER")
 public class BasketView extends HorizontalLayout implements HasUrlParameter<Long> {
+
     Long idUser;
     Div div = new Div();
     BookItemBasket bookItemBasket;
+
     private final TranslationProvider translationProvider = new TranslationProvider();
+
     Label title = new Label(this.translationProvider.getTranslation("basket",
             UI.getCurrent().getLocale()));
     Button buyAllButton = new Button(this.translationProvider.getTranslation("buyEverything",
             UI.getCurrent().getLocale()));
 
+    private final BasketRepository basketRepository;
 
     private final BasketPositionService basketPositionService;
-    private final BasketRepository basketRepository;
     private final BookService bookService;
-    private final BookBuilder bookBuilder;
-    private final AuthenticatedUser authenticatedUser;
     private final BasketService basketService;
+
+    private final AuthenticatedUser authenticatedUser;
+
+    private final BookBuilder bookBuilder;
 
 
     public BasketView(BasketPositionService basketPositionService,

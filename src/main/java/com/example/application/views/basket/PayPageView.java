@@ -3,7 +3,6 @@ package com.example.application.views.basket;
 import com.example.application.views.ContentView;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.spring.annotation.RouteScope;
 
 import javax.annotation.security.RolesAllowed;
 

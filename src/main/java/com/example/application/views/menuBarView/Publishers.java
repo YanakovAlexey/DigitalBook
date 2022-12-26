@@ -11,7 +11,9 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @Route(value = "get-all-publisher", layout = ContentView.class)
 @AnonymousAllowed
 public class Publishers extends FlexLayout {
+
     Anchor anchor;
+
     private final UsersService usersService;
     private final BookService bookService;
 
@@ -19,7 +21,6 @@ public class Publishers extends FlexLayout {
         this.usersService = usersService;
         this.bookService = bookService;
         add(getAll());
-
 
     }
 

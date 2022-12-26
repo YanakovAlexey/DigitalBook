@@ -92,12 +92,13 @@ public class ChangePasswordView extends Div {
         });
 
         Div container = new Div();
-        container.addClassNames("change-password-container");
-
         Div line = new Div();
-        line.addClassNames("horizontal-line");
 
+        container.addClassNames("change-password-container");
+        line.addClassNames("horizontal-line");
         addClassNames("change-password-view");
+        saveButton.addClassNames("forgot-password-send");
+
         add(container);
         this.setWidth(String.valueOf(false));
         container.add(oldPasswordPF, newPasswordPF, repeatPasswordPF, line, saveButton);

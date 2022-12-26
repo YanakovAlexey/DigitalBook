@@ -22,11 +22,15 @@ public class AuthorizationView extends Div implements BeforeEnterObserver {
     LoginForm loginForm;
     LoginI18n i18n;
     Div container = new Div();
+
     private final TranslationProvider translationProvider = new TranslationProvider();
+
     private final UsersService usersService;
+
     private final AuthenticatedUser authenticatedUser;
 
     public AuthorizationView(UsersService usersService, AuthenticatedUser authenticatedUser) {
+
         this.usersService = usersService;
         this.authenticatedUser = authenticatedUser;
 

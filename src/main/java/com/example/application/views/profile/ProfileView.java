@@ -24,15 +24,21 @@ public class ProfileView extends Div {
 
     //    private Image avatarImage;
     private Icon avatarIcon;
+
     private TextField userNameTF;
     private TextField surNameTF;
     private TextField emailTF;
+
     private PasswordField passwordPF;
+
     private Button changePasswordButton;
     private Button exitButton;
+
     private final UsersService usersService;
     private final UserRepository userRepository;
+
     private final AuthenticatedUser authenticatedUser;
+
     private final TranslationProvider translationProvider = new TranslationProvider();
 
     @Autowired

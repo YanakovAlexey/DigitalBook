@@ -1,6 +1,8 @@
 package com.example.application.views.menuBarView;
 
 import com.example.application.backEnd.service.BookService;
+import com.example.application.translation.TranslationProvider;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -10,14 +12,17 @@ public class AuthorView extends Div {
 
     private final BookService bookService;
 
+    private final TranslationProvider translationProvider = new TranslationProvider();
+
     @Autowired
     public AuthorView(BookService bookService) {
         this.bookService = bookService;
         getAllByAuthor();
     }
 
-    private void getAllByAuthor(){
-        Anchor button = new Anchor("getAllAuthors", "Все");
+    private void getAllByAuthor() {
+        Anchor button = new Anchor("getAllAuthors", this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         button.addClassName("title-all-two");
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();

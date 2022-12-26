@@ -26,18 +26,23 @@ import java.util.List;
 @Route(value = "upload", layout = ContentView.class)
 @RolesAllowed("USER") //publisher
 public class BookUploadForm extends Div {
-    private final TranslationProvider translationProvider = new TranslationProvider();
+
     private final Binder<UploadBookModel> binder =
             new BeanValidationBinder<>(UploadBookModel.class);
 
     private Upload bookFileUpload;
     private Upload bookThumbnailUpload;
+
     private Select<DisciplineViewModel> genresSelect;
+
     private TextField titleTF, authorTF;
     private TextArea descriptionTF;
+
     private List<DisciplineViewModel> disciplineList;
     private DisciplineViewModel selectedGenre;
+
     private Button download;
+
     private MemoryBuffer fileBuffer = new MemoryBuffer();
     private MemoryBuffer imageBuffer = new MemoryBuffer();
 
@@ -46,11 +51,13 @@ public class BookUploadForm extends Div {
     private final DisciplineService disciplineService;
 
     private UploadBookModel bookModel;
+
     private final AuthenticatedUser authenticatedUser;
 
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     public BookUploadForm(BookService bookService, DisciplineService disciplineService,
-                           AuthenticatedUser authenticatedUser) {
+                          AuthenticatedUser authenticatedUser) {
         this.bookService = bookService;
         this.disciplineService = disciplineService;
         this.authenticatedUser = authenticatedUser;

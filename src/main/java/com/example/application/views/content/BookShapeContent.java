@@ -47,7 +47,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     }
 
     private Div allBooks() {
-        Button allButton = new Button("Все");
+        Button allButton = new Button(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         Label label = new Label(this.translationProvider.getTranslation("all",
                 UI.getCurrent().getLocale()));
         label.addClassNames("book-label");
@@ -66,8 +67,7 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
             if (i < 13) {
                 layout.add(new BookItem(bookViewModel));
                 i++;
-            }
-            else {
+            } else {
                 break;
             }
 
@@ -134,7 +134,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     }
 
     private Div youMayLike() {
-        Button allButton = new Button("Все");
+        Button allButton = new Button(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         Div div = new Div();
         Label titleMayLike = new Label(this.translationProvider.getTranslation("youMayLike",
                 UI.getCurrent().getLocale()));
@@ -172,7 +173,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
 
 
     private Div bestsellers() {
-        Button allButton = new Button("Все");
+        Button allButton = new Button(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         Div div = new Div();
         Label titleBestSellers = new Label(this.translationProvider.getTranslation("bestsellers",
                 UI.getCurrent().getLocale()));
@@ -210,7 +212,8 @@ public class BookShapeContent extends FlexLayout implements HeaderView.Delegate 
     }
 
     private Div mainBooks() {
-        Button allButton = new Button("Все");
+        Button allButton = new Button(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         Div div = new Div();
         Label titleMain = new Label(this.translationProvider.getTranslation("topBooksOf",
                 UI.getCurrent().getLocale()));

@@ -6,7 +6,6 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
 import com.example.application.translation.TranslationProvider;
-import com.example.application.views.content.BookShapeContent;
 import com.example.application.views.search.SearchView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -48,13 +47,18 @@ public class HeaderView extends VerticalLayout {
 
     private HorizontalLayout topLine = new HorizontalLayout();
     private HorizontalLayout bottomLine = new HorizontalLayout();
+
     private final TranslationProvider translationProvider = new TranslationProvider();
+
     private final Button langButtonGE = new Button("GE");
     private final Button langButtonRU = new Button("RU");
+
     private final AuthenticatedUser authenticatedUser;
+
     private final DisciplineService disciplineService;
     private final UsersService usersService;
     private final BookService bookService;
+
     private SearchView searchView;
 
     private final Set<Delegate> delegates = new HashSet<>();
@@ -240,7 +244,8 @@ public class HeaderView extends VerticalLayout {
     }
 
     private FlexLayout createAllPublishersLayout() {
-        Anchor button = new Anchor("get-all-publisher", "Все");
+        Anchor button = new Anchor("get-all-publisher", this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         button.addClassName("title-all");
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();
@@ -273,7 +278,8 @@ public class HeaderView extends VerticalLayout {
     }
 
     public FlexLayout createAllAuthorsLayout() {
-        Anchor button = new Anchor("get-all-authors", "Все");
+        Anchor button = new Anchor("get-all-authors", this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         button.addClassName("title-all-two");
         Anchor anchor;
         FlexLayout flexLayout = new FlexLayout();

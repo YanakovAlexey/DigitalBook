@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class PageReader extends HorizontalLayout implements TextSettingsDelegate {
+
     private final Paragraph leftPage;
     private final Paragraph rightPage;
 

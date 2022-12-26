@@ -187,7 +187,7 @@ public class BookDetailsView extends Div {
         }
 
         Label label = new Label(this.translationProvider.getTranslation("moreFromThePublisher",
-                UI.getCurrent().getLocale())  + getAPublisher(bookViewModel) + "»");
+                UI.getCurrent().getLocale()) + getAPublisher(bookViewModel) + "»");
         label.addClassNames("book-label");
         div.add(label, getAllPublisherButton, flexLayout);
 

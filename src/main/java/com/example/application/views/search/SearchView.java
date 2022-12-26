@@ -16,10 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 public class SearchView extends Div {
 
-    private final TranslationProvider translationProvider = new TranslationProvider();
     private BookService bookService;
+
     private BookBuilder bookBuilder;
+
     private final TextField textField;
+
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     @Autowired
     public SearchView(BookService bookService) {

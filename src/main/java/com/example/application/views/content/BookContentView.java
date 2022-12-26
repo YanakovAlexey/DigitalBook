@@ -7,9 +7,11 @@ import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.DisciplineViewModel;
+import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
 import com.example.application.views.items.BookDetailsView;
 import com.example.application.views.items.BookItem;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -26,17 +28,21 @@ import org.springframework.web.server.ResponseStatusException;
 @Route(value = "book-content", layout = ContentView.class)
 @AnonymousAllowed
 public class BookContentView extends VerticalLayout implements HasUrlParameter<Long> {
-    private long bookId;
+
     private final BookService bookService;
     private final BasketService basketService;
     private final UsersService usersService;
     private final DisciplineService disciplineService;
-    private final BookBuilder bookBuilder;
     private final BasketPositionService basketPositionService;
+
+    private final BookBuilder bookBuilder;
+
     private final UserRepository userRepository;
-    private final AuthenticatedUser authenticatedUser;
     private final BasketRepository basketRepository;
     private final DisciplineRepository disciplineRepository;
+
+    private long bookId;
+    private final AuthenticatedUser authenticatedUser;
     private Div div = new Div();
 
     @Autowired
@@ -84,9 +90,12 @@ public class BookContentView extends VerticalLayout implements HasUrlParameter<L
 @Route(value = "get-all-authors", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllAuthors extends VerticalLayout implements HasUrlParameter<Long> {
+
     private Label title;
     private final BookService bookService;
     private final BookBuilder bookBuilder;
+
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     GetAllAuthors(BookService bookService,
                   BookBuilder bookBuilder) {
@@ -99,7 +108,8 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<Long> {
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         var oldBook = bookService.getById(parameter);
-        this.title = new Label("Авторские книги  '" + oldBook.getAuthor() + "'");
+        this.title = new Label(this.translationProvider.getTranslation("moreFromTheAuthor",
+                UI.getCurrent().getLocale()) + oldBook.getAuthor() + "»");
         this.title.addClassNames("book-label");
         var bookList = bookService.findAllByAuthor(oldBook.getAuthor());
         var layout = new FlexLayout();
@@ -114,11 +124,16 @@ class GetAllAuthors extends VerticalLayout implements HasUrlParameter<Long> {
 @Route(value = "get-all-publisher", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
-    private Long idUser;
+
     private final BookService bookService;
     private final UsersService usersService;
+
+    private Long idUser;
     private Label title;
+
     private final BookBuilder bookBuilder;
+
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     GetAllPublisher(BookService bookService,
                     UsersService usersService,
@@ -129,10 +144,12 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
         this.addClassNames("book-content-background");
 
     }
+
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         this.idUser = parameter;
-        this.title = new Label("Книги издательства  '" + getAPublisher(idUser) + "'");
+        this.title = new Label(this.translationProvider.getTranslation("moreFromThePublisher",
+                UI.getCurrent().getLocale()) + getAPublisher(idUser) + "»");
         this.title.addClassNames("book-label");
 
         var user = usersService.getById(idUser);
@@ -157,11 +174,17 @@ class GetAllPublisher extends VerticalLayout implements HasUrlParameter<Long> {
 @Route(value = "get-all-genre", layout = ContentView.class)
 @AnonymousAllowed
 class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
+
     private Long idGenre;
-    private final BookService bookService;
     private Label title;
+
+    private final BookService bookService;
     private final DisciplineService disciplineService;
+
     private final BookBuilder bookBuilder;
+
+    private final TranslationProvider translationProvider = new TranslationProvider();
+
     GetAllGenre(BookService bookService,
                 DisciplineService disciplineService,
                 BookBuilder bookBuilder) {
@@ -175,7 +198,8 @@ class GetAllGenre extends VerticalLayout implements HasUrlParameter<Long> {
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
         this.idGenre = parameter;
-        this.title = new Label("В том же жанре '" + getAGenre(idGenre) + "'");
+        this.title = new Label(this.translationProvider.getTranslation("inTheSameGenre",
+                UI.getCurrent().getLocale()) + getAGenre(idGenre) + "»");
         this.title.addClassNames("book-label");
 
         var genreList = bookService.getAllByIdGenre(idGenre);

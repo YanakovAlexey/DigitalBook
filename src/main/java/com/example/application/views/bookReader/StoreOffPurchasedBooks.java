@@ -1,9 +1,6 @@
 package com.example.application.views.bookReader;
 
 import com.example.application.backEnd.builder.BookBuilder;
-import com.example.application.backEnd.domain.BasketPosition;
-import com.example.application.backEnd.reporitory.BasketPositionRepository;
-import com.example.application.backEnd.reporitory.BookRepository;
 import com.example.application.backEnd.service.BasketPositionService;
 import com.example.application.backEnd.service.BookService;
 import com.example.application.translation.TranslationProvider;
@@ -21,6 +18,7 @@ public class StoreOffPurchasedBooks extends FlexLayout {
 
     private final BookService bookService;
     private final BasketPositionService basketPositionService;
+
     private final BookBuilder bookBuilder;
 
     private final TranslationProvider translationProvider = new TranslationProvider();

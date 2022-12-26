@@ -4,6 +4,7 @@ import com.example.application.backEnd.service.UsersService;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.translation.TranslationProvider;
 import com.example.application.views.ContentView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
@@ -19,6 +20,7 @@ public class CodeConfirmationView extends Div {
     private Icon performed;
 
     UsersService usersService;
+
     private final AuthenticatedUser authenticatedUser;
     private final TranslationProvider translationProvider = new TranslationProvider();
 
@@ -32,7 +34,8 @@ public class CodeConfirmationView extends Div {
 
         performed = new Icon(VaadinIcon.CHECK);
         performed.setColor("#0cb829");
-        successfully = new Label("Письмо на почту успешно отправлено");
+        successfully = new Label(this.translationProvider.getTranslation("emailSentSuccessfully",
+                UI.getCurrent().getLocale()));
         Div container = new Div();
         container.addClassNames("code-confirmation-container");
 

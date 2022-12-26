@@ -21,13 +21,16 @@ public class RecoveryPasswordView extends Div implements HasUrlParameter<String>
     private PasswordField oldPasswordPF;
     private PasswordField newPasswordPF;
     private PasswordField repeatPasswordPF;
+
     private Button saveButton;
 
     private String verificationCode;
     private String email;
 
     UsersService usersService;
+
     private final AuthenticatedUser authenticatedUser;
+
     private final TranslationProvider translationProvider = new TranslationProvider();
 
     public RecoveryPasswordView(UsersService usersService, AuthenticatedUser authenticatedUser) {

@@ -12,18 +12,23 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
 interface PaginationDelegate {
+
     void toTableOfContents();
 
     void onPageWillChange(int page, int previousPage);
 }
 
 public class Pagination extends HorizontalLayout {
+
     private final Button toStart;
     private final Button previous;
-    private final TextField pageNumber;
     private final Button next;
     private final Button tableOfContents;
+
+    private final TextField pageNumber;
+
     private final int maxPages;
+
     private int currentPage;
 
     private final TranslationProvider translationProvider = new TranslationProvider();

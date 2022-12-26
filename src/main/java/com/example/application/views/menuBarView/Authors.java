@@ -10,7 +10,9 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @Route(value = "get-all-authors", layout = ContentView.class)
 @AnonymousAllowed
 public class Authors extends FlexLayout {
+
     private final BookService bookService;
+
     Anchor anchor;
 
     public Authors(BookService bookService) {

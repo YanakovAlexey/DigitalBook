@@ -1,7 +1,6 @@
 package com.example.application.views.items;
 
 import com.example.application.backEnd.viewModel.BookViewModel;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
