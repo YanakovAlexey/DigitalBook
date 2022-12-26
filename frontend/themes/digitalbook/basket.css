@@ -1,28 +1,32 @@
-.basket-title{
-padding-left: 110px;
-font-weight: bold;
-color: #000000;
+.basket-title {
+  padding-left: 110px;
+  font-weight: bold;
+  color: #000000;
 
 }
 
-.basket-book-item{
-padding-left: 110px;
-padding-top: 9px;
+.basket-book-item {
+  padding-left: 110px;
+  padding-top: 9px;
 
 }
 
-.basket-button-buy-all{
-position: absolute;
+.basket-button-buy-all {
+  position: absolute;
   right: 120px;
 }
 
-.basket-content-view{
-background: #ce5050;
-color: white;
+.basket-content-view {
+  background: #ce5050;
+  color: white;
 }
 
-.basket-delete-button{
-background: #0065E9;
-color: white;
+.basket-delete-button {
+  background: #0065E9;
+  color: white;
 }
 
+.book-details-basket {
+  background: #0065E9;
+  color: white;
+}

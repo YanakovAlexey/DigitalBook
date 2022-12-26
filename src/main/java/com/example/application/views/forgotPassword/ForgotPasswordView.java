@@ -53,17 +53,17 @@ public class ForgotPasswordView extends Div {
         });
 
         Div container = new Div();
-        container.addClassNames("forgot-password-container");
 
+        container.addClassNames("forgot-password-container");
+        send.addClassNames("forgot-password-send");
         addClassNames("forgot-password-view");
+
         add(container);
         this.setWidth(String.valueOf(false));
         container.add(email, send);
     }
 
     public static void logout() {
-        // close session to clear all registered routes.
-        // also available as sessionRegistry.clear()
         VaadinSession.getCurrent().close();
         UI.getCurrent().getPage().reload();
     }

@@ -68,14 +68,17 @@ public class RecoveryPasswordView extends Div implements HasUrlParameter<String>
         });
 
         Div container = new Div();
-        container.addClassNames("recovery-password-container");
 
         Div line = new Div();
-        line.addClassNames("horizontal-line");
 
+        container.addClassNames("recovery-password-container");
+        line.addClassNames("horizontal-line");
         addClassNames("recovery-password-view");
+        saveButton.addClassNames("recovery-password-save");
+
         add(container);
         this.setWidth(String.valueOf(false));
+
         container.add(newPasswordPF, repeatPasswordPF, line, saveButton);
     }
 

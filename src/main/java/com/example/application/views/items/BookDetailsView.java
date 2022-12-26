@@ -10,6 +10,8 @@ import com.example.application.backEnd.reporitory.UserRepository;
 import com.example.application.backEnd.service.*;
 import com.example.application.backEnd.service.impl.security.AuthenticatedUser;
 import com.example.application.backEnd.viewModel.BookViewModel;
+import com.example.application.translation.TranslationProvider;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -20,8 +22,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Arrays;
-
 public class BookDetailsView extends Div {
     private Image image;
     private Label title;
@@ -31,20 +31,27 @@ public class BookDetailsView extends Div {
     private Label genre;
     private Label printedPages;
     private Button basketButton;
+
     private final UsersService usersService;
     private final BasketService basketService;
     private final DisciplineService disciplineService;
     private final BookService bookService;
-    private final BookBuilder bookBuilder;
     private final BasketPositionService basketPositionService;
+
     private final AuthenticatedUser authenticatedUser;
+
     private final BasketRepository basketRepository;
-    private Basket basket = new Basket();
-    private final DisciplineRepository disciplineRepository;
     private final UserRepository userRepository;
+    private final DisciplineRepository disciplineRepository;
+
+    private final BookBuilder bookBuilder;
+
+    private Basket basket = new Basket();
     private Basket localBasket = null;
     Div div = new Div();
     private BookItem bookItem;
+
+    private final TranslationProvider translationProvider = new TranslationProvider();
 
     private final String BASE_PATH = "http://91.239.26.196:7070/images/";
 
@@ -85,23 +92,31 @@ public class BookDetailsView extends Div {
         this.title = new Label(bookViewModel.getTitle());
         this.title.addClassNames("book-label");
 
-        this.author = new Label("Автор:  " + bookViewModel.getAuthor());
+        this.author = new Label(this.translationProvider.getTranslation("authorWithAColon",
+                UI.getCurrent().getLocale()) + bookViewModel.getAuthor());
 
-        this.publishingHouse = new Label("Издательство:   " + getAPublisher(bookViewModel));
+        this.publishingHouse = new Label(this.translationProvider.getTranslation("publishingHouseWithAColon",
+                UI.getCurrent().getLocale()) + getAPublisher(bookViewModel));
 
-        this.description = new Label("Описание:   " + bookViewModel.getDescription());
+        this.description = new Label(this.translationProvider.getTranslation("descriptionWithAColon",
+                UI.getCurrent().getLocale()) + bookViewModel.getDescription());
         this.description.setWidth("500px");
 
-        this.printedPages = new Label("Печатных страниц: " + bookViewModel.getPages());
+        this.printedPages = new Label(this.translationProvider.getTranslation("printedPages",
+                UI.getCurrent().getLocale()) + bookViewModel.getPages());
 
-        this.genre = new Label("Жанр: " + getAGenre(bookViewModel));
+        this.genre = new Label(this.translationProvider.getTranslation("genreWithAColon",
+                UI.getCurrent().getLocale()) + getAGenre(bookViewModel));
 
-        this.basketButton = new Button("В корзину");
+        this.basketButton = new Button(this.translationProvider.getTranslation("inGarbage",
+                UI.getCurrent().getLocale()));
         this.basketButton.addClickListener(event ->
                 addToBasket(bookViewModel)
         );
 
         genrePagesButton.add(printedPages, genre, basketButton);
+
+        basketButton.addClassNames("book-details-basket");
         genrePagesButton.addClassName("book-content-item-button");
 
         verticalLayout.add(title, author, publishingHouse, description, genrePagesButton);
@@ -114,9 +129,11 @@ public class BookDetailsView extends Div {
     private Div searchByAuthor(BookViewModel bookViewModel) {
         Div div = new Div();
 
-        Label label = new Label("Еще от автора '" + bookViewModel.getAuthor() + "'");
+        Label label = new Label(this.translationProvider.getTranslation("moreFromTheAuthor",
+                UI.getCurrent().getLocale()) + bookViewModel.getAuthor() + "»");
         label.addClassNames("book-label");
-        Button getAllAuthorButton = new Button("  все");
+        Button getAllAuthorButton = new Button(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         getAllAuthorButton.addClickListener(event ->
                 getAllAuthorButton.getUI().ifPresent(ui ->
                         ui.navigate("get-all-authors/" + bookViewModel.getId())));
@@ -147,7 +164,8 @@ public class BookDetailsView extends Div {
     }
 
     private Div searchByPublishingHouse(BookViewModel bookViewModel) {
-        Button getAllPublisherButton = new Button("Все");
+        Button getAllPublisherButton = new Button(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         getAllPublisherButton.addClickListener(event ->
                 getAllPublisherButton.getUI().ifPresent(ui ->
                         ui.navigate("get-all-publisher/" + bookViewModel.getIdUsers())));
@@ -168,7 +186,8 @@ public class BookDetailsView extends Div {
             o++;
         }
 
-        Label label = new Label("Еще от издательства '" + getAPublisher(bookViewModel) + "'");
+        Label label = new Label(this.translationProvider.getTranslation("moreFromThePublisher",
+                UI.getCurrent().getLocale())  + getAPublisher(bookViewModel) + "»");
         label.addClassNames("book-label");
         div.add(label, getAllPublisherButton, flexLayout);
 
@@ -179,9 +198,11 @@ public class BookDetailsView extends Div {
 
     private Div searchByGenre(BookViewModel bookViewModel) {
         Div div = new Div();
-        Label label = new Label("В том же жанре " + getAGenre(bookViewModel));
+        Label label = new Label(this.translationProvider.getTranslation("inTheSameGenre",
+                UI.getCurrent().getLocale()) + getAGenre(bookViewModel) + "»");
         label.addClassNames("book-label");
-        Button genreAllGenreButton = new Button("Все");
+        Button genreAllGenreButton = new Button(this.translationProvider.getTranslation("all",
+                UI.getCurrent().getLocale()));
         genreAllGenreButton.addClickListener(event ->
                 genreAllGenreButton.getUI().ifPresent(ui ->
                         ui.navigate("get-all-genre/" + bookViewModel.getIdDiscipline())));
