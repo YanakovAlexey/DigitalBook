@@ -112,7 +112,7 @@ public class HeaderView extends VerticalLayout {
             bookButton.getUI().ifPresent(ui -> ui.navigate("auth"));
         });
 
-        Button userButton = new Button(new Icon(USER));
+        Button userButton = new Button("Авторизация");
         login.addClickListener(event -> loginOverlay.setOpened(true));
         login.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         userButton.addClickListener(event -> {
@@ -151,9 +151,12 @@ public class HeaderView extends VerticalLayout {
         burgerButton.addClassNames("view-burger");
 
         this.addClassNames("view-header");
-        this.add(topLine, bottomLine);
-        this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
-                cartButton, userButton, langButtonRU, langButtonGE);
+//        this.add(topLine, bottomLine);
+        this.add(topLine);
+//        this.topLine.add(createTitle(), aboutUs, searchView, burgerButton, bookButton,
+//                cartButton, userButton, langButtonRU, langButtonGE);
+
+        this.topLine.add(userButton);
 
         if (authenticatedUser.get().isPresent()) {
             bookButton.addClickListener(event -> {
@@ -164,7 +167,7 @@ public class HeaderView extends VerticalLayout {
         if (authenticatedUser.get().isPresent()) {
             this.bottomLine.add(createMenuBar(), createTabs());
             userButton.addClickListener(event -> {
-                userButton.getUI().ifPresent(ui -> ui.navigate("profile"));
+                userButton.getUI().ifPresent(ui -> ui.navigate("/"));
             });
         }
     }
@@ -268,7 +271,7 @@ public class HeaderView extends VerticalLayout {
             anchor.getElement().addEventListener("click", event -> {
                 delegates.forEach(d -> {
                     if (d != null) {
-                        d.onPublisherChange(user.get().getId(), 0);//todo
+                        d.onPublisherChange(user.get().getId(), 0);
                     }
                 });
             });
